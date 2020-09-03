@@ -3,22 +3,31 @@ import { CommonModule } from '@angular/common';
 
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
-import { NavbarComponent } from './navbar/navbar.component';
 
+// angular material
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+
+// ngx-bootstrap
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
-  declarations: [ClientComponent, NavbarComponent],
+  declarations: [ClientComponent, CarouselComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
+
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule,
+
+    CarouselModule.forRoot()
   ]
 })
 export class ClientModule { }

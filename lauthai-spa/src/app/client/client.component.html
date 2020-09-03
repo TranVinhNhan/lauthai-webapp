@@ -1,19 +1,36 @@
-<!-- <app-client-navbar></app-client-navbar> -->
-<mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+<mat-toolbar color="primary" class="toolbar">
+    <button (click)="sidenav.toggle()" mat-icon-button class="example-icon"
+        aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-      </button> -->
+    <h1>Lauthai.org</h1>
 </mat-toolbar>
-
 <mat-sidenav-container>
-    
+    <mat-sidenav class="sidenav padding-toolbar" #sidenav>
+        <mat-nav-list>
+            <mat-list-item>
+                <a matLine href="#" target="_blank">
+                    <mat-icon>dashboard</mat-icon>
+                    <span class="link-caption">Dashboard</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a matLine href="#" target="_blank">
+                    <mat-icon>card_giftcard</mat-icon>
+                    <span class="link-caption">Products</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a matLine href="#" target="_blank">
+                    <mat-icon>account_circle</mat-icon>
+                    <span class="link-caption">Login</span>
+                </a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="padding-toolbar">
+        <app-client-carousel></app-client-carousel>
+        <p>banner</p>
+        <p>table</p>
+    </mat-sidenav-content>
 </mat-sidenav-container>
-<p>client works!</p>
