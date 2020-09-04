@@ -14,9 +14,10 @@ import { MatListModule } from '@angular/material/list';
 // ngx-bootstrap
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselComponent } from './carousel/carousel.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
-  declarations: [ClientComponent, CarouselComponent],
+  declarations: [ClientComponent, CarouselComponent, BannerComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
