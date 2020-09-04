@@ -5,8 +5,8 @@
     </button>
     <h1><a routerLink="/">Lauthai.org</a></h1>
 </mat-toolbar>
-<mat-sidenav-container>
-    <mat-sidenav class="sidenav padding-toolbar" #sidenav>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav class="sidenav-container__sidenav padding-toolbar" #sidenav>
         <mat-nav-list>
             <mat-list-item>
                 <a matLine href="#" target="_blank">
@@ -35,6 +35,9 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="padding-toolbar">
+
         <router-outlet></router-outlet>
+        <p>footer</p>
+
     </mat-sidenav-content>
 </mat-sidenav-container>
