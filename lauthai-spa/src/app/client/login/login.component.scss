@@ -1,27 +1,24 @@
 @import "../../theme.scss";
 
 .form-login {
-  * {
-    display: block;
-  }
-}
-
-.form-login {
   width: 100%;
+  height: 100%;
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
-}
+  align-content: center;
+  display: grid;
 
-.form-login__btn {
-  width: 100%;
-  margin-bottom: 10px;
-}
+  &__btn, &__form-control {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
-.form-login__hyperlink {
-  display: inline-block !important;
-}
+  &__hyperlink {
+    display: inline-block;
+  }
 
-.form-login__hyperlink:hover {
-  color: $primary;
+  &__hyperlink:hover {
+    color: $primary;
+  }
 }

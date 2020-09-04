@@ -3,8 +3,12 @@
   z-index: 2;
 }
 
-.sidenav {
-  min-width: 200px;
+.sidenav-container {
+  height: 100%;
+
+  &__sidenav {
+    min-width: 200px;
+  }
 }
 
 .padding-toolbar {
