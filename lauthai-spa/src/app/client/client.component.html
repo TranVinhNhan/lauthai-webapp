@@ -3,7 +3,7 @@
         aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
     </button>
-    <h1>Lauthai.org</h1>
+    <h1><a routerLink="/">Lauthai.org</a></h1>
 </mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav class="sidenav padding-toolbar" #sidenav>
@@ -21,7 +21,7 @@
                 </a>
             </mat-list-item>
             <mat-list-item>
-                <a matLine href="#" target="_blank">
+                <a matLine routerLink="/login" (click)="sidenav.toggle()">
                     <mat-icon>account_circle</mat-icon>
                     <span class="link-caption">Login</span>
                 </a>
@@ -29,8 +29,6 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="padding-toolbar">
-        <app-client-carousel></app-client-carousel>
-        <p>banner</p>
-        <p>table</p>
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
