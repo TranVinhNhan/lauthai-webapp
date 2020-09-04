@@ -1,27 +1,27 @@
 @import "../../theme.scss";
 
-.form-login {
+.form-register {
   * {
     display: block;
   }
 }
 
-.form-login {
+.form-register {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
 }
 
-.form-login__btn {
+.form-register__btn {
   width: 100%;
   margin-bottom: 10px;
 }
 
-.form-login__hyperlink {
+.form-register__hyperlink {
   display: inline-block !important;
 }
 
-.form-login__hyperlink:hover {
+.form-register__hyperlink:hover {
   color: $primary;
 }
