@@ -21,9 +21,13 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { RegisterComponent } from './register/register.component';
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ClientComponent, CarouselComponent, LoginComponent, HomeComponent, BannerComponent, DataTableComponent],
+  declarations: [ClientComponent, CarouselComponent, LoginComponent, HomeComponent, BannerComponent, DataTableComponent, RegisterComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
