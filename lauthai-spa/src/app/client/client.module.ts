@@ -14,10 +14,16 @@ import { MatListModule } from '@angular/material/list';
 // ngx-bootstrap
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselComponent } from './carousel/carousel.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 import { BannerComponent } from './banner/banner.component';
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
-  declarations: [ClientComponent, CarouselComponent, BannerComponent],
+  declarations: [ClientComponent, CarouselComponent, LoginComponent, HomeComponent, BannerComponent, DataTableComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -28,7 +34,13 @@ import { BannerComponent } from './banner/banner.component';
     MatButtonModule,
     MatListModule,
 
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+
+    MatTableModule,
+
+    MatPaginatorModule,
+
+    MatSortModule
   ]
 })
 export class ClientModule { }
