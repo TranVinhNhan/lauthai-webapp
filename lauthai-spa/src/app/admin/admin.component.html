@@ -1,1 +1,27 @@
-<p>admin works!</p>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav class="sidenav-container__sidenav" mode="side" opened>
+        <mat-nav-list>
+            <mat-list-item>
+                <a matLine routerLink="/">
+                    <mat-icon>home</mat-icon>
+                    <span class="link-caption">Lauthai.org</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a matLine href="#">
+                    <mat-icon>dashboard</mat-icon>
+                    <span class="link-caption">Dashboard</span>
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a matLine href="#">
+                    <mat-icon>card_giftcard</mat-icon>
+                    <span class="link-caption">Quản lý Trại gà</span>
+                </a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

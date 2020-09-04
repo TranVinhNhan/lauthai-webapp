@@ -1,0 +1,13 @@
+.sidenav-container {
+  height: 100%;
+
+  &__sidenav {
+    min-width: 200px;
+  }
+}
+
+.link-caption {
+  padding-left: 5px;
+  position: absolute;
+  margin-top: 5px;
+}
