@@ -28,9 +28,19 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [ClientComponent, CarouselComponent, LoginComponent, HomeComponent, BannerComponent, DataTableComponent, RegisterComponent],
+  declarations: [
+    ClientComponent,
+    CarouselComponent,
+    LoginComponent,
+    HomeComponent,
+    BannerComponent,
+    DataTableComponent,
+    RegisterComponent,
+    FooterComponent
+  ],
   imports: [
     CommonModule,
     ClientRoutingModule,
