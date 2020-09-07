@@ -28,14 +28,23 @@ export class ManagementComponent implements OnInit, AfterViewInit {
 
 
  openDeleteDialog(id: number): void {
-   console.log(id);
     const dialogRef = this.dialog.open(DeleteProfileDialogComponent, {
       width: 'fit-content',
       data: id
     });
      
     dialogRef.afterClosed().subscribe((result:number) => {
-      console.log(result);
+      // console.log(result);
+      // console.log(this.profiles);
+            console.log(this.profiles); 
+            // this.profiles.splice(result-1 ,1);
+      this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)),1);
+      this.dataSource = new MatTableDataSource(this.profiles);
+        this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+
+
     });
   }
 
@@ -43,7 +52,6 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
     this.dataSource = new MatTableDataSource(this.profiles);
-    console.log('1')
   }
 
   ngAfterViewInit(): void {
