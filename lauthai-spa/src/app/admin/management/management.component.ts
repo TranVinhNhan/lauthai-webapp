@@ -22,12 +22,8 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private profileService: ProfileService,
-    public dialog: MatDialog
-  ) {
+  constructor(private profileService: ProfileService,public dialog: MatDialog) {}
 
-  }
 
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
@@ -47,6 +43,10 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+
+
+
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
