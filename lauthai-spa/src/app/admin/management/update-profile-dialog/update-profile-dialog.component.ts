@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IProfile } from 'src/app/_interfaces/profile.interface';
 
 @Component({
-  selector: 'app-update-profile-dialog',
+  selector: 'app-admin-update-profile-dialog',
   templateUrl: './update-profile-dialog.component.html',
   styleUrls: ['./update-profile-dialog.component.scss']
 })

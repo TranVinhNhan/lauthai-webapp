@@ -8,9 +8,10 @@ import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
 import { UpdateProfileDialogComponent } from './update-profile-dialog/update-profile-dialog.component';
+import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 
 @Component({
-  selector: 'app-management',
+  selector: 'app-admin-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
@@ -20,6 +21,7 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -27,6 +29,22 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     private profileService: ProfileService,
     public dialog: MatDialog
   ) { }
+
+
+  openDeleteDialog(id: number): void {
+    const dialogRef = this.dialog.open(DeleteProfileDialogComponent, {
+      width: 'fit-content',
+      data: id
+    });
+
+    dialogRef.afterClosed().subscribe((result: number) => {
+      this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
+      this.dataSource = new MatTableDataSource(this.profiles);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
 
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
@@ -47,13 +65,16 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+
+
+
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
       width: 'fit-content'
     });
 
     dialogRef.afterClosed().subscribe((result: IProfile) => {
-      console.log(result);
       if (result) {
         result.id = this.profiles.length + 1;
         this.profiles.push(result);
@@ -71,7 +92,6 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result: IProfile) => {
-      console.log(result);
       if (result) {
         const index = this.profiles.indexOf(this.profiles.find(p => p.id === result.id), 0);
         if (index > -1) {
