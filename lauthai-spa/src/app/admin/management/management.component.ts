@@ -15,7 +15,7 @@ import { CreateProfileDialogComponent } from './create-profile-dialog/create-pro
 })
 export class ManagementComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone'];
+  displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'action'];
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
