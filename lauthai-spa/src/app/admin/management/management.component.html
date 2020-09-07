@@ -4,6 +4,7 @@
     <div class="example-label">Hành động</div>
     <div class="example-button-row">
       <div class="example-flex-container">
+
         <button mat-icon-button color="primary" aria-label="Create" (click)="openCreateDialog()">
           <mat-icon>add</mat-icon>
         </button>
@@ -13,7 +14,7 @@
         <button mat-icon-button color="accent" aria-label="Update">
           <mat-icon>update</mat-icon>
         </button>
-        <button mat-icon-button color="warn" aria-label="Delete">
+        <button mat-icon-button color="warn" aria-label="Delete"  data-toggle="modal" data-target="#exampleModal">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
@@ -95,9 +96,11 @@
           <button mat-icon-button color="accent" aria-label="Update">
             <mat-icon>update</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Delete">
+
+          <button (click)="openDeleteDialog(row.id)" mat-icon-button color="warn" aria-label="Delete">
             <mat-icon>delete</mat-icon>
           </button>
+
         </td>
       </ng-container>
 
@@ -112,4 +115,5 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
+
 </div>

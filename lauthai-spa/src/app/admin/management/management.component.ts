@@ -7,6 +7,7 @@ import { IProfile } from './../../_interfaces/profile.interface';
 import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
+import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 
 @Component({
   selector: 'app-management',
@@ -19,15 +20,30 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private profileService: ProfileService,public dialog: MatDialog) {}
 
 
+ openDeleteDialog(id: number): void {
+   console.log(id);
+    const dialogRef = this.dialog.open(DeleteProfileDialogComponent, {
+      width: 'fit-content',
+      data: id
+    });
+     
+    dialogRef.afterClosed().subscribe((result:number) => {
+      console.log(result);
+    });
+  }
+
+
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
     this.dataSource = new MatTableDataSource(this.profiles);
+    console.log('1')
   }
 
   ngAfterViewInit(): void {
