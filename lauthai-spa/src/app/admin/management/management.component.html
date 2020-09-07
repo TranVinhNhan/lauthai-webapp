@@ -92,7 +92,7 @@
           <button mat-icon-button color="primary" aria-label="Read">
             <mat-icon>info</mat-icon>
           </button>
-          <button mat-icon-button color="accent" aria-label="Update">
+          <button (click)="openUpdateDialog(row)" mat-icon-button color="accent" aria-label="Update">
             <mat-icon>update</mat-icon>
           </button>
           <button mat-icon-button color="warn" aria-label="Delete">

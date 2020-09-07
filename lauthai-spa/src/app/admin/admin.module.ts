@@ -8,10 +8,11 @@ import { SharedModule } from '../shared/shared.module';
 import { ManagementComponent } from './management/management.component';
 import { CreateProfileDialogComponent } from './management/create-profile-dialog/create-profile-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateProfileDialogComponent } from './management/update-profile-dialog/update-profile-dialog.component';
 
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, ManagementComponent, CreateProfileDialogComponent],
+  declarations: [AdminComponent, DashboardComponent, ManagementComponent, CreateProfileDialogComponent, UpdateProfileDialogComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

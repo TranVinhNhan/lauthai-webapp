@@ -7,6 +7,7 @@ import { IProfile } from './../../_interfaces/profile.interface';
 import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
+import { UpdateProfileDialogComponent } from './update-profile-dialog/update-profile-dialog.component';
 
 @Component({
   selector: 'app-management',
@@ -25,9 +26,7 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   constructor(
     private profileService: ProfileService,
     public dialog: MatDialog
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
@@ -59,6 +58,28 @@ export class ManagementComponent implements OnInit, AfterViewInit {
         result.id = this.profiles.length + 1;
         this.profiles.push(result);
         this.dataSource = new MatTableDataSource(this.profiles);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
+  }
+
+  openUpdateDialog(pf: IProfile): void {
+    const dialogRef = this.dialog.open(UpdateProfileDialogComponent, {
+      width: 'fit-content',
+      data: pf
+    });
+
+    dialogRef.afterClosed().subscribe((result: IProfile) => {
+      console.log(result);
+      if (result) {
+        const index = this.profiles.indexOf(this.profiles.find(p => p.id === result.id), 0);
+        if (index > -1) {
+          this.profiles[index] = result;
+          this.dataSource = new MatTableDataSource(this.profiles);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
       }
     });
   }
