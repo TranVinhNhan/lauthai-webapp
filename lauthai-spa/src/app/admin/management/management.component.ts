@@ -3,7 +3,7 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 // import { DataTableDataSource } from 'src/app/client/data-table/data-table-datasource';
-import { Profile } from './../../_interfaces/profile.interface';
+import { IProfile } from './../../_interfaces/profile.interface';
 import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
@@ -16,12 +16,11 @@ import { CreateProfileDialogComponent } from './create-profile-dialog/create-pro
 export class ManagementComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone'];
-  dataSource: MatTableDataSource<Profile>;
+  dataSource: MatTableDataSource<IProfile>;
+  profiles: IProfile[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  data: string;
 
   constructor(
     private profileService: ProfileService,
@@ -31,7 +30,8 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.profileService.getProfiles(20));
+    this.profiles = this.profileService.getProfiles(20);
+    this.dataSource = new MatTableDataSource(this.profiles);
   }
 
   ngAfterViewInit(): void {
@@ -50,13 +50,16 @@ export class ManagementComponent implements OnInit, AfterViewInit {
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
-      width: 'fit-content',
-      data: this.data
+      width: 'fit-content'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.data = result;
-      console.log(this.data);
+    dialogRef.afterClosed().subscribe((result: IProfile) => {
+      console.log(result);
+      if (result) {
+        result.id = this.profiles.length + 1;
+        this.profiles.push(result);
+        this.dataSource = new MatTableDataSource(this.profiles);
+      }
     });
   }
 }

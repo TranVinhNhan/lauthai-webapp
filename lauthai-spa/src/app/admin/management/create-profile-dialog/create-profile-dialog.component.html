@@ -1,60 +1,58 @@
 <h1 mat-dialog-title>Tạo profile mới</h1>
 <div mat-dialog-content>
-  <form class="example-form">
-    <table class="example-full-width" cellspacing="0">
+  <form [formGroup]="createForm" class="create-form">
+    <table class="full-width" cellspacing="0">
       <tr>
         <td>
-          <mat-form-field class="example-full-width">
-            <mat-label>Họ</mat-label>
-            <input matInput>
+          <mat-form-field class="full-width">
+            <mat-label>Họ tên</mat-label>
+            <input formControlName="name" matInput>
           </mat-form-field>
         </td>
         <td>
-          <mat-form-field class="example-full-width">
-            <mat-label>Tên</mat-label>
-            <input matInput>
+          <mat-form-field class="full-width">
+            <mat-label>Tuổi</mat-label>
+            <input type="number" formControlName="age" matInput placeholder="">
           </mat-form-field>
         </td>
       </tr>
     </table>
 
-    <p>
-      <mat-form-field class="example-full-width">
-        <mat-label>Trường</mat-label>
-        <textarea matInput placeholder="Ex. HUFLIT"></textarea>
-      </mat-form-field>
-    </p>
+    <mat-form-field class="full-width">
+      <mat-label>Trường</mat-label>
+      <input formControlName="university" matInput placeholder="Ex. HUFLIT">
+    </mat-form-field>
 
-    <table class="example-full-width" cellspacing="0">
+    <table class="full-width" cellspacing="0">
       <tr>
         <td>
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="full-width">
             <mat-label>Công việc hiện tại</mat-label>
-            <input matInput>
+            <input formControlName="job" matInput >
           </mat-form-field>
         </td>
         <td>
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="full-width">
             <mat-label>Tình trạng hôn nhân</mat-label>
-            <input matInput placeholder="">
+            <input formControlName="marriedStatus" matInput placeholder="">
           </mat-form-field>
         </td>
       </tr>
     </table>
 
-    <table class="example-full-width" cellspacing="0">
+    <table class="full-width" cellspacing="0">
       <tr>
         <td>
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="full-width">
             <mat-label>Địa chỉ</mat-label>
-            <input matInput placeholder="Ex. Quận 10">
+            <input formControlName="district" matInput placeholder="Ex. Quận 10">
           </mat-form-field>
         </td>
         <td>
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="full-width">
             <mat-label>Telephone</mat-label>
             <span matPrefix>+84 &nbsp;</span>
-            <input type="tel" matInput placeholder="771234567">
+            <input formControlName="phone" type="tel" matInput  placeholder="771234567">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </mat-form-field>
         </td>
@@ -65,10 +63,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onOkClick()" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
 </div>
-
-
-<!-- Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->

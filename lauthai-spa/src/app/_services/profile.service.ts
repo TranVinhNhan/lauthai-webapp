@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Profile } from '../_interfaces/profile.interface';
+import { IProfile } from '../_interfaces/profile.interface';
 
 const NAMES: string[] = [
   'Anh', 'Nhi', 'Bình', 'Hoa', 'Trang',
@@ -29,11 +29,11 @@ const DISTRICT: string[] = [
 })
 
 export class ProfileService {
-  getProfiles(qty: number): Profile[] {
+  getProfiles(qty: number): IProfile[] {
     return Array.from({ length: qty }, (_, i) => this.createNewProfile(i + 1));
   }
 
-  private createNewProfile(id: number): Profile {
+  private createNewProfile(id: number): IProfile {
     const name =
       SURNAMES[Math.round(Math.random() * (SURNAMES.length - 1))] +
       ' ' +
