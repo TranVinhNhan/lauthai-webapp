@@ -14,7 +14,8 @@ import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-pro
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
-export class ManagementComponent implements OnInit, AfterViewInit {
+export class ManagementComponent implements OnInit, AfterViewInit 
+{
 
   displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'action'];
   dataSource: MatTableDataSource<IProfile>;
@@ -40,8 +41,8 @@ export class ManagementComponent implements OnInit, AfterViewInit {
             // this.profiles.splice(result-1 ,1);
       this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)),1);
       this.dataSource = new MatTableDataSource(this.profiles);
-        this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
 
 
 

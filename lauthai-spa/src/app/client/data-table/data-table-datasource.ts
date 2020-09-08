@@ -4,6 +4,13 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
+import { IProfile } from './../../_interfaces/profile.interface';
+import { ProfileService } from '../../_services/profile.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+
+
 // TODO: Replace this with your own data model type
 export interface DataTableItem {
   name: string;
@@ -15,7 +22,9 @@ export interface DataTableItem {
   married_status:string;
   district:number;
   phone:string;
+
 }
+
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: DataTableItem[] = [
@@ -41,13 +50,25 @@ const EXAMPLE_DATA: DataTableItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
+
+
+
 export class DataTableDataSource extends DataSource<DataTableItem> {
+
+
+
+
+
+
+
   data: DataTableItem[] = EXAMPLE_DATA;
   paginator: MatPaginator;
   sort: MatSort;
 
   constructor() {
     super();
+
+
   }
 
   /**
