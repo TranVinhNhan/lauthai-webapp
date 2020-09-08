@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProfile } from 'src/app/_interfaces/profile.interface';
+import { IProfile } from './../../../_models/_interfaces/profile.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({

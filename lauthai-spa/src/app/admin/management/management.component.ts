@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-// import { DataTableDataSource } from 'src/app/client/data-table/data-table-datasource';
 import { IProfile } from './../../_models/_interfaces/profile.interface';
 import { Const } from './../../_models/_consts/const';
 import { ProfileService } from '../../_services/profile.service';
@@ -12,10 +11,12 @@ import { UpdateProfileDialogComponent } from './update-profile-dialog/update-pro
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
 
 @Component({
+
   selector: 'app-admin-management',
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.scss']
 })
+
 export class ManagementComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = Const.TABLE_COLUMN;
@@ -26,10 +27,12 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+
   constructor(
     private profileService: ProfileService,
     public dialog: MatDialog
   ) { }
+
 
 
   openDeleteDialog(id: number): void {
@@ -38,9 +41,11 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       data: id
     });
 
+
     dialogRef.afterClosed().subscribe((result: number) => {
       this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
       this.dataSource = new MatTableDataSource(this.profiles);
+
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -71,6 +76,7 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result: IProfile) => {
+
       if (result) {
         result.id = this.profiles.length + 1;
         this.profiles.push(result);
