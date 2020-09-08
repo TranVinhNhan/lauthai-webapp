@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProfile } from './../_models/_interfaces/profile.interface';
+import { IProfile } from './../_models/interfaces/profile.interface';
 
 const NAMES: string[] = [
   'Anh', 'Nhi', 'Bình', 'Hoa', 'Trang',

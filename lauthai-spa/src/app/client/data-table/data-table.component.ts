@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { IProfile } from './../../_models/_interfaces/profile.interface';
-import { ProfileService } from '../../_services/profile.service';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 
+import { ProfileService } from '../../_services/profile.service';
+import { IProfile } from './../../_models/interfaces/profile.interface';
+import { Const } from './../../_models/consts/const';
 
 @Component({
   selector: 'app-client-data-table',
@@ -17,7 +18,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone'];
+  displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 

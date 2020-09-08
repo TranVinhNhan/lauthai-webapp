@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProfile } from './../../../_models/_interfaces/profile.interface';
+import { IProfile } from './../../../_models/interfaces/profile.interface';
 
 @Component({
   selector: 'app-admin-update-profile-dialog',
