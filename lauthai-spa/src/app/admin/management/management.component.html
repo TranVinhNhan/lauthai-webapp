@@ -45,7 +45,7 @@
       <ng-container matColumnDef="pfpUrl">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile Pic </th>
         <td mat-cell *matCellDef="let row">
-          <span *ngIf="row.pfpUrl">{{row.pfpUrl}}</span>
+          <span *ngIf="row.pfpUrl"><img src="{{row.pfpUrl}}" width="100" height="100"></span>
           <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
         </td>
       </ng-container>
