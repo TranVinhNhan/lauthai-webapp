@@ -37,7 +37,7 @@ const PFPURL: string[] = [
   'https://i.pinimg.com/236x/0d/7d/b0/0d7db08b7a4a5e31c2f8bfb353b0a882.jpg',
   'https://i.pinimg.com/564x/3c/dd/56/3cdd56556aaf558988e225c312d34e97.jpg',
   'https://congngheads.com/media/images/anh-dep/hinh-nen-android-dep-1559622870/anh-gai-xinh-mac-kimono-hong-duyen-dang-04-08-2019-2.jpg'
-]
+];
 
 @Injectable({
   providedIn: 'root'

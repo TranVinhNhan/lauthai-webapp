@@ -3,7 +3,8 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 // import { DataTableDataSource } from 'src/app/client/data-table/data-table-datasource';
-import { IProfile } from './../../_interfaces/profile.interface';
+import { IProfile } from './../../_models/_interfaces/profile.interface';
+import { Const } from './../../_models/_consts/const';
 import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
@@ -17,7 +18,7 @@ import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-pro
 })
 export class ManagementComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'action'];
+  displayedColumns: string[] = Const.TABLE_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
@@ -45,7 +46,6 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
     this.dataSource = new MatTableDataSource(this.profiles);
@@ -64,10 +64,6 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-
-
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
