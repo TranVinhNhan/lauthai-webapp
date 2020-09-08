@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule // issue 1 + issue 2: navbar + footer
   ],
   providers: [],
   bootstrap: [AppComponent]

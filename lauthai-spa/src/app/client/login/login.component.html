@@ -1,0 +1,23 @@
+<div class="form-login text-center">
+
+    <h1 class="font-weight-bold">Đăng nhập</h1>
+
+    <mat-form-field class="form-login__form-control" appearance="legacy">
+        <mat-label>Tên đăng nhập</mat-label>
+        <input matInput placeholder="Nhập tên đăng nhập tại đây">
+        <mat-icon matSuffix>account_circle</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="form-login__form-control" appearance="legacy">
+        <mat-label>Mật khẩu</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" placeholder="Nhập mật khẩu">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <button class="form-login__btn" mat-flat-button color="primary">Login</button>
+    
+    <mat-hint>Chưa có tài khoản? <a class="form-login__hyperlink" href="#">Đăng ký tại đây</a></mat-hint>
+</div>

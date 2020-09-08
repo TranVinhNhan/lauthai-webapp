@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Tạo profile mới</h1>
+<div mat-dialog-content>
+  <form [formGroup]="createForm" class="create-form">
+    <table class="full-width" cellspacing="0">
+      <tr >
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Họ tên</mat-label>
+            <input formControlName="name" matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Tuổi</mat-label>
+            <input type="number" formControlName="age" matInput placeholder="">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <mat-form-field class="full-width">
+      <mat-label>Trường</mat-label>
+      <input formControlName="university" matInput placeholder="Ex. HUFLIT">
+    </mat-form-field>
+
+    <table class="full-width" cellspacing="0">
+      <tr >
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Công việc hiện tại</mat-label>
+            <input formControlName="job" matInput >
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Tình trạng hôn nhân</mat-label>
+            <input formControlName="marriedStatus" matInput placeholder="">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table class="full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Địa chỉ</mat-label>
+            <input formControlName="district" matInput placeholder="Ex. Quận 10">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Telephone</mat-label>
+            <span matPrefix>+84 &nbsp;</span>
+            <input formControlName="phone" type="tel" matInput  placeholder="771234567">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onOkClick()" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

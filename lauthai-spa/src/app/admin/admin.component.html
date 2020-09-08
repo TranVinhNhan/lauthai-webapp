@@ -1,1 +1,29 @@
-<p>admin works!</p>
+<mat-toolbar color="primary">
+  <button [ngStyle]="{'display' : (screenWidth > 840) ? 'none' : 'block'}" (click)="sidenav.toggle()" mat-icon-button
+    aria-label="Menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1><a (click)="sidenav.close()" routerLink="/">Lauthai.org</a></h1>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav class="sidenav-container__sidenav" [mode]="(screenWidth > 840)?'side':'over'" #sidenav
+    [opened]="screenWidth > 840">
+    <mat-nav-list>
+      <mat-list-item>
+        <a matLine routerLink="/admin">
+          <mat-icon>dashboard</mat-icon>
+          <span class="link-caption">Dashboard</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <a matLine routerLink="/admin/management">
+          <mat-icon>card_giftcard</mat-icon>
+          <span class="link-caption">Quản lý Trại gà</span>
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

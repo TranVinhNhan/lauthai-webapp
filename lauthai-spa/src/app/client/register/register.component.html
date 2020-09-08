@@ -1,0 +1,35 @@
+<div class="form-register text-center">
+    <h1 class="font-weight-bold">Đăng ký</h1>
+    <mat-form-field appearance="legacy">
+        <mat-label>Tên đăng nhập</mat-label>
+        <input matInput placeholder="Nhập tên đăng nhập tại đây">
+        <mat-icon matSuffix>account_circle</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Mật khẩu</mat-label>
+        <input matInput [type]="hidePwd ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePwd" placeholder="Nhập mật khẩu">
+            <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Nhập lại khẩu</mat-label>
+        <input matInput [type]="hideCfmPwd ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideCfmPwd = !hideCfmPwd" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideCfmPwd" placeholder="Nhập mật khẩu">
+            <mat-icon>{{hideCfmPwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Nhập tên gmail tại đây">
+        <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <button class="form-register__btn" mat-flat-button color="primary">Register</button>
+    <mat-hint>Đã có tài khoản? <a class="form-register__hyperlink" href="#">Đăng nhập tại đây</a></mat-hint>
+</div>
