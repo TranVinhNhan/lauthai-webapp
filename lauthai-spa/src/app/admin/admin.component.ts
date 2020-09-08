@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  screenWidth: number;
   constructor() { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event): void {
+    this.screenWidth = window.innerWidth;
+  }
+
   ngOnInit(): void {
+    this.screenWidth = window.innerWidth;
   }
 
 }
