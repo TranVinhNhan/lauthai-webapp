@@ -22,7 +22,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   // displayedColumns = ['id', 'name','Avatar','School','Age','Work','married status','district','phone'];
-    displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'action'];
+    displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone'];
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
  
