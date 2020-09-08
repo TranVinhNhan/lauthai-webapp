@@ -4,7 +4,7 @@ import { IProfile } from 'src/app/_interfaces/profile.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-create-profile-dialog',
+  selector: 'app-admin-create-profile-dialog',
   templateUrl: './create-profile-dialog.component.html',
   styleUrls: ['./create-profile-dialog.component.scss']
 })

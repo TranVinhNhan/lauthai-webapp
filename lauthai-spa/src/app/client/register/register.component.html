@@ -8,19 +8,19 @@
 
     <mat-form-field appearance="legacy">
         <mat-label>Mật khẩu</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide" placeholder="Nhập mật khẩu">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input matInput [type]="hidePwd ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hidePwd = !hidePwd" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePwd" placeholder="Nhập mật khẩu">
+            <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
         <mat-label>Nhập lại khẩu</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide" placeholder="Nhập mật khẩu">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input matInput [type]="hideCfmPwd ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideCfmPwd = !hideCfmPwd" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hideCfmPwd" placeholder="Nhập mật khẩu">
+            <mat-icon>{{hideCfmPwd ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
 
