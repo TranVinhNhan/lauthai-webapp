@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProfile } from 'src/app/_interfaces/profile.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { IProfile } from './../../../_models/interfaces/profile.interface';
 
 @Component({
   selector: 'app-admin-create-profile-dialog',

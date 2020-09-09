@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-// import { DataTableDataSource } from 'src/app/client/data-table/data-table-datasource';
-import { IProfile } from './../../_interfaces/profile.interface';
-import { ProfileService } from '../../_services/profile.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+
+import { IProfile } from './../../_models/interfaces/profile.interface';
+import { Const } from './../../_models/consts/const';
+import { ProfileService } from '../../_services/profile.service';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
 import { UpdateProfileDialogComponent } from './update-profile-dialog/update-profile-dialog.component';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
@@ -17,10 +18,9 @@ import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-pro
   styleUrls: ['./management.component.scss']
 })
 
-export class ManagementComponent implements OnInit, AfterViewInit 
-{
+export class ManagementComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'action'];
+  displayedColumns: string[] = Const.TABLE_ADMIN_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
@@ -52,7 +52,6 @@ export class ManagementComponent implements OnInit, AfterViewInit
     });
   }
 
-
   ngOnInit(): void {
     this.profiles = this.profileService.getProfiles(20);
     this.dataSource = new MatTableDataSource(this.profiles);
@@ -71,10 +70,6 @@ export class ManagementComponent implements OnInit, AfterViewInit
       this.dataSource.paginator.firstPage();
     }
   }
-
-
-
-
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
