@@ -18,7 +18,7 @@
       <ng-container matColumnDef="pfpUrl">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile Pic </th>
         <td mat-cell *matCellDef="let row">
-          <span *ngIf="row.pfpUrl"><img src="{{row.pfpUrl}}" [style.width.px]="100" [style.margin.px]="20"></span>
+          <span *ngIf="row.pfpUrl"><img src="{{row.pfpUrl}}" class="image-avatar"></span>
           <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
         </td>
       </ng-container>
