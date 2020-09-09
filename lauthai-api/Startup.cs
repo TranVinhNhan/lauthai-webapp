@@ -28,8 +28,9 @@ namespace lauthai_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            // Sqlite
-            services.AddDbContext<LauThaiDbContext>(db => db.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            // SqlServer
+            services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            // Seed data service
             services.AddTransient<Seed>();
         }
 

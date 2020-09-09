@@ -15,7 +15,7 @@ namespace lauthai_api.Controllers
             _context = context;
 
         }
-        
+
         [HttpGet]
         public IActionResult GetProfile()
         {
