@@ -27,10 +27,21 @@ namespace lauthai_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowAnyOrigin();
+                    });
+            });
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // SqlServer
             services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            // Seed data service
+            // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
         }
 
@@ -45,6 +56,9 @@ namespace lauthai_api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
+            app.UseCors();
 
             app.UseAuthorization();
 

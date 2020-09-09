@@ -1,7 +1,9 @@
 using System.Linq;
+using System.Threading.Tasks;
 using lauthai_api.Data;
 using lauthai_api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace lauthai_api.Controllers
 {
@@ -17,9 +19,9 @@ namespace lauthai_api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetProfile()
+        public async Task<IActionResult> GetProfile()
         {
-            var profiles = _context.Profiles.ToList();
+            var profiles = await _context.Profiles.Include(u => u.University).ToListAsync();
             return Ok(profiles);
         }
     }

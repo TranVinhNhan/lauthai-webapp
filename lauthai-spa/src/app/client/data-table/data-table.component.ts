@@ -25,12 +25,21 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.profiles = this.profileService.getProfiles(20);
-    this.dataSource = new MatTableDataSource(this.profiles);
+    // this.loadProfiles();
+  }
+
+  loadProfiles(): void {
+    this.profileService.getProfiles().subscribe((response: IProfile[]) => {
+      this.profiles = response;
+      this.dataSource = new MatTableDataSource(this.profiles);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }, error => console.log(error));
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    this.loadProfiles();
   }
 }
