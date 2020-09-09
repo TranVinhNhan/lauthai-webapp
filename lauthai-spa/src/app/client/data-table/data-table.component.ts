@@ -41,7 +41,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
+  //this.table.dataSource = this.dataSource;
         console.log("data-table-ngAfterViewInit");
 
   }
