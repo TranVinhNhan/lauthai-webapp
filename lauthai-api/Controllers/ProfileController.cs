@@ -1,7 +1,10 @@
 using System.Linq;
+using System.Threading.Tasks;
 using lauthai_api.Data;
 using lauthai_api.Models;
+using lauthai_api.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace lauthai_api.Controllers
 {
@@ -9,18 +12,21 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class ProfileController : ControllerBase
     {
-        private readonly LauThaiDbContext _context;
-        public ProfileController(LauThaiDbContext context)
+        private readonly IProfileRepository _profileRepo;
+        public ProfileController(IProfileRepository profileRepo)
         {
-            _context = context;
-
+            _profileRepo = profileRepo;
         }
 
-        [HttpGet]
-        public IActionResult GetProfile()
+        [HttpGet("all")]
+        public async Task<IActionResult> GetProfile()
         {
-            var profiles = _context.Profiles.ToList();
-            return Ok(profiles);
+            var profiles = await _profileRepo.GetAllProfiles();
+
+            if (profiles != null)
+                return Ok(profiles);
+
+            return NotFound();
         }
     }
 }

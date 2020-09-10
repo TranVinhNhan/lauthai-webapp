@@ -1,11 +1,15 @@
+import { IUniversity } from './university.interface';
+
 export interface IProfile {
-  name: string;
   id: number;
-  pfpUrl: string;
-  university: string;
+  name: string;
   age: number;
+  pfpUrl: string;
   job: string;
   marriedStatus: string;
   district: string;
   phone: string;
+
+  universityId?: number;
+  university: IUniversity;
 }

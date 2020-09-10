@@ -24,17 +24,13 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
 
   constructor(
     private profileService: ProfileService,
     public dialog: MatDialog
   ) { }
-
-
 
   openDeleteDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteProfileDialogComponent, {
@@ -42,24 +38,32 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       data: id
     });
 
-
     dialogRef.afterClosed().subscribe((result: number) => {
       this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
       this.dataSource = new MatTableDataSource(this.profiles);
-
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.loadPaginator();
     });
   }
 
   ngOnInit(): void {
-    this.profiles = this.profileService.getProfiles(20);
-    this.dataSource = new MatTableDataSource(this.profiles);
+
+  }
+
+  loadProfiles(): void {
+    this.profileService.getProfiles().subscribe((response: IProfile[]) => {
+      this.profiles = response;
+      this.dataSource = new MatTableDataSource(this.profiles);
+      this.loadPaginator();
+    }, error => console.log(error));
+  }
+
+  loadPaginator(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.loadProfiles();
   }
 
   applyFilter(event: Event): void {
@@ -82,8 +86,7 @@ export class ManagementComponent implements OnInit, AfterViewInit {
         result.id = this.profiles.length + 1;
         this.profiles.push(result);
         this.dataSource = new MatTableDataSource(this.profiles);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.loadPaginator();
       }
     });
   }
@@ -100,8 +103,7 @@ export class ManagementComponent implements OnInit, AfterViewInit {
         if (index > -1) {
           this.profiles[index] = result;
           this.dataSource = new MatTableDataSource(this.profiles);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          this.loadPaginator();
         }
       }
     });
