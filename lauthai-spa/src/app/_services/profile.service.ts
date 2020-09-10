@@ -15,6 +15,6 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   getProfiles(): Observable<IProfile[]> {
-    return this.http.get<IProfile[]>(this.baseUrl + 'profile');
+    return this.http.get<IProfile[]>(this.baseUrl + 'profile/all');
   }
 }
