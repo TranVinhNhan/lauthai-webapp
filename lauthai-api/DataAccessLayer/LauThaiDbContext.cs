@@ -1,7 +1,7 @@
 using lauthai_api.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace lauthai_api.Data
+namespace lauthai_api.DataAccessLayer.Data
 {
     public class LauThaiDbContext : DbContext
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using lauthai_api.Data;
+using lauthai_api.DataAccessLayer.Data;
 
 namespace lauthai_api.Migrations
 {

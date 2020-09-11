@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using lauthai_api.Data;
-using lauthai_api.Repository.Implements;
-using lauthai_api.Repository.Interfaces;
+using AutoMapper;
+using lauthai_api.DataAccessLayer.Data;
+using lauthai_api.Helpers;
+using lauthai_api.DataAccessLayer.Repository.Implements;
+using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using lauthai_api.DataAccessLayer.Repository;
 
 namespace lauthai_api
 {
@@ -44,10 +47,13 @@ namespace lauthai_api
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // SqlServer
             services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper(typeof(Mapping));
             // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
 
-            services.AddScoped<IProfileRepository, ProfileRepository>();
+            // services.AddScoped<IProfileRepository, ProfileRepository>();
+            // services.AddScoped<IUniversityRepository, UniversityRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

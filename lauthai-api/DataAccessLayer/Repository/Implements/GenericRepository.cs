@@ -1,16 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using lauthai_api.Data;
-using lauthai_api.Repository.Interfaces;
+using lauthai_api.DataAccessLayer.Data;
+using lauthai_api.DataAccessLayer.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace lauthai_api.Repository.Implements
+namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly LauThaiDbContext _context;
+
+        // private readonly DbSet<T> _dbSet;
         public GenericRepository(LauThaiDbContext context)
         {
             _context = context;
+            // _dbSet = _context.Set<T>();
         }
 
         public void Add(T obj)
@@ -26,11 +30,6 @@ namespace lauthai_api.Repository.Implements
         public void Update(T obj)
         {
             _context.Update(obj);
-        }
-
-        public async Task<bool> SaveAll()
-        {
-            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

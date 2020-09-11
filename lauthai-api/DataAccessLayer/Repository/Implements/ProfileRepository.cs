@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using lauthai_api.Data;
+using lauthai_api.DataAccessLayer.Data;
 using lauthai_api.Models;
-using lauthai_api.Repository.Interfaces;
+using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace lauthai_api.Repository.Implements
+namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
     public class ProfileRepository : GenericRepository<Profile>, IProfileRepository
     {
@@ -19,6 +19,12 @@ namespace lauthai_api.Repository.Implements
         {
             var profiles = await _context.Profiles.Include(p => p.University).AsNoTracking().ToListAsync();
             return profiles;
+        }
+
+        public async Task<Profile> GetProfileById(int id)
+        {
+            var profile = await _context.Profiles.Include(p => p.University).FirstOrDefaultAsync(p => p.Id == id);
+            return profile;
         }
     }
 }
