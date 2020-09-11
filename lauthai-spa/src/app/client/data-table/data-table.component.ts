@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild,Input,EventEmitter,Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+
 
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
@@ -17,10 +18,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @Input() product:any;
+  @Output() productAdd=new EventEmitter();
+
 
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
+  cart: IProfile[];
 
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
@@ -41,5 +46,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     this.loadProfiles();
+  }
+
+  addProductToCart(product)
+  {
+    console.log(product);
+    this.productAdd.emit(product);
+    this.cart.push(product)
+    localStorage.setItem("product",JSON.stringify(product));
+    localStorage.setItem("MangProfile", JSON.stringify(this.profiles));
   }
 }

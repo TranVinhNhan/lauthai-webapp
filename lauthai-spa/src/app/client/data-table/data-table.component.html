@@ -59,6 +59,19 @@
         <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="heart">
+        <th mat-header-cell *matHeaderCellDef > Thả tim </th>
+        <td mat-cell *matCellDef="let row" style="color: #ff6060" >
+          <button  mat-icon-button class="example-icon heart" aria-label="Example icon-button with menu icon"  (click)="addProductToCart(row)">
+        <mat-icon  >favorite</mat-icon>
+      </button>
+           </td>
+      
+          
+      </ng-container>
+
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
