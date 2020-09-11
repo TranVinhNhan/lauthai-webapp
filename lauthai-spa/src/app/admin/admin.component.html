@@ -9,13 +9,13 @@
   <mat-sidenav class="sidenav-container__sidenav" [mode]="(screenWidth > 840)?'side':'over'" #sidenav
     [opened]="screenWidth > 840">
     <mat-nav-list>
-      <mat-list-item>
-        <a matLine routerLink="/admin">
+      <mat-list-item routerLink="/admin" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+        <a matLine >
           <mat-icon>dashboard</mat-icon>
           <span class="link-caption">Dashboard</span>
         </a>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item  routerLinkActive="active">
         <a matLine routerLink="/admin/management">
           <mat-icon>card_giftcard</mat-icon>
           <span class="link-caption">Quản lý Trại gà</span>

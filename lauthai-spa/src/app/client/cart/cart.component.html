@@ -1,0 +1,32 @@
+<p>cart works!</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Tên</th>
+						<th>Profile</th>
+						<th>Trường</th>
+						<th>Số lượng</th>
+						<th>Tác vụ</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of cartList">
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<td><img src="{{item.pfpUrl}}" style="height:100px ;width:100px"></td>
+						<td>{{item.university.name}}</td>						
+						<td>5</td>
+						<td>
+							<button type="button" class="btn btn-success">Thêm</button>
+							<button type="button" class="btn btn-danger">Xóa</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
