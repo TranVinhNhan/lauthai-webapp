@@ -12,17 +12,17 @@ export class CartComponent implements OnInit {
   public StorCart :CartStore;
   public StorCartFirst :CartStore;
 
-  cartList: IProfile[];
+  cartList: IProfile[]=[];
 
   ngOnInit(): void {
-  	console.log(JSON.parse(localStorage.getItem("product")));
-  	this.StorCart=JSON.parse(localStorage.getItem("product"));
-  	this.cartList = JSON.parse(localStorage.getItem("MangProfile"));
-  	  	console.log(this.StorCart);
+  	console.log(JSON.parse(localStorage.getItem("ListCart")));
+  	// this.StorCart=JSON.parse(localStorage.getItem("product"));
+  	this.cartList = JSON.parse(localStorage.getItem("ListCart"));
+  	  	console.log("day la "+this.cartList );
 
-  	  this.cartList.forEach(a => {console.log(a)});
+  	  // this.cartList.forEach(a => {console.log(a)});
 
-  	  console.log(this.cartList[9]);
+  	  // console.log(this.cartList[9]);
 
   }
   

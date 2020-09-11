@@ -18,6 +18,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
   @Input() product:any;
   @Output() productAdd=new EventEmitter();
 
@@ -25,7 +26,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
-  cart: IProfile[];
+  cart: IProfile[]=[];
 
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
@@ -48,12 +49,29 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     this.loadProfiles();
   }
 
-  addProductToCart(product)
+  addProductToCart(carts)
   {
-    console.log(product);
-    this.productAdd.emit(product);
-    this.cart.push(product)
-    localStorage.setItem("product",JSON.stringify(product));
-    localStorage.setItem("MangProfile", JSON.stringify(this.profiles));
+
+   this.cart=JSON.parse(localStorage.getItem("ListCart"));
+   if(this.cart==undefined)
+   {
+     this.cart=[];
+   }
+    // this.productAdd.emit(product);
+    this.cart.push(carts);
+    console.log( this.cart);
+    localStorage.setItem("ListCart",JSON.stringify(this.cart));
+
+   // if(localStorage!=null)
+   //  {
+   //     this.cart.push(carts);
+   //        localStorage.setItem("ListCart",JSON.stringify(this.cart));
+   //  }else
+   //  {
+   //     this.cart.push(carts);
+   //        localStorage.setItem("ListCart",JSON.stringify(this.cart));
+   //  }
+
+
   }
 }
