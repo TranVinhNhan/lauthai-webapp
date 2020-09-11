@@ -10,8 +10,8 @@ using lauthai_api.DataAccessLayer.Data;
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    [Migration("20200909070534_Init")]
-    partial class Init
+    [Migration("20200911083543_FixedRole@UserTable")]
+    partial class FixedRoleUserTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,30 @@ namespace lauthai_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Universities");
+                });
+
+            modelBuilder.Entity("lauthai_api.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("lauthai_api.Models.Profile", b =>

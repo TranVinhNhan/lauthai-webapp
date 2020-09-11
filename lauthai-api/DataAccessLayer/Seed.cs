@@ -3,7 +3,7 @@ using System.Linq;
 using lauthai_api.Models;
 using Newtonsoft.Json;
 
-namespace lauthai_api.Data
+namespace lauthai_api.DataAccessLayer.Data
 {
     public class Seed
     {
