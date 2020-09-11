@@ -54,6 +54,7 @@ namespace lauthai_api
             // services.AddScoped<IProfileRepository, ProfileRepository>();
             // services.AddScoped<IUniversityRepository, UniversityRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

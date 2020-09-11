@@ -7,8 +7,10 @@ namespace lauthai_api.Helpers
     {
         public Mapping()
         {
-            CreateMap<ProfileToCreateDto, lauthai_api.Models.Profile>();
-            CreateMap<ProfileToUpdateDto, lauthai_api.Models.Profile>();
+            CreateMap<ProfileToCreateDto, Models.Profile>();
+            CreateMap<ProfileToUpdateDto, Models.Profile>();
+
+            CreateMap<UserToCreateDto, Models.User>();
         }
     }
 }
