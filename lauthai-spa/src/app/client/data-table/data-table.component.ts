@@ -56,8 +56,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
      item = Object.assign({}, cartItem);
    this.cart=JSON.parse(localStorage.getItem("ListCart"));
    if(this.cart==undefined) // gio hang rong
-   { 
-  
+   {
+
      item.universityName = cartItem.university.name;
      item.quantity = 1;
      this.cart=[];
@@ -66,12 +66,12 @@ export class DataTableComponent implements AfterViewInit, OnInit {
    }
   else  // gio hang cp cart item
   {
-   
+
       const result = this.cart.find(el => el.id ==cartItem.id);
       console.log(result);
       item.quantity = 1;
 // check da co item cung loai chua? ++quantity : them sp moi
-      if (result != null) 
+      if (result != null)
     {
       result.quantity++;
       localStorage.setItem("ListCart",JSON.stringify(this.cart));
@@ -85,15 +85,15 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
 
 
-    
 
 
 
- 
 
-    //  for (var i = 0 ; i <this.cart.length; i++) 
+
+
+    //  for (var i = 0 ; i <this.cart.length; i++)
     // {
-    //     if (this.cart[].id== cartItem.id ) 
+    //     if (this.cart[].id== cartItem.id )
     //     {
     //      console.log(cartItem.id);
     //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
@@ -105,14 +105,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     //       this.cart.push(cartItem);
     //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
     //     }
-   
-    // }
-    
-   
-  }
-     
 
-   
+    // }
+
+
+  }
+
+
+
      // code...
 
     // this.productAdd.emit(product);

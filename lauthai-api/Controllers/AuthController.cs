@@ -60,7 +60,7 @@ namespace lauthai_api.Controllers
         {
             var user = await _auth.Login(account.Username, account.Password);
             if (user == null)
-                return Unauthorized("Wrong username or password, please try again");
+                return Unauthorized("Sai tên đăng nhập hoặc mật khẩu, vui lòng thử lại");
 
             var claims = new[]
             {
