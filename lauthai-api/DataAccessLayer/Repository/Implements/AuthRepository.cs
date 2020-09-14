@@ -35,9 +35,11 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
             user.PasswordHash = passwordHash;
 
             await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-
-            return user;
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return user;
+            }
+            throw new System.Exception("Create user failed at save");
         }
 
         // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-3.1

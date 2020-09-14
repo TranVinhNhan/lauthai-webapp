@@ -8,9 +8,11 @@ using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using lauthai_api.DataAccessLayer.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace lauthai_api.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class ProfileController : ControllerBase
@@ -24,6 +26,7 @@ namespace lauthai_api.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllProfiles()
         {
@@ -72,10 +75,10 @@ namespace lauthai_api.Controllers
             var profileNeedToUpdate = await _uow.ProfileRepository.GetProfileById(id);
             if (profileNeedToUpdate == null)
                 return NotFound();
-            
-            _mapper.Map(profileToUpdateDto, profileNeedToUpdate);
 
+            _mapper.Map(profileToUpdateDto, profileNeedToUpdate);
             _uow.ProfileRepository.Update(profileNeedToUpdate);
+
             if (await _uow.SaveAll())
                 return Ok("Profile updated successfully");
 

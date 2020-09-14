@@ -8,7 +8,8 @@ namespace lauthai_api.Models
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public User()
-        {
+        { 
+            Role = "User";
         }
     }
 }

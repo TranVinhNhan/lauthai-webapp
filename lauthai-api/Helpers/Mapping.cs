@@ -11,6 +11,7 @@ namespace lauthai_api.Helpers
             CreateMap<ProfileToUpdateDto, Models.Profile>();
 
             CreateMap<UserToCreateDto, Models.User>();
+            CreateMap<AdminToCreateDto, Models.User>();
         }
     }
 }
