@@ -31,11 +31,11 @@ namespace lauthai_api.Controllers
         public async Task<IActionResult> Register(UserToCreateDto userToCreateDto)
         {
             if (await _auth.IsUserExist(userToCreateDto.Username))
-                return BadRequest("Username already existed, please try again");
+                return BadRequest("Tên đăng nhập đã tồn tại, vui lòng thử lại");
 
             var user = _mapper.Map<User>(userToCreateDto);
             await _auth.Register(user, userToCreateDto.Password);
-            return Ok(user);
+            return StatusCode(201);
         }
 
         [HttpPost("register/admin")]
@@ -44,7 +44,7 @@ namespace lauthai_api.Controllers
             if (adminToCreateDto.AuthPassword == "createAdmin")
             {
                 if (await _auth.IsUserExist(adminToCreateDto.Username))
-                    return BadRequest("Username already existed, please try again");
+                    return BadRequest("Tên đăng nhập đã tồn tại, vui lòng thử lại");
 
                 var admin = _mapper.Map<User>(adminToCreateDto);
                 admin.Role = "Admin";

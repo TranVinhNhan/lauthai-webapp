@@ -1,7 +1,7 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Router } from '@angular/router';
 import { AuthService } from './../../_services/auth.service';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.initLoginForm();

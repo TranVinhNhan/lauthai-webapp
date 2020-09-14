@@ -5,7 +5,11 @@
   <h1><a (click)="sidenav.close()" routerLink="/">Lauthai.org</a></h1>
   <span class="spacer"></span>
 
-  <h1 *ngIf="this.authService.isAuthenticated()">Xin chào {{ getUsername() }}</h1>
+  <button *ngIf="this.authService.isAuthenticated()" mat-button [matMenuTriggerFor]="beforeMenu">Xin chào {{ getUsername() }}</button>
+  <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <button mat-menu-item>Lịch sử check hàng</button>
+    <button mat-menu-item (click)="logout()">Đăng xuất</button>
+  </mat-menu>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" routerLink="/cart">
     <mat-icon>shopping_cart</mat-icon>
   </button>
