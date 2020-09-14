@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProfile } from './../../_models/interfaces/profile.interface';
+import { ICartItem } from './../../_models/interfaces/cartItem.interface';
+
 
 @Component({
   selector: 'app-cart',
@@ -31,24 +33,59 @@ export class CartComponent implements OnInit {
   }
     CheckCount(event, item)
   {
-
-    console.log(event);
-    console.log(this.cartList.indexOf(item));
     const index =this.cartList.indexOf(item);
+        console.log(index)
+
       if (event.key === "0" && index > -1) {
          this.cartList.splice(index,1);
          localStorage.setItem("ListCart",JSON.stringify(this.cartList));
-
-              console.log(this.cartList);
 
      }
        if (event === 0 && index > -1) {
          this.cartList.splice(index,1);
          localStorage.setItem("ListCart",JSON.stringify(this.cartList));
          
-              console.log(this.cartList);
-
      }
+
+  }
+  Increase(id,item)
+  {
+    console.log( id);
+      const Upquantity= this.cartList.find(x=> x.id ==id);
+        Upquantity.quantity++ ;
+          localStorage.setItem('ListCart',JSON.stringify(this.cartList));
+
+
+           const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
+           console.log( Upquantity);
+           if (Upquantity.quantity === 0 ) {
+         this.cartList.splice(index,1);
+         localStorage.setItem("ListCart",JSON.stringify(this.cartList));
+         
+     }
+     
+
+
+  } 
+
+  reduced(id,item)
+  {
+    console.log( id);
+  const Downquantity= this.cartList.find(x=> x.id ==id);
+      Downquantity.quantity-- ;
+          localStorage.setItem('ListCart',JSON.stringify(this.cartList));
+           console.log( Downquantity);
+
+
+     
+           const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
+           console.log( Downquantity);
+           if (Downquantity.quantity === 0 ) {
+         this.cartList.splice(index,1);
+         localStorage.setItem("ListCart",JSON.stringify(this.cartList));
+         
+     }
+
 
   }
 }

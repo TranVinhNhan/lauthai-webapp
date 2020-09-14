@@ -1,8 +1,7 @@
-<p>cart works!</p>
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid full-size" >
+	<div class="row" >
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover"  >
 				<thead>
 <!-- 					style="background-image: linear-gradient(to bottom right, #818ed2, #586de2);"
  -->					<tr >
@@ -10,7 +9,7 @@
 						<th>Tên</th>
 						<th>Profile</th>
 						<th>Trường</th>
-						<th>slot</th>
+						<th>shot</th>
 						<th>Tác vụ</th>
 					</tr>
 				</thead>
@@ -21,9 +20,9 @@
 						<td><img src="{{item.pfpUrl}}" style="height:100px ;width:100px"></td>
 						<td>{{item.university.name}}</td>						
 						<td >
-						 <button type="button" class="btn btn-danger" style="display: inline-block;">-</button>
+						 <button type="button" class="btn btn-danger bt-UpDown" (click)="reduced(item.id)" >-</button>
 							<input type="number" style="display: inline-block;" name="" (keypress)="CheckCount($event,item)" min=0 [style.width.px]="50" class="form-control" value="{{item.quantity}}">
-                         	<button  type="button" class="btn btn-success" style="display: inline-block;">+</button>
+                         	<button  type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,item)" >+</button>
   			
 						</td>
 						<td>
