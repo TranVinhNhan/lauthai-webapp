@@ -10,6 +10,8 @@ export interface IProfile {
   district: string;
   phone: string;
 
+
+  quantity:number;
   universityId?: number;
   university: IUniversity;
 }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
 import { Const } from './../../_models/consts/const';
+import { ICartItem } from './../../_models/interfaces/cartItem.interface';
 
 @Component({
   selector: 'app-client-data-table',
@@ -26,7 +27,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
-  cart: IProfile[]=[];
+  cart: ICartItem[]=[];
 
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
@@ -49,18 +50,75 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     this.loadProfiles();
   }
 
-  addProductToCart(carts)
+  addProductToCart(cartItem: IProfile)
   {
-
+      let item = {} as ICartItem;
+     item = Object.assign({}, cartItem);
    this.cart=JSON.parse(localStorage.getItem("ListCart"));
-   if(this.cart==undefined)
-   {
+   if(this.cart==undefined) // gio hang rong
+   { 
+  
+     item.universityName = cartItem.university.name;
+     item.quantity = 1;
      this.cart=[];
+     this.cart.push(item);
+      localStorage.setItem("ListCart",JSON.stringify(this.cart));
    }
+  else  // gio hang cp cart item
+  {
+   
+      const result = this.cart.find(el => el.id ==cartItem.id);
+      console.log(result);
+      item.quantity = 1;
+// check da co item cung loai chua? ++quantity : them sp moi
+      if (result != null) 
+    {
+      result.quantity++;
+      localStorage.setItem("ListCart",JSON.stringify(this.cart));
+
+    }
+    else
+    {
+      this.cart.push(item);
+      localStorage.setItem("ListCart",JSON.stringify(this.cart));
+    }
+
+
+
+    
+
+
+
+ 
+
+    //  for (var i = 0 ; i <this.cart.length; i++) 
+    // {
+    //     if (this.cart[].id== cartItem.id ) 
+    //     {
+    //      console.log(cartItem.id);
+    //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
+    //                 // console.log( this.cart[i].quantity);
+
+    //     }
+    //     else
+    //     {
+    //       this.cart.push(cartItem);
+    //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
+    //     }
+   
+    // }
+    
+   
+  }
+     
+
+   
+     // code...
+
     // this.productAdd.emit(product);
-    this.cart.push(carts);
-    console.log( this.cart);
-    localStorage.setItem("ListCart",JSON.stringify(this.cart));
+
+        console.log( this.cart);
+
 
    // if(localStorage!=null)
    //  {
