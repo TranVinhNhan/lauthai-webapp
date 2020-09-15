@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,16 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule // issue 1 + issue 2: navbar + footer
+    BrowserAnimationsModule, // issue 1 + issue 2: navbar + footer
+    JwtModule.forRoot({ // https://github.com/auth0/angular2-jwt
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        allowedDomains: ['http://localhost:5000'], // automatic attach token to request
+        disallowedRoutes: ['http://localhost:5000/api/auth'] // request does not send token
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -19,7 +19,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
-import { DetailPersonComponent } from './detail-person/detail-person.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { DetailPersonComponent } from './detail-person/detail-person.component';
     RegisterComponent,
     FooterComponent,
     CartComponent,
-    DetailPersonComponent
+    NavbarComponent
   ],
   imports: [
     CommonModule,

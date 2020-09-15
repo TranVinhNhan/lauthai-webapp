@@ -2,14 +2,24 @@
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
-body, html {
-    margin: 0;
-    padding: 0;
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
 
-a, a:hover {
-    text-decoration: none;
-    color: inherit;
+a,
+a:hover {
+  text-decoration: none;
+  color: inherit;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
