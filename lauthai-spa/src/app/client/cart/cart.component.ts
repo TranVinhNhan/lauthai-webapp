@@ -13,16 +13,14 @@ export class CartComponent implements OnInit {
   constructor() { }
   public StorCart :CartStore;
   public StorCartFirst :CartStore;
-  CountCart:number;
-  NewArray:any ;
    
   cartList: IProfile[]=[];
 
   ngOnInit(): void {
-  	console.log(JSON.parse(localStorage.getItem("ListCart")));
+  	// console.log(JSON.parse(localStorage.getItem("ListCart")));
   	// this.StorCart=JSON.parse(localStorage.getItem("product"));
   	this.cartList = JSON.parse(localStorage.getItem("ListCart"));
-    console.log(this.cartList.keys);
+    // console.log(this.cartList.keys);
      
   
 
@@ -34,7 +32,7 @@ export class CartComponent implements OnInit {
     CheckCount(event, item)
   {
     const index =this.cartList.indexOf(item);
-        console.log(index)
+        // console.log(index)
 
       if (event.key === "0" && index > -1) {
          this.cartList.splice(index,1);
@@ -48,43 +46,53 @@ export class CartComponent implements OnInit {
      }
 
   }
-  Increase(id,item)
+  Increase(id,event,item)
   {
     console.log( id);
       const Upquantity= this.cartList.find(x=> x.id ==id);
         Upquantity.quantity++ ;
           localStorage.setItem('ListCart',JSON.stringify(this.cartList));
 
-
-           const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
-           console.log( Upquantity);
-           if (Upquantity.quantity === 0 ) {
-         this.cartList.splice(index,1);
-         localStorage.setItem("ListCart",JSON.stringify(this.cartList));
          
-     }
+           const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
+
+           // console.log( Upquantity);
+           // console.log( index);
+     //       if (Upquantity.quantity === 0 && index > -1 ) 
+     //       {
+     //     this.cartList.splice(index,1);
+     //     localStorage.setItem("ListCart",JSON.stringify(this.cartList));
+         
+     // }
      
 
 
   } 
 
-  reduced(id,item)
+  reduced(id,event,item)
   {
     console.log( id);
   const Downquantity= this.cartList.find(x=> x.id ==id);
       Downquantity.quantity-- ;
           localStorage.setItem('ListCart',JSON.stringify(this.cartList));
-           console.log( Downquantity);
 
 
      
            const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
-           console.log( Downquantity);
-           if (Downquantity.quantity === 0 ) {
+           console.log( index);
+           console.log( event.key);
+           console.log( Downquantity.quantity);
+           if (Downquantity.quantity === 0 || event.key==='0' && index > -1 ) {
          this.cartList.splice(index,1);
          localStorage.setItem("ListCart",JSON.stringify(this.cartList));
          
      }
+
+     //       if (Downquantity.quantity === 0 && event.key==='0' ) {
+     //     this.cartList.splice(index,1);
+     //     localStorage.setItem("ListCart",JSON.stringify(this.cartList));
+         
+     // }
 
 
   }
