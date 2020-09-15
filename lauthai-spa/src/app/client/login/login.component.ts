@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 import { AuthService } from './../../_services/auth.service';
+import { ExtensionService } from './../../_services/extension.service';
 
 @Component({
   selector: 'app-client-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private extension: ExtensionService,
     private router: Router
   ) { }
 
@@ -32,20 +32,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, { duration: 2000 });
-  }
-
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(() => {
         if (this.authService.isAuthenticated()) {
           this.router.navigate(['/']);
-          this.openSnackBar('Đăng nhập thành công', 'Bỏ qua');
+          this.extension.openSnackBar('Đăng nhập thành công', 'Bỏ qua');
         }
       }, error => {
-        console.log(error.error);
-        this.openSnackBar(error.error, 'Bỏ qua');
       });
     }
   }

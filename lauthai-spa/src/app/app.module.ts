@@ -2,20 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JwtModule } from '@auth0/angular-jwt';
+import { httpInterceptorProviders } from './_services/error-handling-interceptor.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
     HttpClientModule,
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule, // issue 1 + issue 2: navbar + footer
+    MatSnackBarModule,
     JwtModule.forRoot({ // https://github.com/auth0/angular2-jwt
       config: {
         tokenGetter: () => {
@@ -26,7 +29,7 @@ import { JwtModule } from '@auth0/angular-jwt';
       }
     })
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

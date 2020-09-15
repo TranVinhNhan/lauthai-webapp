@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IRegister } from 'src/app/_models/interfaces/register.interface';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 @Component({
   selector: 'app-client-register',
@@ -16,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private extension: ExtensionService,
     private router: Router
     ) { }
 
@@ -40,10 +39,6 @@ export class RegisterComponent implements OnInit {
     return { matchPassword: true };
   }
 
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, { duration: 2000 });
-  }
-
   onSubmit(): void {
     if (this.registerForm.valid) {
       const info = {
@@ -53,17 +48,17 @@ export class RegisterComponent implements OnInit {
       };
 
       this.authService.register(info).subscribe((response: any) => {
-        console.log(response);
-        this.openSnackBar('Đăng kí tài khoản thành công', 'Bỏ qua');
+        // console.log(response);
+        this.extension.openSnackBar('Đăng kí tài khoản thành công', 'Bỏ qua');
       }, error => {
         console.log(error);
-        this.openSnackBar(error.error, 'Bỏ qua');
+        this.extension.openSnackBar(error.error, 'Bỏ qua');
       }, () => {
         const account = { username: info.username, password: info.password };
         this.authService.login(account).subscribe((response: any) => {
-          console.log(response);
+          // console.log(response);
           this.router.navigate(['/']);
-        }, error => this.openSnackBar(error.error, 'Bỏ qua'));
+        }, error => this.extension.openSnackBar(error.error, 'Bỏ qua'));
       });
     }
   }
