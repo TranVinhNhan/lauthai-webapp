@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -13,14 +13,18 @@ export class RegisterComponent implements OnInit {
   hidePwd = true;
   hideCfmPwd = true;
   registerForm: FormGroup;
+  isAuthenticated = false;
+
+  @Output() changeTabIndex = new EventEmitter<number>();
   constructor(
     private authService: AuthService,
     private extension: ExtensionService,
     private router: Router
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.initRegisterForm();
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   initRegisterForm(): void {
@@ -37,6 +41,10 @@ export class RegisterComponent implements OnInit {
       return null;
     }
     return { matchPassword: true };
+  }
+
+  onChangeToLoginTab(): void {
+    this.changeTabIndex.emit(0);
   }
 
   onSubmit(): void {

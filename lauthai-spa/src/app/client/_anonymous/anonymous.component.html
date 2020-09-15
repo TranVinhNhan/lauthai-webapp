@@ -1,0 +1,8 @@
+<mat-toolbar color="primary">
+  <span>Lauthai.org</span>
+</mat-toolbar>
+<mat-tab-group dynamicHeight [(selectedIndex)]="currentIndex">
+  <mat-tab label="Đăng nhập"> <app-client-login (changeTabIndex)="onChangeTab($event)"></app-client-login> </mat-tab>
+  <mat-tab label="Đăng kí"> <app-client-register (changeTabIndex)="onChangeTab($event)"></app-client-register> </mat-tab>
+  <mat-tab label="Feedback"> <app-client-feedback></app-client-feedback> </mat-tab>
+</mat-tab-group>

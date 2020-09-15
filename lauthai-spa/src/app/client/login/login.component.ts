@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -14,6 +14,9 @@ export class LoginComponent implements OnInit {
   hide = true;
   loginForm: FormGroup;
   errorText: string;
+  isAuthenticated = false;
+
+  @Output() changeTabIndex = new EventEmitter<number>();
 
   constructor(
     private authService: AuthService,
@@ -23,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLoginForm();
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   initLoginForm(): void {
@@ -30,6 +34,10 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+  }
+
+  onChangeToRegisterTab(): void {
+    this.changeTabIndex.emit(1);
   }
 
   onSubmit(): void {
