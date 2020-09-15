@@ -18,7 +18,7 @@
   <mat-sidenav class="sidenav-container__sidenav padding-toolbar" #sidenav>
     <mat-nav-list>
       <mat-list-item routerLinkActive="active">
-        <a matLine routerLink="/admin">
+        <a matLine routerLink="/admin" (click)="sidenav.toggle()">
           <mat-icon>dashboard</mat-icon>
           <span class="link-caption">Dashboard</span>
         </a>

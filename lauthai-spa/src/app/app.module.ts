@@ -7,11 +7,14 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { httpInterceptorProviders } from './_services/error-handling-interceptor.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminGuard } from './_guards/admin.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent // https://codepen.io/ckroll17/pen/MzWgLo
   ],
   imports: [
     HttpClientModule,
@@ -29,7 +32,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
       }
     })
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

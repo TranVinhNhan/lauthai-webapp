@@ -36,8 +36,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(() => {
         if (this.authService.isAuthenticated()) {
-          this.router.navigate(['/']);
-          this.extension.openSnackBar('Đăng nhập thành công', 'Bỏ qua');
+          if (this.authService.decodedToken.role === 'Admin') {
+            this.router.navigate(['/admin']);
+            this.extension.openSnackBar('Đăng nhập thành công dưới quyền Admin', 'Bỏ qua', 5000);
+          } else {
+            this.router.navigate(['/']);
+            this.extension.openSnackBar('Đăng nhập thành công', 'Bỏ qua', 5000);
+          }
         }
       }, error => {
       });
