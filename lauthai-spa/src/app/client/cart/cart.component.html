@@ -17,12 +17,12 @@
 					<tr *ngFor="let item of cartList" >
 						<td [routerLink]="['/detail-person',item.id]">{{item.id}}</td>
 						<td [routerLink]="['/detail-person',item.id]">{{item.name}}</td>
-						<td [routerLink]="['/detail-person',item.id]"><img src="{{item.pfpUrl}}" style="height:auto; ;width:auto"></td>
+						<td [routerLink]="['/detail-person',item.id]"><img src="{{item.pfpUrl}}" class="imag-avatar"></td>
 						<td [routerLink]="['/detail-person',item.id]">{{item.university.name}}</td>						
 						<td >
-						 <button type="button" class="btn btn-danger bt-UpDown" (click)="reduced(item.id)" >-</button>
+						 <button type="button" class="btn btn-danger bt-UpDown" (click)="reduced(item.id,$event,item)" >-</button>
 							<input type="number" style="display: inline-block;" name="" (keypress)="CheckCount($event,item)" min=0 [style.width.px]="50" class="form-control" value="{{item.quantity}}">
-                         	<button  type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,item)" >+</button>
+                         	<button  type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,$event,item)" >+</button>
   			
 						</td>
 						<td>
