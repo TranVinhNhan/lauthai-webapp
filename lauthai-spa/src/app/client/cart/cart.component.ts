@@ -13,8 +13,6 @@ export class CartComponent implements OnInit {
   constructor() { }
   public StorCart :CartStore;
   public StorCartFirst :CartStore;
-  CountCart:number;
-  NewArray:any ;
    
   cartList: IProfile[]=[];
 
