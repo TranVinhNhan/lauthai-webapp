@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 @Component({
   selector: 'app-client-navbar',
@@ -11,14 +12,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private snackBar: MatSnackBar
+    private extension: ExtensionService
     ) { }
 
   ngOnInit(): void {
-  }
-
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, { duration: 2000 });
   }
 
   getUsername(): string {
@@ -27,6 +24,6 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.openSnackBar('Đăng xuất thành công', 'Bỏ qua');
+    this.extension.openSnackBar('Đăng xuất thành công', 'Bỏ qua');
   }
 }

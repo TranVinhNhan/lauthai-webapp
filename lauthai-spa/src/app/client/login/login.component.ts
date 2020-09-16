@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 import { AuthService } from './../../_services/auth.service';
+import { ExtensionService } from './../../_services/extension.service';
 
 @Component({
   selector: 'app-client-login',
@@ -14,15 +14,19 @@ export class LoginComponent implements OnInit {
   hide = true;
   loginForm: FormGroup;
   errorText: string;
+  isAuthenticated = false;
+
+  @Output() changeTabIndex = new EventEmitter<number>();
 
   constructor(
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private extension: ExtensionService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initLoginForm();
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   initLoginForm(): void {
@@ -32,20 +36,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, { duration: 2000 });
+  onChangeToRegisterTab(): void {
+    this.changeTabIndex.emit(1);
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(() => {
         if (this.authService.isAuthenticated()) {
-          this.router.navigate(['/']);
-          this.openSnackBar('Đăng nhập thành công', 'Bỏ qua');
+          if (this.authService.decodedToken.role === 'Admin') {
+            this.router.navigate(['/admin']);
+            this.extension.openSnackBar('Đăng nhập thành công dưới quyền Admin', 'Bỏ qua', 5000);
+          } else {
+            this.router.navigate(['/']);
+            this.extension.openSnackBar('Đăng nhập thành công', 'Bỏ qua', 5000);
+          }
         }
       }, error => {
-        console.log(error.error);
-        this.openSnackBar(error.error, 'Bỏ qua');
       });
     }
   }

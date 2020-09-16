@@ -33,6 +33,7 @@
 
     <button type="submit" [disabled]="!this.registerForm.valid" class="form-register__btn" mat-flat-button
       color="primary">Register</button>
-    <mat-hint>Đã có tài khoản? <a class="form-register__hyperlink" href="#">Đăng nhập tại đây</a></mat-hint>
+    <mat-hint *ngIf="isAuthenticated">Đã có tài khoản? <a class="form-register__hyperlink" routerLink="/login">Đăng nhập tại đây</a></mat-hint>
+    <mat-hint *ngIf="!isAuthenticated">Đã có tài khoản? <a class="form-register__hyperlink" (click)="onChangeToLoginTab()">Đăng nhập tại đây</a></mat-hint>
   </div>
 </form>

@@ -1,4 +1,5 @@
-<app-client-navbar>
+<app-client-navbar *ngIf="this.authService.isAuthenticated()">
   <router-outlet></router-outlet>
   <app-client-footer></app-client-footer>
 </app-client-navbar>
+<app-anonymous *ngIf="!this.authService.isAuthenticated()"></app-anonymous>

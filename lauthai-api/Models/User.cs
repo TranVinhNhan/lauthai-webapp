@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace lauthai_api.Models
 {
     public class User
@@ -7,9 +10,12 @@ namespace lauthai_api.Models
         public string Role { get; set; }
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
+        public ICollection<Feedback> Feedbacks { get; set; }
         public User()
-        { 
+        {
             Role = "User";
+            Feedbacks = new Collection<Feedback>();
         }
+
     }
 }

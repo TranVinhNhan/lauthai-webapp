@@ -16,6 +16,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+
+import { ExtensionService } from '../_services/extension.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -36,7 +39,11 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSortModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
+  ],
+  providers: [
+    ExtensionService
   ]
 })
 export class SharedModule { }

@@ -21,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AnonymousComponent } from './_anonymous/anonymous.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegisterComponent,
     FooterComponent,
     CartComponent,
-    NavbarComponent
+    NavbarComponent,
+    AnonymousComponent,
+    FeedbackComponent
   ],
   imports: [
     CommonModule,
