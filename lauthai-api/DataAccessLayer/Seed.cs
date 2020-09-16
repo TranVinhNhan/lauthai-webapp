@@ -17,7 +17,7 @@ namespace lauthai_api.DataAccessLayer.Data
         {
             if (!_context.Profiles.Any())
             {
-                var universityData = System.IO.File.ReadAllText("Data/Profiles.json");
+                var universityData = System.IO.File.ReadAllText("DataAccessLayer/Profiles.json");
                 var universities = JsonConvert.DeserializeObject<List<University>>(universityData);
 
                 foreach (var uni in universities)

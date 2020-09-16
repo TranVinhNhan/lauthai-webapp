@@ -15,8 +15,8 @@ const routes: Routes = [
     component: ClientComponent,
     children: [
       { path: '', component: HomeComponent},
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      // { path: 'login', component: LoginComponent },
+      // { path: 'register', component: RegisterComponent },
       { path: 'cart', component: CartComponent },
       { path: 'detail-person/:id', component: DetailPersonComponent },
     ]

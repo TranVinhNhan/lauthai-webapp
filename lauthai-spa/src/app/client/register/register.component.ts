@@ -59,14 +59,16 @@ export class RegisterComponent implements OnInit {
         // console.log(response);
         this.extension.openSnackBar('Đăng kí tài khoản thành công', 'Bỏ qua');
       }, error => {
-        console.log(error);
-        this.extension.openSnackBar(error.error, 'Bỏ qua');
+        // console.log(error);
+        // this.extension.openSnackBar(error.error, 'Bỏ qua');
       }, () => {
         const account = { username: info.username, password: info.password };
         this.authService.login(account).subscribe((response: any) => {
           // console.log(response);
           this.router.navigate(['/']);
-        }, error => this.extension.openSnackBar(error.error, 'Bỏ qua'));
+        }, error => {
+          // this.extension.openSnackBar(error.error, 'Bỏ qua');
+        });
       });
     }
   }

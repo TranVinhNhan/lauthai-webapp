@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace lauthai_api.Models
 {
@@ -8,5 +9,9 @@ namespace lauthai_api.Models
         public string Name { get; set; }
 
         public ICollection<Profile> Profiles { get; set; }
+        public University()
+        {
+            Profiles = new Collection<Profile>();
+        }
     }
 }

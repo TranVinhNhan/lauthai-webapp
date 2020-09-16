@@ -6,7 +6,7 @@ import { AdminGuard } from './_guards/admin.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./client/client.module').then((m) => m.ClientModule),
+    loadChildren: () => import('./client/client.module').then((m) => m.ClientModule)
   },
   {
     path: 'admin',

@@ -11,7 +11,7 @@ export interface IProfile {
   phone: string;
 
 
-  quantity:number;
+  quantity: number;
   universityId?: number;
   university: IUniversity;
 }
