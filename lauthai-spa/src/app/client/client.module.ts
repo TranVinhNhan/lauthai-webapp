@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -38,6 +39,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     CommonModule,
     ClientRoutingModule,
     SharedModule,
+
 
     CarouselModule.forRoot()
   ]
