@@ -61,11 +61,13 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result: number) => {
-      this.profileService.deleteProfile(result).subscribe(() => {
-        this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
-        this.dataSource = new MatTableDataSource(this.profiles);
-        this.loadPaginator();
-      }, error => { });
+      if (result) {
+        this.profileService.deleteProfile(result).subscribe(() => {
+          this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
+          this.dataSource = new MatTableDataSource(this.profiles);
+          this.loadPaginator();
+        }, error => { });
+      }
     });
   }
 

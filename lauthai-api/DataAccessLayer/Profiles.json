@@ -9,7 +9,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 1",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Thị B",
@@ -18,7 +19,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 2",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Thị C",
@@ -27,7 +29,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 3",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Thị D",
@@ -36,7 +39,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 4",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Thị E",
@@ -45,7 +49,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 5",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Thị F",
@@ -54,7 +59,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận 6",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             }
         ]
     },
@@ -68,7 +74,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Ngọc B",
@@ -77,7 +84,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Ngọc C",
@@ -86,7 +94,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Ngọc D",
@@ -95,7 +104,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Ngọc E",
@@ -104,7 +114,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             },
             {
                 "Name": "Ngọc F",
@@ -113,7 +124,8 @@
                 "Job": "Sinh viên",
                 "MarriedStatus": "Chưa kết hôn",
                 "District": "Quận Tân Bình",
-                "Phone": "0123456789"
+                "Phone": "0123456789",
+                "Price": 300000
             }
         ]
     }

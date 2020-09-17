@@ -62,6 +62,8 @@ namespace lauthai_api.Controllers
                 var newProfile = _mapper.Map<Models.Profile>(profileToCreateDto);
                 uni.Profiles.Add(newProfile);
 
+                var profileToReturn = new Models.Profile();
+
                 if (await _uow.SaveAll())
                 {
                     return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
@@ -73,10 +75,10 @@ namespace lauthai_api.Controllers
 
             if (await _uow.SaveAll())
             {
-                return StatusCode(201);
+                return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
             }
 
-            return BadRequest("Cannot create profile");
+            throw new System.Exception("Cannot create profile");
         }
 
         [HttpPut("{id}")]
@@ -92,7 +94,7 @@ namespace lauthai_api.Controllers
             if (await _uow.SaveAll())
                 return NoContent();
 
-            return BadRequest("Cannot update new profile");
+            throw new System.Exception("Cannot update profile");
         }
 
         [HttpDelete("{id}")]
@@ -107,7 +109,7 @@ namespace lauthai_api.Controllers
                     return NoContent();
             }
 
-            return BadRequest("Cannot delete profile");
+            throw new System.Exception("Cannot delete profile");
         }
     }
 }

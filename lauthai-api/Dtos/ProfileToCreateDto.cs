@@ -9,6 +9,7 @@ namespace lauthai_api.Dtos
         public string MarriedStatus { get; set; }
         public string District { get; set; }
         public string Phone { get; set; }
+        public string Price { get; set; }
         public int? UniversityId { get; set; }
     }
 }

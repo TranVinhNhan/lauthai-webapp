@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild,Input,EventEmitter,Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,14 +20,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() product:any;
-  @Output() productAdd=new EventEmitter();
+  @Input() product: any;
+  @Output() productAdd = new EventEmitter();
 
 
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
-  cart: ICartItem[]=[];
+  cart: ICartItem[] = [];
 
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
@@ -50,86 +50,30 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     this.loadProfiles();
   }
 
-  addProductToCart(cartItem: IProfile)
-  {
-      let item = {} as ICartItem;
-     item = Object.assign({}, cartItem);
-   this.cart=JSON.parse(localStorage.getItem("ListCart"));
-   if(this.cart==undefined) // gio hang rong
-   {
+  addProductToCart(cartItem: IProfile): void {
+    let item = {} as ICartItem;
+    item = Object.assign({}, cartItem);
+    this.cart = JSON.parse(localStorage.getItem('ListCart'));
+    if (this.cart === undefined) // gio hang rong
+    {
 
-     item.universityName = cartItem.university.name;
-     item.quantity = 1;
-     this.cart=[];
-     this.cart.push(item);
-      localStorage.setItem("ListCart",JSON.stringify(this.cart));
-   }
-  else  // gio hang cp cart item
-  {
-
-      const result = this.cart.find(el => el.id ==cartItem.id);
-      console.log(result);
+      item.universityName = cartItem.university.name;
       item.quantity = 1;
-// check da co item cung loai chua? ++quantity : them sp moi
-      if (result != null)
-    {
-      result.quantity++;
-      localStorage.setItem("ListCart",JSON.stringify(this.cart));
-
-    }
-    else
-    {
+      this.cart = [];
       this.cart.push(item);
-      localStorage.setItem("ListCart",JSON.stringify(this.cart));
+      localStorage.setItem('ListCart', JSON.stringify(this.cart));
+    } else { // gio hang cp cart item
+      const result = this.cart.find(el => el.id === cartItem.id);
+      item.quantity = 1;
+      // check da co item cung loai chua? ++quantity : them sp moi
+      if (result != null) {
+        result.quantity++;
+        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+
+      } else {
+        this.cart.push(item);
+        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+      }
     }
-
-
-
-
-
-
-
-
-
-    //  for (var i = 0 ; i <this.cart.length; i++)
-    // {
-    //     if (this.cart[].id== cartItem.id )
-    //     {
-    //      console.log(cartItem.id);
-    //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
-    //                 // console.log( this.cart[i].quantity);
-
-    //     }
-    //     else
-    //     {
-    //       this.cart.push(cartItem);
-    //         localStorage.setItem("ListCart",JSON.stringify(this.cart));
-    //     }
-
-    // }
-
-
-  }
-
-
-
-     // code...
-
-    // this.productAdd.emit(product);
-
-        console.log( this.cart);
-
-
-   // if(localStorage!=null)
-   //  {
-   //     this.cart.push(carts);
-   //        localStorage.setItem("ListCart",JSON.stringify(this.cart));
-   //  }else
-   //  {
-   //     this.cart.push(carts);
-   //        localStorage.setItem("ListCart",JSON.stringify(this.cart));
-   //  }
-
-
   }
 }
