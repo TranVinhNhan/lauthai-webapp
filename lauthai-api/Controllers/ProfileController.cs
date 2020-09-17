@@ -38,6 +38,16 @@ namespace lauthai_api.Controllers
             return NotFound();
         }
 
+        [HttpGet("{id}", Name = "GetProfileById")]
+        public async Task<IActionResult> GetProfileById(int id)
+        {
+            var profile = await _uow.ProfileRepository.GetProfileById(id);
+            if (profile == null)
+                return NotFound();
+
+            return Ok(profile);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddProfile(ProfileToCreateDto profileToCreateDto)
         {
@@ -54,7 +64,7 @@ namespace lauthai_api.Controllers
 
                 if (await _uow.SaveAll())
                 {
-                    return StatusCode(201);
+                    return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
                 }
             }
 
@@ -80,7 +90,7 @@ namespace lauthai_api.Controllers
             _uow.ProfileRepository.Update(profileNeedToUpdate);
 
             if (await _uow.SaveAll())
-                return Ok("Profile updated successfully");
+                return NoContent();
 
             return BadRequest("Cannot update new profile");
         }
@@ -89,7 +99,6 @@ namespace lauthai_api.Controllers
         public async Task<IActionResult> DeleteProfile(int id)
         {
             var profile = await _uow.ProfileRepository.GetProfileById(id);
-
             if (profile != null)
             {
                 _uow.ProfileRepository.Delete(profile);
