@@ -9,6 +9,7 @@ export interface IProfile {
   marriedStatus: string;
   district: string;
   phone: string;
+  price: number;
 
 
   quantity: number;

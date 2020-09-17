@@ -75,10 +75,10 @@ namespace lauthai_api.Controllers
 
             if (await _uow.SaveAll())
             {
-                return StatusCode(201);
+                return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
             }
 
-            return BadRequest("Cannot create profile");
+            throw new System.Exception("Cannot create profile");
         }
 
         [HttpPut("{id}")]
@@ -94,7 +94,7 @@ namespace lauthai_api.Controllers
             if (await _uow.SaveAll())
                 return NoContent();
 
-            return BadRequest("Cannot update new profile");
+            throw new System.Exception("Cannot update profile");
         }
 
         [HttpDelete("{id}")]
@@ -109,7 +109,7 @@ namespace lauthai_api.Controllers
                     return NoContent();
             }
 
-            return BadRequest("Cannot delete profile");
+            throw new System.Exception("Cannot delete profile");
         }
     }
 }

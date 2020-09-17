@@ -20,10 +20,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 
 import { ExtensionService } from '../_services/extension.service';
+import { PricePipe } from '../_pipes/price.pipe';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [],
+  declarations: [PricePipe],
   exports: [
     CommonModule,
     FormsModule,
@@ -42,7 +43,9 @@ import { ExtensionService } from '../_services/extension.service';
     MatSnackBarModule,
     MatMenuModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+
+    PricePipe
   ],
   providers: [
     ExtensionService
