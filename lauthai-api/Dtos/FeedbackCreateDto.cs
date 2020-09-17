@@ -1,8 +1,8 @@
 using System;
 
-namespace lauthai_api.Models
+namespace lauthai_api.Dtos
 {
-    public class Feedback
+    public class FeedbackCreateDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +11,6 @@ namespace lauthai_api.Models
         public string FeedbackTxt { get; set; }
 
         public int? UserId { get; set; }
-        public User User { get; set; }
+
     }
 }

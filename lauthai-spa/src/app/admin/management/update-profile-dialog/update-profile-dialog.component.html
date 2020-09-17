@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Cập nhật profile</h1>
 <div mat-dialog-content>
-  <form [formGroup]="updateForm" class="create-form">
+  <form [formGroup]="updateForm" class="update-form">
     <table class="full-width" cellspacing="0">
       <tr>
         <td>
@@ -17,18 +17,35 @@
         </td>
       </tr>
     </table>
+    <table>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFetching" class="full-width">
+            <mat-label>Trường</mat-label>
+            <mat-select formControlName="universityId">
+              <mat-option *ngFor="let uni of universities" [value]="uni.id">{{ uni.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p *ngIf="isFetching">Loading...</p>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Telephone</mat-label>
+            <span matPrefix>+84 &nbsp;</span>
+            <input formControlName="phone" type="tel" matInput placeholder="771234567">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
 
-    <mat-form-field class="full-width">
-      <mat-label>Trường</mat-label>
-      <input formControlName="university" matInput placeholder="Ex. HUFLIT">
-    </mat-form-field>
 
     <table class="full-width" cellspacing="0">
       <tr>
         <td>
           <mat-form-field class="full-width">
             <mat-label>Công việc hiện tại</mat-label>
-            <input formControlName="job" matInput >
+            <input formControlName="job" matInput>
           </mat-form-field>
         </td>
         <td>
@@ -48,12 +65,15 @@
             <input formControlName="district" matInput placeholder="Ex. Quận 10">
           </mat-form-field>
         </td>
+      </tr>
+    </table>
+
+    <table class="full-width" cellspacing="0">
+      <tr>
         <td>
           <mat-form-field class="full-width">
-            <mat-label>Telephone</mat-label>
-            <span matPrefix>+84 &nbsp;</span>
-            <input formControlName="phone" type="tel" matInput  placeholder="771234567">
-            <mat-icon matSuffix>mode_edit</mat-icon>
+            <mat-label>Link ảnh đại diện</mat-label>
+            <input formControlName="pfpUrl" matInput placeholder="">
           </mat-form-field>
         </td>
       </tr>

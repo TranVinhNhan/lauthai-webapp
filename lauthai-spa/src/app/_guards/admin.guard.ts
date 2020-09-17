@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
       if (this.authService.isAuthenticated() && this.authService.decodedToken.role !== 'Admin') {
         this.router.navigate(['/not-found']);
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       }
     }
   }

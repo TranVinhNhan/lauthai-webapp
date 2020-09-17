@@ -27,8 +27,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         tokenGetter: () => {
           return localStorage.getItem('token');
         },
-        allowedDomains: ['http://localhost:5000'], // automatic attach token to request
-        disallowedRoutes: ['http://localhost:5000/api/auth'] // request does not send token
+        allowedDomains: ['localhost:5000'], // automatic attach token to request
+        disallowedRoutes: ['localhost:5000/api/auth'] // request does not send token
       }
     })
   ],

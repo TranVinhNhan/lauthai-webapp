@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { IFeedback } from 'src/app/_models/interfaces/feedback.interface';
-import { AuthService } from './../../_services/auth.service'
+import { FeedbackService } from './../../_services/feedback.service'
 
 @Component({
   selector: 'app-client-feedback',
@@ -18,7 +18,7 @@ export class FeedbackComponent implements OnInit {
   feedbackForm: FormGroup;
 
   constructor(
-    public authservice: AuthService,
+    public feedbackService: FeedbackService,
     //  public route:Route
 
   ) {
@@ -27,14 +27,13 @@ export class FeedbackComponent implements OnInit {
 
   ngOnInit(): void {
     this.initfeedbackForm();
-    console.log(2);
 
   }
   initfeedbackForm(): void {
     this.feedbackForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      content: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      Name: new FormControl('', Validators.required),
+      ContactEmail: new FormControl('', Validators.required),
+      FeedbackTxt: new FormControl('', Validators.required),
     })
   }
   SubmitFeedback() {
@@ -45,12 +44,12 @@ export class FeedbackComponent implements OnInit {
     // })
     if (this.feedbackForm.valid) {
       const info = {
-        name: this.feedbackForm.get('name').value,
-        email: this.feedbackForm.get('email').value,
-        content: this.feedbackForm.get('content').value,
+        Name: this.feedbackForm.get('Name').value,
+        ContactEmail: this.feedbackForm.get('ContactEmail').value,
+        FeedbackTxt: this.feedbackForm.get('FeedbackTxt').value,
       }
       //  console.log(info)
-      this.authservice.feedback(info).subscribe(a=>{
+      this.feedbackService.feedback(info).subscribe(a=>{
               console.log(a);
 
       })
