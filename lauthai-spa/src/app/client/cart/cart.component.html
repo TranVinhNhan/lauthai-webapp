@@ -4,7 +4,7 @@
 			<table class="table table-bordered table-hover"    >
 				<thead>
 <!-- 					style="background-image: linear-gradient(to bottom right, #818ed2, #586de2);"
- -->					<tr >
+ -->				<tr >
 						<th>ID</th>
 						<th>Tên</th>
 						<th>Profile</th>
@@ -20,16 +20,22 @@
 						<td [routerLink]="['/detail-person',item.id]"><img src="{{item.pfpUrl}}" class="imag-avatar"></td>
 						<td [routerLink]="['/detail-person',item.id]">{{item.university.name}}</td>						
 						<td >
-						 <button type="button" class="btn btn-danger bt-UpDown" (click)="reduced(item.id,$event,item)" >-</button>
-							<input type="number" style="display: inline-block;" name="" (keypress)="CheckCount($event,item)" min=0 [style.width.px]="50" class="form-control" value="{{item.quantity}}">
-                         	<button  type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,$event,item)" >+</button>
+						 <button type="button" class="btn btn-danger bt-UpDown" (click)="reduced(item.id,item)" >-</button>
+
+							<input type="number" style="display: inline-block;" oninput="validity.valid||(value='');" (keypress)="CheckCount($event,item)" min="0" [style.width.px]="50" class="form-control" value="{{item.quantity}}">
+
+
+                         	<button  type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,item)" >+</button>
   			
 						</td>
 						<td>
 							<button type="button" class="btn btn-danger" (click)="CheckCount(0,item)">Xóa</button>
 						</td>
 					</tr >
-				</tbody>
+		   
+				</tbody>	
+		
+
 			</table>
 		</div>
 	</div>

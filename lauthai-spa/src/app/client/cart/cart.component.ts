@@ -31,10 +31,13 @@ export class CartComponent implements OnInit {
   }
     CheckCount(event, item)
   {
+    console.log(event.keycode);
     const index =this.cartList.indexOf(item);
-        // console.log(index)
+    const Downquantity= this.cartList.find(x=> x.id ==item.id);
+    localStorage.setItem('ListCart',JSON.stringify(this.cartList));
+   
 
-      if (event.key === "0" && index > -1) {
+      if (event.key === "0"|| event.keycode<=0 ||Downquantity.quantity<0 && index > -1) {
          this.cartList.splice(index,1);
          localStorage.setItem("ListCart",JSON.stringify(this.cartList));
 
@@ -46,7 +49,7 @@ export class CartComponent implements OnInit {
      }
 
   }
-  Increase(id,event,item)
+  Increase(id,item)
   {
     console.log( id);
       const Upquantity= this.cartList.find(x=> x.id ==id);
@@ -69,7 +72,7 @@ export class CartComponent implements OnInit {
 
   } 
 
-  reduced(id,event,item)
+  reduced(id,item)
   {
     console.log( id);
   const Downquantity= this.cartList.find(x=> x.id ==id);
@@ -80,9 +83,10 @@ export class CartComponent implements OnInit {
      
            const index =this.cartList.indexOf(item); //vị trí của object trong mảng  và event lấy số lượng trong input
            console.log( index);
-           console.log( event.key);
+   
            console.log( Downquantity.quantity);
-           if (Downquantity.quantity === 0 || event.key==='0' && index > -1 ) {
+           if (Downquantity.quantity === 0  && index > -1 )
+     {
          this.cartList.splice(index,1);
          localStorage.setItem("ListCart",JSON.stringify(this.cartList));
          
