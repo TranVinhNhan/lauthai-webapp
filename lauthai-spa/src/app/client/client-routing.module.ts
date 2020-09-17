@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
 import { DetailPersonComponent } from './detail-person/detail-person.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -14,11 +15,10 @@ const routes: Routes = [
     path: '',
     component: ClientComponent,
     children: [
-      { path: '', component: HomeComponent},
-      // { path: 'login', component: LoginComponent },
-      // { path: 'register', component: RegisterComponent },
+      { path: '', component: HomeComponent },
       { path: 'cart', component: CartComponent },
       { path: 'detail-person/:id', component: DetailPersonComponent },
+      { path: 'checkout', component: CheckoutComponent }
     ]
   }
 ];

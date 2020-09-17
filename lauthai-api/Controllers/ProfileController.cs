@@ -62,6 +62,8 @@ namespace lauthai_api.Controllers
                 var newProfile = _mapper.Map<Models.Profile>(profileToCreateDto);
                 uni.Profiles.Add(newProfile);
 
+                var profileToReturn = new Models.Profile();
+
                 if (await _uow.SaveAll())
                 {
                     return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
