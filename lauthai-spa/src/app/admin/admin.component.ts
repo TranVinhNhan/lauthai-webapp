@@ -1,4 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +10,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   screenWidth: number;
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event): void {
@@ -19,4 +21,12 @@ export class AdminComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
+  isTokenNotExpired(): boolean {
+    if (this.authService.isAuthenticated()) {
+      return true;
+    } else {
+      this.router.navigate(['/']);
+      return false;
+    }
+  }
 }
