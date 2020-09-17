@@ -26,7 +26,7 @@ namespace lauthai_api.Controllers
             _mapper = mapper;
             _config = config;
         }
-
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserToCreateDto userToCreateDto)
         {

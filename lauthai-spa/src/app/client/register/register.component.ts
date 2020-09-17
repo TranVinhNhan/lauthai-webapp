@@ -48,7 +48,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid)
+     {
       const info = {
         username: this.registerForm.get('username').value,
         password: this.registerForm.get('password').value,

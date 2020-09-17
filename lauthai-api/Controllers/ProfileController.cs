@@ -28,16 +28,16 @@ namespace lauthai_api.Controllers
 
         [AllowAnonymous]
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllProfiles()
+        public async Task<IActionResult> GetAllProfiles() //lấy tất cả sinh viên  , async bất đồ bộ cho cả hàm , Task : kiểu trả về bất đồng bộ 
         {
             var profiles = await _uow.ProfileRepository.GetAllProfiles();
 
             if (profiles != null)
-                return Ok(profiles);
-
+                return Ok(profiles);// OK là bộ phản hồi của .net
             return NotFound();
-        }
 
+
+        }
         [HttpPost]
         public async Task<IActionResult> AddProfile(ProfileToCreateDto profileToCreateDto)
         {

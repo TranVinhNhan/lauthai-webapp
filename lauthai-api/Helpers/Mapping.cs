@@ -5,7 +5,7 @@ namespace lauthai_api.Helpers
 {
     public class Mapping: Profile
     {
-        public Mapping()
+        public Mapping()// thay vì 
         {
             CreateMap<ProfileToCreateDto, Models.Profile>();
             CreateMap<ProfileToUpdateDto, Models.Profile>();
