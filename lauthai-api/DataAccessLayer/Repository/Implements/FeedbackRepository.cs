@@ -34,6 +34,8 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
         public async Task<Feedback> GetFeedbackById(int id)
         {
             var getFeedbackById = await _context.Feedbacks.FirstOrDefaultAsync(a => a.Id == id);
+
+        
             return getFeedbackById;
         }
     }
