@@ -45,8 +45,6 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CommonModule,
     ClientRoutingModule,
     SharedModule,
-
-
     CarouselModule.forRoot()
   ]
 })

@@ -18,6 +18,10 @@ export class ProfileService {
     return this.http.get<IProfile[]>(this.baseUrl + 'profile/all');
   }
 
+  getProfileById(id: number): Observable<IProfile> {
+    return this.http.get<IProfile>(this.baseUrl + 'profile/' + id);
+  }
+
   addProfile(model: any): Observable<IProfile> {
     return this.http.post<IProfile>(this.baseUrl + 'profile', model);
   }
