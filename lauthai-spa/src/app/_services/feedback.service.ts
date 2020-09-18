@@ -22,4 +22,8 @@ export class FeedbackService {
     return this.http.post(this.baseUrl + 'feedback', feedback);
   }
 
+     getFeedback(): Observable<any[]> {
+    return this.http.get<any>(this.baseUrl + 'feedback/all');
+  }
+
 }

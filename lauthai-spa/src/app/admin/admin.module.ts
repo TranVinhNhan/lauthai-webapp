@@ -10,6 +10,7 @@ import { CreateProfileDialogComponent } from './management/create-profile-dialog
 import { UpdateProfileDialogComponent } from './management/update-profile-dialog/update-profile-dialog.component';
 import { DeleteProfileDialogComponent } from './management/delete-profile-dialog/delete-profile-dialog.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     CreateProfileDialogComponent,
     UpdateProfileDialogComponent,
     DeleteProfileDialogComponent,
-    NavbarComponent
+    NavbarComponent,
+    FeedbackComponent
   ],
   imports: [
     CommonModule,

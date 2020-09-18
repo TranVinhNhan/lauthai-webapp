@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent // https://codepen.io/ckroll17/pen/MzWgLo
+    PageNotFoundComponent,
   ],
   imports: [
     HttpClientModule,

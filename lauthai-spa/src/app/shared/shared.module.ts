@@ -21,10 +21,12 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ExtensionService } from '../_services/extension.service';
 import { PricePipe } from '../_pipes/price.pipe';
+import { AmountCharPipe } from './../_pipes/amount-char.pipe';
+
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [PricePipe],
+  declarations: [PricePipe ,AmountCharPipe] ,
   exports: [
     CommonModule,
     FormsModule,
@@ -45,7 +47,8 @@ import { PricePipe } from '../_pipes/price.pipe';
     MatTabsModule,
     MatSelectModule,
 
-    PricePipe
+    PricePipe,
+    AmountCharPipe
   ],
   providers: [
     ExtensionService
