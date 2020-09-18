@@ -57,7 +57,8 @@ export class CreateProfileDialogComponent implements OnInit {
       job: new FormControl('', Validators.required),
       marriedStatus: new FormControl('', Validators.required),
       district: new FormControl('', Validators.required),
-      phone: new FormControl('', Validators.required)
+      phone: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
     });
   }
 

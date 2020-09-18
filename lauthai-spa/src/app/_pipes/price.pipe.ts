@@ -12,5 +12,6 @@ export class PricePipe implements PipeTransform {
     if (value > 1000000) {
       return value / 1000000 + 'M';
     }
+    return value.toString();
   }
 }

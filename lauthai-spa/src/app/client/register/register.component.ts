@@ -48,8 +48,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid)
-     {
+    if (this.registerForm.valid) {
       const info = {
         username: this.registerForm.get('username').value,
         password: this.registerForm.get('password').value,
@@ -57,19 +56,12 @@ export class RegisterComponent implements OnInit {
       };
 
       this.authService.register(info).subscribe((response: any) => {
-        // console.log(response);
         this.extension.openSnackBar('Đăng kí tài khoản thành công', 'Bỏ qua');
-      }, error => {
-        // console.log(error);
-        // this.extension.openSnackBar(error.error, 'Bỏ qua');
-      }, () => {
+      }, error => { }, () => {
         const account = { username: info.username, password: info.password };
         this.authService.login(account).subscribe((response: any) => {
-          // console.log(response);
           this.router.navigate(['/']);
-        }, error => {
-          // this.extension.openSnackBar(error.error, 'Bỏ qua');
-        });
+        }, error => { });
       });
     }
   }

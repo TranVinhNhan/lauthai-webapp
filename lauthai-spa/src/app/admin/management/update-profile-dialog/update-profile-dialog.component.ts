@@ -56,7 +56,8 @@ export class UpdateProfileDialogComponent implements OnInit {
       job: new FormControl(this.data.job, Validators.required),
       marriedStatus: new FormControl(this.data.marriedStatus, Validators.required),
       district: new FormControl(this.data.district, Validators.required),
-      phone: new FormControl(this.data.phone, Validators.required)
+      phone: new FormControl(this.data.phone, Validators.required),
+      price: new FormControl(this.data.price, Validators.required)
     });
   }
 }
