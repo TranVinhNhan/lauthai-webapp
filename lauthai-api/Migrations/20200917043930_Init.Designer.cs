@@ -10,8 +10,8 @@ using lauthai_api.DataAccessLayer.Data;
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    [Migration("20200916025819_AddFeedbackTable")]
-    partial class AddFeedbackTable
+    [Migration("20200917043930_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,9 @@ namespace lauthai_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FeedbackTxt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")

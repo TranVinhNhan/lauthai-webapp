@@ -10,8 +10,8 @@ using lauthai_api.DataAccessLayer.Data;
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    [Migration("20200911083300_Add@UserTable")]
-    partial class AddUserTable
+    [Migration("20200917070958_CreateFeedback")]
+    partial class CreateFeedback
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,35 @@ namespace lauthai_api.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("lauthai_api.Models.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DayCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FeedbackTxt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Feedbacks");
+                });
 
             modelBuilder.Entity("lauthai_api.Models.Profile", b =>
                 {
@@ -87,8 +116,8 @@ namespace lauthai_api.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
@@ -96,6 +125,13 @@ namespace lauthai_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("lauthai_api.Models.Feedback", b =>
+                {
+                    b.HasOne("lauthai_api.Models.User", "User")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("lauthai_api.Models.Profile", b =>

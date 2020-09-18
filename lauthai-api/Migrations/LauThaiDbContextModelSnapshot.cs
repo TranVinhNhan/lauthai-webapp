@@ -35,6 +35,9 @@ namespace lauthai_api.Migrations
                     b.Property<string>("FeedbackTxt")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 

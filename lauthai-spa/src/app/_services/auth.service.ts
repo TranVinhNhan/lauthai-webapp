@@ -35,6 +35,8 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'auth/register', info);
   }
 
+
+
   isAuthenticated(): boolean {
     return !this.jwtHelper.isTokenExpired(localStorage.getItem('token'));
   }

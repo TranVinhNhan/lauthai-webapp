@@ -1,16 +1,19 @@
-<div class="text-center form-feedback">
-  <h1 class="font-weight-bold">Feedback</h1>
-  <mat-form-field appearance="legacy" class="form-feedback__form-control">
-    <mat-label>Họ và tên</mat-label>
-    <input matInput type="text">
-  </mat-form-field>
-  <mat-form-field appearance="legacy" class="form-feedback__form-control">
-    <mat-label>Email</mat-label>
-    <input matInput type="email">
-  </mat-form-field>
-  <mat-form-field appearance="legacy" class="form-feedback__form-control">
-    <mat-label>Ý kiến của bạn về trang web</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
-  <button type="submit" class="form-feedback__btn" mat-flat-button color="primary">Xác nhận gửi</button>
-</div>
+<form [formGroup]="feedbackForm" (ngSubmit)="SubmitFeedback()">
+  <div class="text-center form-feedback">
+    <h1 class="font-weight-bold">Feedback</h1>
+    <mat-form-field appearance="legacy" class="form-feedback__form-control">
+      <mat-label>Họ và tên</mat-label>
+      <input formControlName="Name" matInput type="text"  >
+    </mat-form-field>
+    <mat-form-field appearance="legacy" class="form-feedback__form-control">
+      <mat-label>Email</mat-label>
+      <input formControlName="ContactEmail" matInput type="email"  >
+    </mat-form-field>
+    <mat-form-field appearance="legacy" class="form-feedback__form-control">
+      <mat-label>Ý kiến của bạn về trang web</mat-label>
+      <textarea formControlName="FeedbackTxt" matInput ></textarea>
+    </mat-form-field>
+    <button type="submit" class="form-feedback__btn" mat-flat-button color="primary" >Xác nhận gửi</button>
+  </div>
+</form>
+
