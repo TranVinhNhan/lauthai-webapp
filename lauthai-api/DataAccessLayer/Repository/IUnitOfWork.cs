@@ -8,6 +8,7 @@ namespace lauthai_api.DataAccessLayer.Repository
         IProfileRepository ProfileRepository { get; }
         IUniversityRepository UniversityRepository { get; }
         IFeedbackRepository FeedbackRepository { get; }
+        IUserRepository UserRepository { get; }
         Task<bool> SaveAll();
     }
 }

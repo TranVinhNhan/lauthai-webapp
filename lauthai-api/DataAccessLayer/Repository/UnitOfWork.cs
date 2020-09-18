@@ -11,6 +11,7 @@ namespace lauthai_api.DataAccessLayer.Repository
         private IProfileRepository _profileRepository;
         private IUniversityRepository _universityRepository;
         private IFeedbackRepository _feedbackRepository;
+        private IUserRepository _userRepository;
         public UnitOfWork(LauThaiDbContext context)
         {
             _context = context;
@@ -29,6 +30,11 @@ namespace lauthai_api.DataAccessLayer.Repository
         {
             get { return _feedbackRepository = _feedbackRepository ?? new FeedbackRepository(_context); }
 
+        }
+
+        public IUserRepository UserRepository
+        {
+            get { return _userRepository = _userRepository ?? new UserRpository(_context); }
         }
 
         public async Task<bool> SaveAll()

@@ -1,19 +1,21 @@
-<form [formGroup]="feedbackForm" (ngSubmit)="SubmitFeedback()">
+<form *ngIf="!submitted" [formGroup]="feedbackForm" (ngSubmit)="submitFeedback()">
   <div class="text-center form-feedback">
     <h1 class="font-weight-bold">Feedback</h1>
     <mat-form-field appearance="legacy" class="form-feedback__form-control">
       <mat-label>Họ và tên</mat-label>
-      <input formControlName="Name" matInput type="text"  >
+      <input formControlName="name" matInput type="text">
     </mat-form-field>
     <mat-form-field appearance="legacy" class="form-feedback__form-control">
       <mat-label>Email</mat-label>
-      <input formControlName="ContactEmail" matInput type="email"  >
+      <input formControlName="contactEmail" matInput type="email">
     </mat-form-field>
     <mat-form-field appearance="legacy" class="form-feedback__form-control">
       <mat-label>Ý kiến của bạn về trang web</mat-label>
-      <textarea formControlName="FeedbackTxt" matInput ></textarea>
+      <textarea formControlName="feedbackTxt" matInput></textarea>
     </mat-form-field>
-    <button type="submit" class="form-feedback__btn" mat-flat-button color="primary" >Xác nhận gửi</button>
+    <button type="submit" class="form-feedback__btn" mat-flat-button color="primary">Xác nhận gửi</button>
   </div>
 </form>
-
+<div style="height: 100%;">
+  <h1 class="text-center pt-5" *ngIf="submitted">Cảm ơn bạn đã gửi feedback</h1>
+</div>
