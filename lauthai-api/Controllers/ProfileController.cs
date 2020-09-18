@@ -38,6 +38,8 @@ namespace lauthai_api.Controllers
 
 
         }
+
+        [AllowAnonymous]
         [HttpGet("{id}", Name = "GetProfileById")]
         public async Task<IActionResult> GetProfileById(int id)
         {

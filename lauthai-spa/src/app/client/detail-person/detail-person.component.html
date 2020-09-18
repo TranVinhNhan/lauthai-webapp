@@ -6,38 +6,38 @@
         <div class="preview col-md-6">
           <div class="preview-pic tab-content">
             <div class="tab-pane active" id="pic-1">
-              <img src="{{Profiledetail?.pfpUrl}}" style="height: 500px ;width: 490px" /></div>
+              <img src="{{profileDetail.pfpUrl}}" style="height: 500px ;width: 490px" /></div>
           </div>
         </div>
         <div class="details col-md-6">
-          <h3 class="product-title">{{Profiledetail?.name}}</h3>
+          <h3 class="product-title">{{profileDetail.name}}</h3>
           <div class="rating">
             <ul style="list-style: none; font-size: 35 ;color:#d66565; margin:10px">
               <li>
                 <i class="fas fa-cloud" style="margin-left: -40px">
-                  {{Profiledetail?.name}}
+                  {{profileDetail.name}}
                 </i>
               </li>
               <li>
 
                 <i class="fa fa-star" style="margin-left: -40px">
-                  Trường học :{{Profiledetail?.university.name}}
+                  Trường học :{{profileDetail.university.name}}
                 </i>
               </li>
               <li>
                 <i class="fa fa-camera" style="margin-left: -40px">
-                   Công việc:  {{Profiledetail?.job}}
+                   Công việc:  {{profileDetail.job}}
                 </i>
               </li>
               <li>
                 <i class="fa fa-user" style="margin-left: -40px">
-                   Tuổi : {{Profiledetail?.age}}
+                   Tuổi : {{profileDetail.age}}
                 </i>
               </li>
             </ul>
           </div>
-            <button class="add-to-cart btn btn-default" type="button"   (click)="RouteURL()" >
-            <a routerLink="/">        
+            <button class="add-to-cart btn btn-default" type="button"   (click)="addToCart(profileDetail)" >
+            <a >        
                     Thêm vào WishList
             </a>
             </button>

@@ -22,7 +22,7 @@
         <td>
           <mat-form-field *ngIf="!isFetching" class="full-width">
             <mat-label>Trường</mat-label>
-            <mat-select  formControlName="universityId">
+            <mat-select formControlName="universityId">
               <mat-option *ngFor="let uni of universities" [value]="uni.id">{{ uni.name }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -63,6 +63,13 @@
           <mat-form-field class="full-width">
             <mat-label>Địa chỉ</mat-label>
             <input formControlName="district" matInput placeholder="Ex. Quận 10">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="full-width">
+            <mat-label>Giá 1 shot</mat-label>
+            <input type="number" formControlName="price" matInput>
+            <span matSuffix>VND</span>
           </mat-form-field>
         </td>
       </tr>

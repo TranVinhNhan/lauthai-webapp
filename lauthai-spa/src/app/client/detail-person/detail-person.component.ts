@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
 import { ICartItem } from './../../_models/interfaces/cartItem.interface';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 
 @Component({
@@ -14,94 +15,43 @@ import { ICartItem } from './../../_models/interfaces/cartItem.interface';
   styleUrls: ['./detail-person.component.scss']
 })
 export class DetailPersonComponent implements OnInit {
-  [x: string]: any;
-  Profiledetail: IProfile;
+
+  profileDetail: IProfile;
   cart: ICartItem[] = [];
+
   constructor(
-    public profileservice: ProfileService,
+    public profileService: ProfileService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
-
-
-
+    private extension: ExtensionService
   ) { }
-  ListProfile: IProfile[];
+
   ngOnInit(): void {
-    this.LoadInfo()
-
+    this.getProfile();
   }
 
-  LoadInfo() {
-    let id;
-    this.activatedRoute.params.subscribe(data => {
-      id = data.id;
-      console.log(id);
-
-
-    });
-
-    this.profileservice.getProfiles().subscribe(data => {
-      this.ListProfile = data;
-      console.log(data)
-
-    }, error => console.log(error), () => {
-      this.Profiledetail = this.ListProfile.find(x => x.id == id);
-
-
-    });
-
-
-
+  getProfile(): void {
+    this.activatedRoute.data.subscribe(data => this.profileDetail = data.profile, error => console.log(error));
   }
-  RouteURL() {
 
-    this.activatedRoute.params.subscribe(data => {
-
-
-      this.Profiledetail = this.ListProfile.find(x => x.id == data.id);
-
-      console.log(this.Profiledetail);
-
-      let item = {} as ICartItem;
-      item = Object.assign({}, this.Profiledetail);
-      this.cart = JSON.parse(localStorage.getItem("ListCart"));
-      if (this.cart == undefined) // gio hang rong
-      {
-
-        item.universityName = this.Profiledetail.university.name;
-        item.quantity = 1;
-        this.cart = [];
-        this.cart.push(item);
-        localStorage.setItem("ListCart", JSON.stringify(this.cart));
+  addToCart(pf: IProfile): void {
+    if (localStorage.getItem('ListCart')) {
+      const cart = JSON.parse(localStorage.getItem('ListCart'));
+      const duplicateItem = cart.find((item: IProfile) => item.id === pf.id);
+      if (duplicateItem) {
+        duplicateItem.quantity++;
+        localStorage.setItem('ListCart', JSON.stringify(cart));
+      } else {
+        pf.quantity = 1;
+        cart.push(pf);
+        localStorage.setItem('ListCart', JSON.stringify(cart));
       }
-      else  // gio hang cp cart item
-      {
-
-        const result = this.cart.find(el => el.id == this.Profiledetail.id);
-        console.log(result);
-        item.quantity = 1;
-        // check da co item cung loai chua? ++quantity : them sp moi
-        if (result != null) {
-          result.quantity++;
-          localStorage.setItem("ListCart", JSON.stringify(this.cart));
-
-
-        }
-        else {
-          this.cart.push(item);
-          localStorage.setItem("ListCart", JSON.stringify(this.cart));
-        }
-
-
-
-      }
-
-      // console.log( this.cart);
-
-    });
-
-
-
+    } else {
+      const cart: IProfile[] = [];
+      cart.push(pf);
+      localStorage.setItem('ListCart', JSON.stringify(cart));
+    }
+    this.extension.openSnackBar('Đã thêm vào giỏ hàng', 'Bỏ qua');
+    this.router.navigate(['/cart']);
   }
-
 }
