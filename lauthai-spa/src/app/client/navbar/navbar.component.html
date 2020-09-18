@@ -24,6 +24,12 @@
         </a>
       </mat-list-item>
       <mat-list-item routerLinkActive="active">
+        <a matLine routerLink="/feedback" (click)="sidenav.toggle()">
+          <mat-icon>feedback</mat-icon>
+          <span class="link-caption">Gửi feedback</span>
+        </a>
+      </mat-list-item>
+      <mat-list-item routerLinkActive="active">
         <a matLine href="#" target="_blank">
           <mat-icon>card_giftcard</mat-icon>
           <span class="link-caption">Chức năng gì đó</span>

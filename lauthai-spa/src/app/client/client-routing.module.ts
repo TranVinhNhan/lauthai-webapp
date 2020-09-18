@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
 import { DetailPersonComponent } from './detail-person/detail-person.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'cart', component: CartComponent },
       { path: 'detail-person/:id', component: DetailPersonComponent },
-      { path: 'checkout', component: CheckoutComponent }
+      { path: 'checkout', component: CheckoutComponent },
+      { path: 'feedback', component: FeedbackComponent}
     ]
   }
 ];

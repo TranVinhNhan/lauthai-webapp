@@ -62,7 +62,7 @@
       <!-- Price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Bao nhiêu 1 shot? </th>
-        <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.price | K}} </td>
       </ng-container>
 
       <ng-container matColumnDef="heart">
