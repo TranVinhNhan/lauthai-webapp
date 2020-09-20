@@ -1,0 +1,33 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.bt-UpDown
+{
+    display: inline-block;
+     height:30px;
+     margin: 5px;
+}
+
+.full-size
+{
+    height: 100%;
+
+}
+.max
+{
+	height: auto;
+}
+.imag-avatar
+{
+	height:150px;
+	width:150px;
+}

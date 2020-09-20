@@ -10,6 +10,8 @@ import { ProfileService } from '../../_services/profile.service';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
 import { UpdateProfileDialogComponent } from './update-profile-dialog/update-profile-dialog.component';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
+import { AuthService } from 'src/app/_services/auth.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 @Component({
 
@@ -24,17 +26,33 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
 
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-
   constructor(
     private profileService: ProfileService,
+    private extension: ExtensionService,
     public dialog: MatDialog
   ) { }
 
+  ngOnInit(): void { }
 
+  ngAfterViewInit(): void {
+    this.loadProfiles();
+  }
+
+  loadProfiles(): void {
+    this.profileService.getProfiles().subscribe((response: IProfile[]) => {
+      this.profiles = response;
+      this.dataSource = new MatTableDataSource(this.profiles);
+      this.loadPaginator();
+    }, error => console.log(error));
+  }
+
+  loadPaginator(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   openDeleteDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteProfileDialogComponent, {
@@ -42,48 +60,31 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       data: id
     });
 
-
     dialogRef.afterClosed().subscribe((result: number) => {
-      this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
-      this.dataSource = new MatTableDataSource(this.profiles);
-
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      if (result) {
+        this.profileService.deleteProfile(result).subscribe(() => {
+          this.profiles.splice(this.profiles.indexOf(this.profiles.find(p => p.id === result)), 1);
+          this.dataSource = new MatTableDataSource(this.profiles);
+          this.loadPaginator();
+        }, error => { });
+      }
     });
-  }
-
-  ngOnInit(): void {
-    this.profiles = this.profileService.getProfiles(20);
-    this.dataSource = new MatTableDataSource(this.profiles);
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateProfileDialogComponent, {
-      width: 'fit-content'
+      width: 'fit-content',
+      height: 'fit-content'
     });
 
-    dialogRef.afterClosed().subscribe((result: IProfile) => {
-
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        result.id = this.profiles.length + 1;
-        this.profiles.push(result);
-        this.dataSource = new MatTableDataSource(this.profiles);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.profileService.addProfile(result).subscribe((response: IProfile) => {
+          this.profiles.push(response);
+          this.dataSource = new MatTableDataSource(this.profiles);
+          this.loadPaginator();
+          this.extension.openSnackBar('Tạo profile thành công', 'Bỏ qua');
+        }, error => { });
       }
     });
   }
@@ -94,16 +95,22 @@ export class ManagementComponent implements OnInit, AfterViewInit {
       data: pf
     });
 
-    dialogRef.afterClosed().subscribe((result: IProfile) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const index = this.profiles.indexOf(this.profiles.find(p => p.id === result.id), 0);
-        if (index > -1) {
-          this.profiles[index] = result;
-          this.dataSource = new MatTableDataSource(this.profiles);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        }
+        console.log(result);
+        this.profileService.updateProfile(pf.id, result).subscribe(() => {
+          this.loadProfiles();
+        }, error => { });
       }
     });
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

@@ -16,9 +16,11 @@
 
   &__hyperlink {
     display: inline-block;
+    text-decoration: underline;
   }
 
   &__hyperlink:hover {
     color: $primary;
+    cursor: pointer;
   }
 }

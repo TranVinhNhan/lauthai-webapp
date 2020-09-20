@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -18,6 +19,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { CartComponent } from './cart/cart.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AnonymousComponent } from './_anonymous/anonymous.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +34,17 @@ import { FooterComponent } from './footer/footer.component';
     BannerComponent,
     DataTableComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    CartComponent,
+    NavbarComponent,
+    AnonymousComponent,
+    FeedbackComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,
     ClientRoutingModule,
     SharedModule,
-
     CarouselModule.forRoot()
   ]
 })

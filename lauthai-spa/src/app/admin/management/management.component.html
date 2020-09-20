@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
   <h1 style="padding: 20px 0">Quản lý trại gà</h1>
   <section>
     <div class="example-label">Hành động</div>
@@ -53,7 +53,7 @@
       <!-- University Column -->
       <ng-container matColumnDef="university">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Trường </th>
-        <td mat-cell *matCellDef="let row"> {{row.university}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.university.name}} </td>
       </ng-container>
 
       <!-- Age Column -->
@@ -84,6 +84,12 @@
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Số điện thoại </th>
         <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá tiền </th>
+        <td mat-cell *matCellDef="let row"> {{row.price | K}} </td>
       </ng-container>
 
       <!-- Action Column-->

@@ -1,23 +1,25 @@
 <div class="form-login text-center">
-
-    <h1 class="font-weight-bold">Đăng nhập</h1>
-
+  <h1 class="font-weight-bold">Đăng nhập</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="form-login__form-control" appearance="legacy">
-        <mat-label>Tên đăng nhập</mat-label>
-        <input matInput placeholder="Nhập tên đăng nhập tại đây">
-        <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-label>Tên đăng nhập</mat-label>
+      <input formControlName="username" matInput placeholder="Nhập tên đăng nhập tại đây">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint style="color: red;" *ngIf="this.loginForm.get('username').touched && this.loginForm.get('username').hasError('required')">
+        Tên đăng nhập không được để trống</mat-hint>
     </mat-form-field>
-
     <mat-form-field class="form-login__form-control" appearance="legacy">
-        <mat-label>Mật khẩu</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide" placeholder="Nhập mật khẩu">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+      <mat-label>Mật khẩu</mat-label>
+      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" placeholder="Nhập mật khẩu">
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide" >
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint style="color: red;" *ngIf="this.loginForm.get('password').touched && this.loginForm.get('password').hasError('required')">
+        Mật khẩu không được để trống</mat-hint>
     </mat-form-field>
-
-    <button class="form-login__btn" mat-flat-button color="primary">Login</button>
-    
-    <mat-hint>Chưa có tài khoản? <a class="form-login__hyperlink" href="#">Đăng ký tại đây</a></mat-hint>
+    <button [disabled]="!this.loginForm.valid" type="submit" class="form-login__btn" mat-flat-button color="primary">Login</button>
+    <mat-hint *ngIf="isAuthenticated">Chưa có tài khoản? <a class="form-login__hyperlink" routerLink="/register">Đăng ký tại đây</a></mat-hint>
+    <mat-hint *ngIf="!isAuthenticated">Chưa có tài khoản? <a class="form-login__hyperlink" (click)="onChangeToRegisterTab()">Đăng ký tại đây</a></mat-hint>
+  </form>
 </div>

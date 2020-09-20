@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagementComponent } from './management/management.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'management', component: ManagementComponent }
+      { path: 'management', component: ManagementComponent }, 
+      { path: 'feedback', component: FeedbackComponent },
     ]
   }
 ];

@@ -1,0 +1,54 @@
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<div class="container">
+  <div class="card">
+    <div class="container-fliud">
+      <div class="wrapper row">
+        <div class="preview col-md-6">
+          <div class="preview-pic tab-content">
+            <div class="tab-pane active" id="pic-1">
+              <img src="{{profileDetail.pfpUrl}}" style="height: 500px ;width: 490px" /></div>
+          </div>
+        </div>
+        <div class="details col-md-6">
+          <h3 class="product-title">{{profileDetail.name}}</h3>
+          <div class="rating">
+            <ul style="list-style: none; font-size: 35 ;color:#d66565; margin:10px">
+              <li>
+                <i class="fas fa-cloud" style="margin-left: -40px">
+                  {{profileDetail.name}}
+                </i>
+              </li>
+              <li>
+
+                <i class="fa fa-star" style="margin-left: -40px">
+                  Trường học :{{profileDetail.university.name}}
+                </i>
+              </li>
+              <li>
+                <i class="fa fa-camera" style="margin-left: -40px">
+                   Công việc:  {{profileDetail.job}}
+                </i>
+              </li>
+              <li>
+                <i class="fa fa-user" style="margin-left: -40px">
+                   Tuổi : {{profileDetail.age}}
+                </i>
+              </li>
+            </ul>
+          </div>
+            <button class="add-to-cart btn btn-default" type="button"   (click)="addToCart(profileDetail)" >
+            <a >        
+                    Thêm vào WishList
+            </a>
+            </button>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+				<td>{{Profiledetail.name}}</td>
+					<td>{{Profiledetail.university.name}}</td>
+					<td>{{Profiledetail.job}}</td>
+					<td>{{Profiledetail.age}}</td>  -->
