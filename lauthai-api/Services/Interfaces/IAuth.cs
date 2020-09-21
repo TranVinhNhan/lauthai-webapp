@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using lauthai_api.Models;
-using Microsoft.IdentityModel.Tokens;
 
 namespace lauthai_api.DataAccessLayer.Repository.Interfaces
 {

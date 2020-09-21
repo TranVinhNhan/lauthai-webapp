@@ -4,11 +4,9 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using lauthai_api.DataAccessLayer.Data;
 using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using lauthai_api.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
-using lauthai_api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lauthai_api.Controllers

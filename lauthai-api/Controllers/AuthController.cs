@@ -1,7 +1,3 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer;
@@ -10,7 +6,6 @@ using lauthai_api.Dtos;
 using lauthai_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 
 namespace lauthai_api.Controllers
 {

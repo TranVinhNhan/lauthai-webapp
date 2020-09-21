@@ -1,13 +1,8 @@
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
-using lauthai_api.Models;
-using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using lauthai_api.DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Authorization;
 
 namespace lauthai_api.Controllers
@@ -28,12 +23,12 @@ namespace lauthai_api.Controllers
 
         [AllowAnonymous]
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllProfiles() //lấy tất cả sinh viên  , async bất đồ bộ cho cả hàm , Task : kiểu trả về bất đồng bộ 
+        public async Task<IActionResult> GetAllProfiles()
         {
             var profiles = await _repo.GetAllProfiles();
 
             if (profiles != null)
-                return Ok(profiles);// OK là bộ phản hồi của .net
+                return Ok(profiles);
             return NotFound();
 
 

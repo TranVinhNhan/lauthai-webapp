@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using lauthai_api.DataAccessLayer;
-using lauthai_api.DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lauthai_api.Controllers
