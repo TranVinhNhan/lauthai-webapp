@@ -12,8 +12,10 @@ namespace lauthai_api.Helpers
 
             CreateMap<UserToCreateDto, Models.User>();
             CreateMap<AdminToCreateDto, Models.User>();
+            CreateMap<UserToUpdateDto, Models.User>();
+            CreateMap<Models.User, UserToReturnDto>();
 
-            CreateMap<FeedbackCreateDto, Models.Feedback>();
+            CreateMap<FeedbackToCreateDto, Models.Feedback>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace lauthai_api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> CreateFeedback(FeedbackCreateDto feedbackCreateDto)
+        public async Task<IActionResult> CreateFeedback(FeedbackToCreateDto feedbackCreateDto)
         {
             if (feedbackCreateDto != null)
             {

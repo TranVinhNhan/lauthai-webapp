@@ -14,6 +14,7 @@ namespace lauthai_api.DataAccessLayer
         Task<IEnumerable<University>> GetAllUni();
         Task<University> GetUniversityById(int id);
         // User
+        Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(int id);
         Task<User> GetUserByUsername(string username);
         Task<bool> IsUserExist(string username);

@@ -56,5 +56,10 @@ namespace lauthai_api.DataAccessLayer
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await _context.Users.ToListAsync();
+        }
     }
 }
