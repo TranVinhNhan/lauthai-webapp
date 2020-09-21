@@ -9,11 +9,9 @@ namespace lauthai_api.DataAccessLayer.Data
     public class Seed
     {
         private readonly LauThaiDbContext _context;
-        private readonly IAuthRepository _authRepository;
-        public Seed(LauThaiDbContext context, IAuthRepository authRepository)
+        public Seed(LauThaiDbContext context)
         {
             _context = context;
-            _authRepository = authRepository;
         }
 
         public void SeedProfiles()

@@ -17,38 +17,41 @@ namespace lauthai_api.DataAccessLayer
 
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
-            var profiles = await _context.Profiles.Include(p => p.University).AsNoTracking().ToListAsync();
-            return profiles;
+            return await _context.Profiles.Include(p => p.University).AsNoTracking().ToListAsync();
         }
         public async Task<Profile> GetProfileById(int id)
         {
-            var profile = await _context.Profiles.Include(p => p.University).FirstOrDefaultAsync(p => p.Id == id);
-            return profile;
+            return await _context.Profiles.Include(p => p.University).FirstOrDefaultAsync(p => p.Id == id);
         }
         public async Task<IEnumerable<University>> GetAllUni()
         {
-            var allUni = await _context.Universities.Include(u => u.Profiles).ToListAsync();
-            return allUni;
+            return await _context.Universities.Include(u => u.Profiles).ToListAsync();
         }
         public async Task<University> GetUniversityById(int id)
         {
-            var uni = await _context.Universities.Include(u => u.Profiles).FirstOrDefaultAsync(u => u.Id == id);
-            return uni;
+            return await _context.Universities.Include(u => u.Profiles).FirstOrDefaultAsync(u => u.Id == id);
         }
         public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
         {
-            var getFeedback = await _context.Feedbacks.AsNoTracking().ToListAsync();
-            return getFeedback;
+            return await _context.Feedbacks.AsNoTracking().ToListAsync();
         }
         public async Task<Feedback> GetFeedbackById(int id)
         {
-            var feedback = await _context.Feedbacks.FirstOrDefaultAsync(a => a.Id == id);
-            return feedback;
+            return await _context.Feedbacks.FirstOrDefaultAsync(a => a.Id == id);
         }
         public async Task<User> GetUserById(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-            return user;
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<bool> IsUserExist(string username)
+        {
+            return await _context.Users.AnyAsync(u => u.Username == username) ? true : false;
+        }
+
+        public async Task<User> GetUserByUsername(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

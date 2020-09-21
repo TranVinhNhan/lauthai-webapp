@@ -54,8 +54,8 @@ namespace lauthai_api
             services.AddAutoMapper(typeof(Mapping));
             // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
+            services.AddScoped<IAuth, Auth>();
             services.AddScoped<ILauThaiRepository, LauThaiRepository>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
