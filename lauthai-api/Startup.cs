@@ -22,7 +22,6 @@ using lauthai_api.DataAccessLayer;
 
 namespace lauthai_api
 {
-      // Lần thứ 3
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -33,10 +32,10 @@ namespace lauthai_api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)//IServiceCollection là 1 bộ service microsoft
+        public void ConfigureServices(IServiceCollection services)
         {
             // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
-            services.AddCors(options =>// đây là nơi mở cổng cho Angular truy cập vào
+            services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
@@ -48,11 +47,8 @@ namespace lauthai_api
             });
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            // SqlServer
-            // Lần thứ 3 : add dbcontext vào starup
             services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(Mapping));
-            // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
             services.AddScoped<IAuth, Auth>();
             services.AddScoped<ILauThaiRepository, LauThaiRepository>();
@@ -72,7 +68,7 @@ namespace lauthai_api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)// Đống dưới đây dùng để chạy 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -84,7 +80,7 @@ namespace lauthai_api
             app.UseRouting();
 
             // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
-            app.UseCors();// tự ghi
+            app.UseCors();
 
             app.UseAuthentication();
 

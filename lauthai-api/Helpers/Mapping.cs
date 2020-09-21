@@ -5,7 +5,7 @@ namespace lauthai_api.Helpers
 {
     public class Mapping: Profile
     {
-        public Mapping()// thay vì gán giá trị từng dòng thì map giúp gán nhanh hơn khi nó lấy tất cả để gán 
+        public Mapping()
         {
             CreateMap<ProfileToCreateDto, Models.Profile>();
             CreateMap<ProfileToUpdateDto, Models.Profile>();

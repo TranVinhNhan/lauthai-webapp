@@ -14,7 +14,7 @@ namespace lauthai_api.DataAccessLayer
         {
             _context = context;
         }
-
+        // Profile
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
             return await _context.Profiles.Include(p => p.University).AsNoTracking().ToListAsync();
@@ -23,6 +23,7 @@ namespace lauthai_api.DataAccessLayer
         {
             return await _context.Profiles.Include(p => p.University).FirstOrDefaultAsync(p => p.Id == id);
         }
+        // University
         public async Task<IEnumerable<University>> GetAllUni()
         {
             return await _context.Universities.Include(u => u.Profiles).ToListAsync();
@@ -31,6 +32,7 @@ namespace lauthai_api.DataAccessLayer
         {
             return await _context.Universities.Include(u => u.Profiles).FirstOrDefaultAsync(u => u.Id == id);
         }
+        // Feedback
         public async Task<IEnumerable<Feedback>> GetAllFeedbacks()
         {
             return await _context.Feedbacks.AsNoTracking().ToListAsync();
@@ -39,6 +41,7 @@ namespace lauthai_api.DataAccessLayer
         {
             return await _context.Feedbacks.FirstOrDefaultAsync(a => a.Id == id);
         }
+        // User
         public async Task<User> GetUserById(int id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);

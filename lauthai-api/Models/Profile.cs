@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace lauthai_api.Models
 {
-    public class Profile // tạo đầu tiên 
+    public class Profile
     {
         public int Id { get; set; }
         public string Name { get; set; }
