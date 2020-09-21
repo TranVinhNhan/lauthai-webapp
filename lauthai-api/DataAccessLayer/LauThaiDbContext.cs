@@ -3,16 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lauthai_api.DataAccessLayer.Data
 {
-    public class LauThaiDbContext : DbContext 
+    public class LauThaiDbContext : DbContext
     {
-        public LauThaiDbContext(DbContextOptions<LauThaiDbContext> options) : base(options)  
+        public LauThaiDbContext(DbContextOptions<LauThaiDbContext> options) : base(options)
         { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { }
+        {
+            modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+        }
 
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<University> Universities { get; set; }

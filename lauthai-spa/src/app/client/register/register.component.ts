@@ -9,6 +9,7 @@ import { ExtensionService } from 'src/app/_services/extension.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
   hidePwd = true;
   hideCfmPwd = true;
@@ -29,10 +30,10 @@ export class RegisterComponent implements OnInit {
 
   initRegisterForm(): void {
     this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
       confirmPassword: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required)
+      email: new FormControl('', [Validators.required, Validators.email])
     }, { validators: this.matchPassword });
   }
 
