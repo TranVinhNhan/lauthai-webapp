@@ -15,11 +15,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using lauthai_api.DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using lauthai_api.DataAccessLayer;
 
 namespace lauthai_api
 {
@@ -55,10 +54,7 @@ namespace lauthai_api
             services.AddAutoMapper(typeof(Mapping));
             // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
-
-            // services.AddScoped<IProfileRepository, ProfileRepository>();
-            // services.AddScoped<IUniversityRepository, UniversityRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ILauThaiRepository, LauThaiRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>

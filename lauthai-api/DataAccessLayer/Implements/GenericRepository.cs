@@ -6,30 +6,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository : IGenericRepository
     {
         private readonly LauThaiDbContext _context;
-
-        // private readonly DbSet<T> _dbSet;
         public GenericRepository(LauThaiDbContext context)
         {
             _context = context;
-            // _dbSet = _context.Set<T>();
         }
 
-        public void Add(T obj)
-        {
-            _context.Add(obj);
-        }
+        public void Add<T>(T obj) where T : class => _context.Add(obj);
 
-        public void Delete(T obj)
-        {
-            _context.Remove(obj);
-        }
+        public void Delete<T>(T obj) where T : class => _context.Remove(obj);
 
-        public void Update(T obj)
+        public void Update<T>(T obj) where T : class => _context.Update(obj);
+        public async Task<bool> SaveAll()
         {
-            _context.Update(obj);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
