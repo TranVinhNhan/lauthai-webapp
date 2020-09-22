@@ -3,10 +3,10 @@ using lauthai_api.Models;
 
 namespace lauthai_api.DataAccessLayer.Repository.Interfaces
 {
-    public interface IAuthRepository
+    public interface IAuth
     {
          Task<User> Register(User user, string password);
          Task<User> Login(string username, string password);
-         Task<bool> IsUserExist(string username);
+         string GetTokenString(User user);
     }
 }

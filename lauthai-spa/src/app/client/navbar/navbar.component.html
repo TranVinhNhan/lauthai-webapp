@@ -7,7 +7,7 @@
 
   <button *ngIf="this.authService.isAuthenticated()" mat-button [matMenuTriggerFor]="beforeMenu">Xin chào {{ getUsername() }}</button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item>Lịch sử check hàng</button>
+    <button mat-menu-item (click)="sidenav.close()" routerLink="/account">Thông tin tài khoản</button>
     <button mat-menu-item (click)="logout()">Đăng xuất</button>
   </mat-menu>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" routerLink="/cart">
@@ -35,18 +35,6 @@
           <span class="link-caption">Chức năng gì đó</span>
         </a>
       </mat-list-item>
-      <!-- <mat-list-item routerLinkActive="active">
-        <a matLine routerLink="/login" (click)="sidenav.toggle()">
-          <mat-icon>account_circle</mat-icon>
-          <span class="link-caption">Login</span>
-        </a>
-      </mat-list-item>
-      <mat-list-item routerLinkActive="active">
-        <a matLine routerLink="/register" (click)="sidenav.toggle()">
-          <mat-icon>how_to_reg</mat-icon>
-          <span class="link-caption">Register</span>
-        </a>
-      </mat-list-item> -->
       <button mat-icon-button aria-label="Menu icon">
       </button>
     </mat-nav-list>

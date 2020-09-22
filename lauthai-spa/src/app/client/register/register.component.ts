@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { ExtensionService } from 'src/app/_services/extension.service';
@@ -9,11 +10,13 @@ import { ExtensionService } from 'src/app/_services/extension.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
   hidePwd = true;
   hideCfmPwd = true;
   registerForm: FormGroup;
   isAuthenticated = false;
+  matcher = new MyErrorStateMatcher();
 
   @Output() changeTabIndex = new EventEmitter<number>();
   constructor(
@@ -29,10 +32,10 @@ export class RegisterComponent implements OnInit {
 
   initRegisterForm(): void {
     this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(16)]),
       confirmPassword: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required)
+      email: new FormControl('', [Validators.required, Validators.email])
     }, { validators: this.matchPassword });
   }
 
@@ -48,6 +51,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
       const info = {
         username: this.registerForm.get('username').value,
@@ -64,5 +68,14 @@ export class RegisterComponent implements OnInit {
         }, error => { });
       });
     }
+  }
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
   }
 }

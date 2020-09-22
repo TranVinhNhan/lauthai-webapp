@@ -2,7 +2,7 @@ using System;
 
 namespace lauthai_api.Dtos
 {
-    public class FeedbackCreateDto
+    public class FeedbackToCreateDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

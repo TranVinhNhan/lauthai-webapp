@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using lauthai_api.DataAccessLayer.Repository;
+using lauthai_api.DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lauthai_api.Controllers
@@ -8,16 +8,16 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class UniversityController : ControllerBase
     {
-        private readonly IUnitOfWork _uow;
-        public UniversityController(IUnitOfWork uow)
+        private readonly ILauThaiRepository _repo;
+        public UniversityController(ILauThaiRepository repo)
         {
-            _uow = uow;
+            _repo = repo;
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUniversities()
         {
-            var universities = await _uow.UniversityRepository.GetAllUni();
+            var universities = await _repo.GetAllUni();
 
             if (universities != null)
                 return Ok(universities);

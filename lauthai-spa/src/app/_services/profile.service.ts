@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import { IProfile } from './../_models/interfaces/profile.interface';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

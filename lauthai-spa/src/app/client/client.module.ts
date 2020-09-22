@@ -24,6 +24,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AnonymousComponent } from './_anonymous/anonymous.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     NavbarComponent,
     AnonymousComponent,
     FeedbackComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    UserInfoComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,

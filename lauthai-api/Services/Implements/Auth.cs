@@ -1,31 +1,61 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
-using lauthai_api.DataAccessLayer.Data;
 using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using lauthai_api.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
-    public class AuthRepository : IAuthRepository
+    public class Auth : IAuth
     {
-        private readonly LauThaiDbContext _context;
-        public AuthRepository(LauThaiDbContext context)
+        private readonly ILauThaiRepository _repo;
+        private readonly IConfiguration _config;
+        public Auth(ILauThaiRepository repo, IConfiguration config)
         {
-            _context = context;
+            _config = config;
+            _repo = repo;
         }
 
+        public string GetTokenString(User user)
+        {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _repo.GetUserByUsername(username);
             if (user == null || !VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
                 return null;
 
             return user;
         }
-
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordSalt, passwordHash;
@@ -33,15 +63,14 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
 
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
+            _repo.Add(user);
 
-            await _context.Users.AddAsync(user);
-            if (await _context.SaveChangesAsync() > 0)
+            if (await _repo.SaveAll())
             {
                 return user;
             }
             throw new System.Exception("Create user failed at save");
         }
-
         // https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/consumer-apis/password-hashing?view=aspnetcore-3.1
         private void CreatePasswordSaltAndHash(string password, out byte[] passwordSalt, out byte[] passwordHash)
         {
@@ -59,7 +88,6 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8);
         }
-
         private bool VerifyPassword(string password, byte[] passwordSalt, byte[] passwordHash)
         {
             byte[] loginPasswordHash = KeyDerivation.Pbkdf2(
@@ -76,10 +104,6 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
                     return false;
             }
             return true;
-        }
-        public async Task<bool> IsUserExist(string username)
-        {
-            return await _context.Users.AnyAsync(u => u.Username == username) ? true : false;
         }
     }
 }

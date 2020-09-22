@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { IProfile } from '../_models/interfaces/profile.interface';
 import { ProfileService } from '../_services/profile.service';

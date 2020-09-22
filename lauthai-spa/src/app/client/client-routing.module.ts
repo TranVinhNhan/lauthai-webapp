@@ -10,6 +10,7 @@ import { DetailPersonComponent } from './detail-person/detail-person.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileDetailResolver } from '../_resolvers/profile-detail.resolver';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent },
       { path: 'detail-person/:id', component: DetailPersonComponent, resolve: { profile: ProfileDetailResolver } },
       { path: 'checkout', component: CheckoutComponent },
-      { path: 'feedback', component: FeedbackComponent }
+      { path: 'feedback', component: FeedbackComponent },
+      { path: 'account', component: UserInfoComponent }
     ]
   }
 ];

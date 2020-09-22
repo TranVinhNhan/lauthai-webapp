@@ -1,13 +1,8 @@
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
-using lauthai_api.Models;
-using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using lauthai_api.DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Authorization;
 
 namespace lauthai_api.Controllers
@@ -17,23 +12,23 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class ProfileController : ControllerBase
     {
-        private readonly IUnitOfWork _uow;
+        private readonly ILauThaiRepository _repo;
         private readonly IMapper _mapper;
 
-        public ProfileController(IUnitOfWork uow, IMapper mapper)
+        public ProfileController(ILauThaiRepository repo, IMapper mapper)
         {
-            _uow = uow;
+            _repo = repo;
             _mapper = mapper;
         }
 
         [AllowAnonymous]
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllProfiles() //lấy tất cả sinh viên  , async bất đồ bộ cho cả hàm , Task : kiểu trả về bất đồng bộ 
+        public async Task<IActionResult> GetAllProfiles()
         {
-            var profiles = await _uow.ProfileRepository.GetAllProfiles();
+            var profiles = await _repo.GetAllProfiles();
 
             if (profiles != null)
-                return Ok(profiles);// OK là bộ phản hồi của .net
+                return Ok(profiles);
             return NotFound();
 
 
@@ -43,7 +38,7 @@ namespace lauthai_api.Controllers
         [HttpGet("{id}", Name = "GetProfileById")]
         public async Task<IActionResult> GetProfileById(int id)
         {
-            var profile = await _uow.ProfileRepository.GetProfileById(id);
+            var profile = await _repo.GetProfileById(id);
             if (profile == null)
                 return NotFound();
 
@@ -55,7 +50,7 @@ namespace lauthai_api.Controllers
         {
             if (profileToCreateDto.UniversityId.HasValue)
             {
-                var uni = await _uow.UniversityRepository.GetUniversityById(profileToCreateDto.UniversityId.Value);
+                var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId.Value);
                 if (uni == null)
                 {
                     return NotFound();
@@ -66,16 +61,16 @@ namespace lauthai_api.Controllers
 
                 var profileToReturn = new Models.Profile();
 
-                if (await _uow.SaveAll())
+                if (await _repo.SaveAll())
                 {
                     return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
                 }
             }
 
             var profile = _mapper.Map<Models.Profile>(profileToCreateDto);
-            _uow.ProfileRepository.Add(profile);
+            _repo.Add(profile);
 
-            if (await _uow.SaveAll())
+            if (await _repo.SaveAll())
             {
                 return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
             }
@@ -86,14 +81,14 @@ namespace lauthai_api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProfile(int id, ProfileToUpdateDto profileToUpdateDto)
         {
-            var profileNeedToUpdate = await _uow.ProfileRepository.GetProfileById(id);
+            var profileNeedToUpdate = await _repo.GetProfileById(id);
             if (profileNeedToUpdate == null)
                 return NotFound();
 
             _mapper.Map(profileToUpdateDto, profileNeedToUpdate);
-            _uow.ProfileRepository.Update(profileNeedToUpdate);
+            _repo.Update(profileNeedToUpdate);
 
-            if (await _uow.SaveAll())
+            if (await _repo.SaveAll())
                 return NoContent();
 
             throw new System.Exception("Cannot update profile");
@@ -102,12 +97,12 @@ namespace lauthai_api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfile(int id)
         {
-            var profile = await _uow.ProfileRepository.GetProfileById(id);
+            var profile = await _repo.GetProfileById(id);
             if (profile != null)
             {
-                _uow.ProfileRepository.Delete(profile);
+                _repo.Delete(profile);
 
-                if (await _uow.SaveAll())
+                if (await _repo.SaveAll())
                     return NoContent();
             }
 

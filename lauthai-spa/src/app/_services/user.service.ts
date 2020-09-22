@@ -3,18 +3,22 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUniversity } from '../_models/interfaces/university.interface';
+import { IUser } from '../_models/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UniversitySerivce {
+export class UserService {
+
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getUniversities(): Observable<IUniversity[]> {
-    return this.http.get<IUniversity[]>(this.baseUrl + 'university/all');
+  getUserById(id: number): Observable<IUser> {
+    return this.http.get<IUser>(this.baseUrl + 'user/' + id);
+  }
+
+  updateInfo(info: IUser): Observable<any> {
+    return this.http.put(this.baseUrl + 'user', info);
   }
 }
-
