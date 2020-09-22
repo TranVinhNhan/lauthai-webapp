@@ -42,7 +42,7 @@ export class DetailPersonComponent implements OnInit {
         duplicateItem.quantity++;
         localStorage.setItem('ListCart', JSON.stringify(cart));
       } else {
-        pf.quantity = 1;
+        // pf.quantity = 1;
         cart.push(pf);
         localStorage.setItem('ListCart', JSON.stringify(cart));
       }

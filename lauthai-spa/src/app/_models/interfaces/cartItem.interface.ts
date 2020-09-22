@@ -1,6 +1,9 @@
 export interface ICartItem {
-	id: number;
-	name: string;
-	universityName?: string;
-	quantity: number;
+  id: number;
+  pfpUrl: string;
+  name: string;
+  phone: string;
+  universityName: string;
+  price: number;
+  quantity: number;
 }
