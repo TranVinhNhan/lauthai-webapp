@@ -57,4 +57,27 @@ export class CartService {
       }
     }
   }
+
+  getTotal(): number {
+    const cart: ICartItem[] = JSON.parse(localStorage.getItem(Const.CART));
+    return cart.map(item => item.price * item.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  }
+
+  changeQuantity(selectedItem: ICartItem, action: number): void {
+    const cart: ICartItem[] = JSON.parse(localStorage.getItem(Const.CART));
+    const selectedItemIndex = cart.indexOf(cart.find(item => item.id === selectedItem.id));
+    if (selectedItemIndex > -1) {
+      cart[selectedItemIndex].quantity += action;
+      if (cart[selectedItemIndex].quantity === 0) {
+        cart.splice(selectedItemIndex, 1);
+        if (cart.length > 0) {
+          localStorage.setItem(Const.CART, JSON.stringify(cart));
+        } else {
+          localStorage.removeItem(Const.CART);
+        }
+      } else {
+        localStorage.setItem(Const.CART, JSON.stringify(cart));
+      }
+    }
+  }
 }

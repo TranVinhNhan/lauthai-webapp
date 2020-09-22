@@ -14,6 +14,7 @@
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
           <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- PfpUrl Column -->
@@ -23,58 +24,66 @@
             <img class="img img-thumbnail" *ngIf="row.pfpUrl" [src]="row.pfpUrl" alt="profilepic">
             <p *ngIf="!row.pfpUrl">Chưa có hình ảnh</p>
           </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên </th>
           <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- Phone Column -->
         <ng-container matColumnDef="phone">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Số điện thoại </th>
           <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- University name Column -->
         <ng-container matColumnDef="universityName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Trường </th>
           <td mat-cell *matCellDef="let row"> {{row.universityName}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <!-- Price Column -->
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá 1 shot </th>
           <td mat-cell *matCellDef="let row"> {{row.price | K}} </td>
+          <td mat-footer-cell *matFooterCellDef> <span class="font-weight-bold">Tổng tiền:</span> </td>
         </ng-container>
 
         <!-- Quantity Column -->
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Số shot </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-icon-button color="primary">
+            <button (click)="onChangeQuantity(row, -1)" mat-icon-button color="primary">
               <mat-icon>remove</mat-icon>
             </button>
             {{row.quantity}}
-            <button mat-icon-button color="primary">
+            <button (click)="onChangeQuantity(row, 1)" mat-icon-button color="primary">
               <mat-icon>add</mat-icon>
             </button>
           </td>
+          <td mat-footer-cell *matFooterCellDef> {{onGetTotal() | K}} </td>
         </ng-container>
 
         <!-- Quantity Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
           <td mat-cell *matCellDef="let row">
-            <button (click)="deleteItem(row)" mat-raised-button color="primary">
+            <button (click)="onDeleteItem(row)" mat-raised-button color="primary">
               <mat-icon>delete</mat-icon>Xóa
             </button>
           </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
