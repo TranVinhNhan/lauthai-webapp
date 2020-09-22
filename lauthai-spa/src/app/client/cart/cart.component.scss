@@ -1,33 +1,17 @@
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+table {
+  width: 100%;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
 }
 
-.bt-UpDown
-{
-    display: inline-block;
-     height:30px;
-     margin: 5px;
+.img {
+  width: 100px;
+  height: 100px;
 }
 
-.full-size
-{
-    height: 100%;
-
-}
-.max
-{
-	height: auto;
-}
-.imag-avatar
-{
-	height:150px;
-	width:150px;
+.container {
+  height: 100%;
 }

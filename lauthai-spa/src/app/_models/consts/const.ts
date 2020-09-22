@@ -7,7 +7,13 @@ export class Const {
     'id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'heart'
   ];
 
-   public static readonly TABLE_ADMIN_FEEDBACK = [
+  public static readonly TABLE_ADMIN_FEEDBACK = [
     'id', 'name', 'feedbackTxt', 'contactEmail', 'dayCreated'
   ];
+
+  public static readonly TABLE_CART = [
+    'id', 'pfpUrl', 'name', 'phone', 'universityName', 'price', 'quantity', 'action'
+  ];
+
+  public static readonly CART = 'cart';
 }

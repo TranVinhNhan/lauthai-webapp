@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
 
 
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
 import { Const } from './../../_models/consts/const';
 import { ICartItem } from './../../_models/interfaces/cartItem.interface';
+import { CartService } from 'src/app/_services/cart.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 @Component({
   selector: 'app-client-data-table',
@@ -20,18 +21,22 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() product: any;
-  @Output() productAdd = new EventEmitter();
-
-
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
   cart: ICartItem[] = [];
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog) { }
+  constructor(
+    private profileService: ProfileService,
+    private cartService: CartService,
+    private extension: ExtensionService
+    ) { }
 
   ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    this.loadProfiles();
+  }
 
   loadProfiles(): void {
     this.profileService.getProfiles().subscribe((response: IProfile[]) => {
@@ -42,32 +47,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     }, error => console.log(error));
   }
 
-  ngAfterViewInit(): void {
-    this.loadProfiles();
-  }
-
-  addProductToCart(cartItem: IProfile): void {
-    let item = {} as ICartItem;
-    item = Object.assign({}, cartItem);
-    this.cart = JSON.parse(localStorage.getItem(Const.CART));
-    if (this.cart === undefined) {
-
-      item.universityName = cartItem.university.name;
-      item.quantity = 1;
-      this.cart = [];
-      this.cart.push(item);
-      localStorage.setItem(Const.CART, JSON.stringify(this.cart));
-    } else {
-      const result = this.cart.find(el => el.id === cartItem.id);
-      item.quantity = 1;
-      if (result != null) {
-        result.quantity++;
-        localStorage.setItem(Const.CART, JSON.stringify(this.cart));
-
-      } else {
-        this.cart.push(item);
-        localStorage.setItem(Const.CART, JSON.stringify(this.cart));
-      }
-    }
+  addItemToCart(selectedItem: IProfile): void {
+    this.cartService.addItemToCart(selectedItem);
+    this.extension.openSnackBar('Thêm hàng vào giỏ thành công', 'Bỏ qua');
   }
 }
