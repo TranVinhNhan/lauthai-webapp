@@ -31,9 +31,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   constructor(private profileService: ProfileService, public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    // this.loadProfiles();
-  }
+  ngOnInit(): void { }
 
   loadProfiles(): void {
     this.profileService.getProfiles().subscribe((response: IProfile[]) => {
@@ -45,34 +43,30 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
     this.loadProfiles();
   }
 
   addProductToCart(cartItem: IProfile): void {
     let item = {} as ICartItem;
     item = Object.assign({}, cartItem);
-    this.cart = JSON.parse(localStorage.getItem('ListCart'));
-    if (this.cart === undefined) // gio hang rong
-    {
+    this.cart = JSON.parse(localStorage.getItem(Const.CART));
+    if (this.cart === undefined) {
 
       item.universityName = cartItem.university.name;
       item.quantity = 1;
       this.cart = [];
       this.cart.push(item);
-      localStorage.setItem('ListCart', JSON.stringify(this.cart));
-    } else { // gio hang cp cart item
+      localStorage.setItem(Const.CART, JSON.stringify(this.cart));
+    } else {
       const result = this.cart.find(el => el.id === cartItem.id);
       item.quantity = 1;
-      // check da co item cung loai chua? ++quantity : them sp moi
       if (result != null) {
         result.quantity++;
-        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+        localStorage.setItem(Const.CART, JSON.stringify(this.cart));
 
       } else {
         this.cart.push(item);
-        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+        localStorage.setItem(Const.CART, JSON.stringify(this.cart));
       }
     }
   }

@@ -5,12 +5,12 @@
       <mat-label>Tên đăng nhập</mat-label>
       <input formControlName="username" matInput placeholder="Nhập tên đăng nhập tại đây">
       <mat-icon matSuffix>account_circle</mat-icon>
-      <mat-hint
+      <mat-error
         *ngIf="this.registerForm.get('username').touched && this.registerForm.get('username').hasError('required')"
-        class="pb-2">Tên đăng nhập không được bỏ trống</mat-hint>
-      <mat-hint
+        class="pb-2">Tên đăng nhập không được bỏ trống</mat-error>
+      <mat-error
         *ngIf="this.registerForm.get('username').hasError('minlength') || this.registerForm.get('username').hasError('maxlength')"
-        class="pb-2">Tên đăng nhập phải từ 4 - 16 kí tự</mat-hint>
+        class="pb-2">Tên đăng nhập phải từ 4 - 16 kí tự</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
@@ -20,35 +20,35 @@
         [attr.aria-pressed]="hidePwd" placeholder="Nhập mật khẩu">
         <mat-icon>{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      <mat-hint
+      <mat-error
         *ngIf="this.registerForm.get('password').touched && this.registerForm.get('password').hasError('required')"
-        class="pb-2">Mất khẩu không được bỏ trống</mat-hint>
-      <mat-hint
+        class="pb-2">Mất khẩu không được bỏ trống</mat-error>
+      <mat-error
         *ngIf="this.registerForm.get('password').hasError('minlength') || this.registerForm.get('password').hasError('maxlength')"
-        class="pb-2">Mật khẩu phải từ 8 - 16 kí tự</mat-hint>
+        class="pb-2">Mật khẩu phải từ 8 - 16 kí tự</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
       <mat-label>Nhập lại khẩu</mat-label>
-      <input formControlName="confirmPassword" matInput [type]="hideCfmPwd ? 'password' : 'text'">
+      <input formControlName="confirmPassword" matInput [type]="hideCfmPwd ? 'password' : 'text'" [errorStateMatcher]="matcher">
       <button type="button" mat-icon-button matSuffix (click)="hideCfmPwd = !hideCfmPwd"
         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCfmPwd" placeholder="Nhập mật khẩu">
         <mat-icon>{{hideCfmPwd ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      <mat-hint *ngIf="this.registerForm.get('confirmPassword').touched && this.registerForm.hasError('matchPassword')"
-        class="pb-2">Mật khẩu nhập lại không trùng khớp</mat-hint>
+      <mat-error *ngIf="this.registerForm.hasError('matchPassword')"
+        class="pb-2">Mật khẩu nhập lại không trùng khớp</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
       <mat-label>Email</mat-label>
       <input formControlName="email" type="email" matInput placeholder="Nhập tên hiển thị tại đây">
       <mat-icon matSuffix>mail</mat-icon>
-      <mat-hint *ngIf="this.registerForm.get('email').touched && this.registerForm.get('email').hasError('required')"
-        class="pb-2">Email không được bỏ trống</mat-hint>
-      <mat-hint *ngIf="this.registerForm.get('email').touched && this.registerForm.get('email').hasError('email')"
-        class="pb-2">Email không hợp lệ</mat-hint>
+      <mat-error *ngIf="this.registerForm.get('email').touched && this.registerForm.get('email').hasError('required')"
+        class="pb-2">Email không được bỏ trống</mat-error>
+      <mat-error *ngIf="this.registerForm.get('email').touched && this.registerForm.get('email').hasError('email')"
+        class="pb-2">Email không hợp lệ</mat-error>
     </mat-form-field>
-    <button type="submit" [disabled]="!this.registerForm.valid" class="form-register__btn mt-2" mat-flat-button
+    <button type="submit" class="form-register__btn mt-2" mat-flat-button
       color="primary">Register</button>
     <mat-hint *ngIf="isAuthenticated">Đã có tài khoản? <a class="form-register__hyperlink" routerLink="/login">Đăng nhập
         tại đây</a></mat-hint>
