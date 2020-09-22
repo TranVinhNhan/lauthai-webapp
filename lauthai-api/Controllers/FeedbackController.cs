@@ -19,7 +19,6 @@ namespace lauthai_api.Controllers
             _uow = uow;
             _mapper = mapper;
         }
-        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllFeedback()
         {
