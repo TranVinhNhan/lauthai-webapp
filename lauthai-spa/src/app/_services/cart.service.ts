@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Const } from '../_models/consts/const';
 import { ICartItem } from '../_models/interfaces/cartItem.interface';
 import { IProfile } from '../_models/interfaces/profile.interface';
@@ -7,7 +10,9 @@ import { IProfile } from '../_models/interfaces/profile.interface';
   providedIn: 'root'
 })
 export class CartService {
-  constructor() { }
+
+  baseUrl = environment.apiUrl;
+  constructor(private http: HttpClient) { }
 
   addItemToCart(selectedItem: IProfile): void {
     if (localStorage.getItem(Const.CART)) {
@@ -79,5 +84,9 @@ export class CartService {
         localStorage.setItem(Const.CART, JSON.stringify(cart));
       }
     }
+  }
+
+  placeOrder(model: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'order', model);
   }
 }

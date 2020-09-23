@@ -16,6 +16,11 @@ namespace lauthai_api.Helpers
             CreateMap<Models.User, UserToReturnDto>();
 
             CreateMap<FeedbackToCreateDto, Models.Feedback>();
+
+            CreateMap<OrderToCreateDto, Models.Order>();
+            CreateMap<Models.Order, OrderToReturnDto>();
+
+            CreateMap<OrderDetailToCreateDto, Models.OrderDetail>();
         }
     }
 }

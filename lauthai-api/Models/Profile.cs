@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,5 +21,11 @@ namespace lauthai_api.Models
 
         public int? UniversityId { get; set; }
         public University University { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; }
+        public Profile()
+        {
+            OrderDetails = new Collection<OrderDetail>();
+        }
     }
 }

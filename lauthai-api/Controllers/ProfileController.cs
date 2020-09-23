@@ -30,8 +30,6 @@ namespace lauthai_api.Controllers
             if (profiles != null)
                 return Ok(profiles);
             return NotFound();
-
-
         }
 
         [AllowAnonymous]

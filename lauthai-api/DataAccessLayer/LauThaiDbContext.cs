@@ -22,5 +22,7 @@ namespace lauthai_api.DataAccessLayer.Data
         public DbSet<University> Universities { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

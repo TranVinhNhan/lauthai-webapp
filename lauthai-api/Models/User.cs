@@ -23,10 +23,12 @@ namespace lauthai_api.Models
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
+        public ICollection<Order> Orders { get; set; }
         public User()
         {
             Role = "User";
             Feedbacks = new Collection<Feedback>();
+            Orders = new Collection<Order>();
         }
     }
 }
