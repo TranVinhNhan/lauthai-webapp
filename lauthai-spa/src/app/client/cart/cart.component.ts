@@ -53,9 +53,18 @@ export class CartComponent implements OnInit, AfterViewInit {
     }
   }
 
-  deleteItem(selectedItem: ICartItem): void {
+  onDeleteItem(selectedItem: ICartItem): void {
     this.cartService.deleteItemFromCart(selectedItem);
     this.loadCart();
     this.extension.openSnackBar('Xóa hàng ra khỏi giỏ thành công', 'Bỏ qua');
+  }
+
+  onGetTotal(): number {
+    return this.cartService.getTotal();
+  }
+
+  onChangeQuantity(selectedItem: ICartItem, action: number): void {
+    this.cartService.changeQuantity(selectedItem, action);
+    this.loadCart();
   }
 }
