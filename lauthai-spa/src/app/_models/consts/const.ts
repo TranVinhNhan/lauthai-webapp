@@ -4,7 +4,7 @@ export class Const {
   ];
 
   public static readonly TABLE_USER_COLUMN = [
-    'check','id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'heart'
+    'select', 'id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'heart'
   ];
 
   public static readonly TABLE_ADMIN_FEEDBACK = [

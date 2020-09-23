@@ -2,8 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
-
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
@@ -22,6 +21,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   selection = new SelectionModel<IProfile>(true, []);
@@ -33,9 +33,11 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     private profileService: ProfileService,
     private cartService: CartService,
     private extension: ExtensionService
-    ) { }
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isAllSelected();
+  }
 
   ngAfterViewInit(): void {
     this.loadProfiles();
@@ -58,20 +60,19 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    this.dataSource = new MatTableDataSource(this.profiles);
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource?.data.length;
     return numSelected === numRows;
   }
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
-      this.isAllSelected() ?
-          this.selection.clear() :
-          this.dataSource.data.forEach(row => this.selection.select(row));
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  checkboxLabel(row?: IProfile): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    checkboxLabel(row?: IProfile): string {
-      if (!row) {
-        return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-      }
-      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.check + 1}`;
-    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
 }

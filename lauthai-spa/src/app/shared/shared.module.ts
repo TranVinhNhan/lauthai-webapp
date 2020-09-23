@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ExtensionService } from '../_services/extension.service';
 import { PricePipe } from '../_pipes/price.pipe';
 import { AmountCharPipe } from './../_pipes/amount-char.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { AmountCharPipe } from './../_pipes/amount-char.pipe';
     MatMenuModule,
     MatTabsModule,
     MatSelectModule,
+    MatCheckboxModule,
 
     PricePipe,
     AmountCharPipe
