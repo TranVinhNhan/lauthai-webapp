@@ -21,5 +21,9 @@ namespace lauthai_api.DataAccessLayer
         // Feedback
         Task<IEnumerable<Feedback>> GetAllFeedbacks();
         Task<Feedback> GetFeedbackById(int id);
+        // Order detail
+        Task<OrderDetail> GetOrderDetailById(int id);
+        // Order
+        Task<Order> GetOrderById(int id);
     }
 }

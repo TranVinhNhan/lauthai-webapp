@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CartService } from 'src/app/_services/cart.service';
 import { ExtensionService } from 'src/app/_services/extension.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,11 @@ export class CartComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private cartService: CartService, private extension: ExtensionService) {
+  constructor(
+    private cartService: CartService,
+    private extension: ExtensionService,
+    private router: Router
+    ) {
     this.loadCart();
   }
 
@@ -66,5 +71,9 @@ export class CartComponent implements OnInit, AfterViewInit {
   onChangeQuantity(selectedItem: ICartItem, action: number): void {
     this.cartService.changeQuantity(selectedItem, action);
     this.loadCart();
+  }
+
+  onProceedToCheckout(): void {
+    this.router.navigate(['/checkout']);
   }
 }

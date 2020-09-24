@@ -22,7 +22,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Ảnh đại diện </th>
           <td mat-cell *matCellDef="let row">
             <img class="img img-thumbnail" *ngIf="row.pfpUrl" [src]="row.pfpUrl" alt="profilepic">
-            <p *ngIf="!row.pfpUrl">Chưa có hình ảnh</p>
+            <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
           </td>
           <td mat-footer-cell *matFooterCellDef> </td>
         </ng-container>
@@ -93,6 +93,7 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
+    <button (click)="onProceedToCheckout()" class="my-5" style="width: 100%;" mat-raised-button color="primary">TIẾN HÀNH THANH TOÁN</button>
   </div>
   <h2 *ngIf="!this.cart" class="text-center">Giỏ hàng trống</h2>
 </div>

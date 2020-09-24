@@ -1,6 +1,52 @@
-<mat-form-field appearance="legacy">
-  <mat-label>Amount</mat-label>
-  <input matInput type="number">
-  <span matPrefix>VND&nbsp;</span>
-  <span matSuffix>.00</span>
-</mat-form-field>
+<div class="container">
+  <h1 class="text-center font-weight-bold">Xác nhận đơn hàng</h1>
+  <div *ngIf="!isOrderPlaced" class="row">
+    <div class="col-md-8">
+      <h1>Thông tin khách hàng</h1>
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Họ tên checker</mat-label>
+            <input matInput type="text" formControlName="customerFullname">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Số điện thoại</mat-label>
+            <input matInput type="text" formControlName="customerPhone">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Địa điểm gặp mặt</mat-label>
+            <input matInput type="text" formControlName="meetingPlace">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Ngày hẹn</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="meetingDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-12">
+            <mat-label>Yêu cầu khác</mat-label>
+            <textarea matInput formControlName="option"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <button type="submit" class="col-md-12" mat-raised-button color="primary">Xác nhận</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <h1>Giỏ "hàng"</h1>
+      <mat-list>
+        <mat-list-item *ngFor="let item of cart">Tên: {{item.name}}; phone: {{item.phone}}; giá:
+          {{item.price|K}}x{{item.quantity}} </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div *ngIf="isOrderPlaced">
+    <h2>Đơn hàng mã #{{orderId}} đã được đặt thành công</h2>
+    <p>Tự động chuyển về trang chủ trong {{subscribeTimer}} giây...</p>
+  </div>
+</div>

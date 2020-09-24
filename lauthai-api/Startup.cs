@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using lauthai_api.DataAccessLayer;
+using System;
 
 namespace lauthai_api
 {
@@ -56,7 +57,8 @@ namespace lauthai_api
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value))
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ClockSkew = TimeSpan.Zero // https://stackoverflow.com/a/46231102
                 };
             });
         }

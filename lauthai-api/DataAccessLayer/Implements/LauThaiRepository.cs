@@ -61,5 +61,15 @@ namespace lauthai_api.DataAccessLayer
         {
             return await _context.Users.ToListAsync();
         }
+        // Order Detail
+        public async Task<OrderDetail> GetOrderDetailById(int id)
+        {
+            return await _context.OrderDetails.FirstOrDefaultAsync(o => o.Id == id);
+        }
+        // Order
+        public async Task<Order> GetOrderById(int id)
+        {
+            return await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        }
     }
 }
