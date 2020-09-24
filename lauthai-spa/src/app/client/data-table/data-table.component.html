@@ -10,20 +10,30 @@
         </th>
         <td mat-cell *matCellDef="let row">
           <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row,row.id)">
           </mat-checkbox>
         </td>
+        <td mat-footer-cell *matFooterCellDef>
+          <span>
+            hùng
+          </span>
+        </td>
+
       </ng-container>
       <!-- ID Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let row"> {{row.id}}</td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên </th>
         <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Pfp Column -->
@@ -33,48 +43,64 @@
           <span *ngIf="row.pfpUrl"><img src="{{row.pfpUrl}}" class="image-avatar"></span>
           <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
         </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- University Column -->
       <ng-container matColumnDef="university">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Trường </th>
         <td mat-cell *matCellDef="let row"> {{row.university.name}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Age Column -->
       <ng-container matColumnDef="age">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tuổi </th>
         <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Job Column -->
       <ng-container matColumnDef="job">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Công việc hiện tại </th>
         <td mat-cell *matCellDef="let row"> {{row.job}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Married Status Column -->
       <ng-container matColumnDef="marriedStatus">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tình trạng hôn nhân </th>
         <td mat-cell *matCellDef="let row"> {{row.marriedStatus}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- District Column -->
       <ng-container matColumnDef="district">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Địa chỉ </th>
         <td mat-cell *matCellDef="let row"> {{row.district}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Phone Column -->
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Số điện thoại </th>
         <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
 
       <!-- Price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Bao nhiêu 1 shot? </th>
         <td mat-cell *matCellDef="let row"> {{row.price | K}} </td>
+        <td mat-footer-cell *matFooterCellDef> <span class="font-weight-bold">Tổng tiền:</span> </td>
+
       </ng-container>
 
       <ng-container matColumnDef="heart">
@@ -85,11 +111,34 @@
             <mat-icon>favorite</mat-icon>
           </button>
         </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns">
+
+      </tr>
       <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/detail-person',row.id]"></tr> -->
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></tr>
+      <tr mat-footer-row *matfooterRowDef>
+
+      </tr>
+     
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <table class="table-footer">
+      <div class="example-button-row">
+        <button mat-button color="primary" 
+        style="background-color: coral;color: white; margin-left: 160px ;"
+        (click)="getAllCheck()"
+        >
+          Thêm 
+        </button>
+      </div>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+
+
+    </mat-paginator>
+
+
   </div>
 </div>
