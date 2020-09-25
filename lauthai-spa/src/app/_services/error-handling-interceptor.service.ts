@@ -13,6 +13,9 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {
+        if (error.status === 401) {
+          this.extension.openSnackBar(error.error, 'Bỏ qua');
+        }
         let errorResponse: { key: string, value: [] };
         errorResponse = error.error.errors;
         const errMessage = errorResponse[Object.keys(errorResponse)[0]][0];

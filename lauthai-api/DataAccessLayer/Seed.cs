@@ -17,12 +17,6 @@ namespace lauthai_api.DataAccessLayer.Data
         {
             if (!_context.Profiles.Any())
             {
-<<<<<<< HEAD
-                var universityData = System.IO.File.ReadAllText("DataAccessLayer/Profiles.json");
-                var universities = JsonConvert.DeserializeObject<List<University>>(universityData);
-                foreach (var uni in universities)
-                    _context.Add(uni);
-=======
                 var data = System.IO.File.ReadAllText("DataAccessLayer/Profiles.json");
                 var profiles = JsonConvert.DeserializeObject<List<Profile>>(data);
                 foreach (var pf in profiles)
@@ -44,7 +38,6 @@ namespace lauthai_api.DataAccessLayer.Data
                 {
                     Name = "HUTECH"
                 };
->>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
 
                 foreach (var pf in profiles)
                 {

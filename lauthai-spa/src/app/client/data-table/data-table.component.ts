@@ -134,21 +134,4 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-<<<<<<< HEAD
-
-  CartItemToProfile(cartItem: ICartItem): IProfile {
-    const pf = {} as IProfile;
-    pf.id = cartItem.id;
-    pf.name = cartItem.name;
-    pf.pfpUrl = cartItem.pfpUrl;
-    pf.phone = cartItem.phone;
-    pf.price = cartItem.price;
-    pf.university.name = cartItem.universityName;
-    pf.category.nameCategory = cartItem.categoryName;
-
-    return pf;
-  }
-
-=======
->>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
 }

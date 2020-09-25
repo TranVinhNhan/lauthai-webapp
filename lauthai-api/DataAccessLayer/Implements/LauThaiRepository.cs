@@ -18,14 +18,11 @@ namespace lauthai_api.DataAccessLayer
         // Profile
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
-<<<<<<< HEAD
-            return await _context.Profiles.Include(p => p.University).Include(p=>p.Category).AsNoTracking().ToListAsync();
-=======
             return await _context.Profiles.Include(p => p.University)
                                           .Include(p => p.Images)
+                                          .Include(p=>p.Category)
                                           .AsNoTracking()
                                           .ToListAsync();
->>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
         }
         public async Task<Profile> GetProfileById(int id)
         {

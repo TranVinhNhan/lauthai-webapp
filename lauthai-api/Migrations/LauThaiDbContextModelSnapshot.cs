@@ -21,15 +21,15 @@ namespace lauthai_api.Migrations
 
             modelBuilder.Entity("lauthai_api.Models.Category", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("name")
+                    b.Property<string>("NameCategory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
                 });
