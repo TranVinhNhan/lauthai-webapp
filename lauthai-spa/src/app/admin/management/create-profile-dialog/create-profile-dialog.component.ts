@@ -7,6 +7,8 @@ import{CategoryService} from 'src/app/_services/category.service';
 import{ICategory} from 'src/app/_models/interfaces/category.interface'
 import { UniversitySerivce } from 'src/app/_services/university.service';
 import { IUniversity } from 'src/app/_models/interfaces/university.interface';
+import { ProfileService } from 'src/app/_services/profile.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
 
 @Component({
   selector: 'app-admin-create-profile-dialog',
@@ -73,5 +75,4 @@ loadCategory():void{
       price: new FormControl('', Validators.required)
     });
   }
-
 }

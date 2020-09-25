@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using lauthai_api.DataAccessLayer.Data;
 using lauthai_api.DataAccessLayer.Repository.Implements;
@@ -17,11 +18,20 @@ namespace lauthai_api.DataAccessLayer
         // Profile
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
+<<<<<<< HEAD
             return await _context.Profiles.Include(p => p.University).Include(p=>p.Category).AsNoTracking().ToListAsync();
+=======
+            return await _context.Profiles.Include(p => p.University)
+                                          .Include(p => p.Images)
+                                          .AsNoTracking()
+                                          .ToListAsync();
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
         }
         public async Task<Profile> GetProfileById(int id)
         {
-            return await _context.Profiles.Include(p => p.University).FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Profiles.Include(p => p.University)
+                                          .Include(p => p.Images)
+                                          .FirstOrDefaultAsync(p => p.Id == id);
         }
         // University
         public async Task<IEnumerable<University>> GetAllUni()
@@ -80,6 +90,13 @@ namespace lauthai_api.DataAccessLayer
         public async Task<Order> GetOrderById(int id)
         {
             return await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        }
+
+        public async Task<IEnumerable<Order>> GetAllOrdersOfUser(int id)
+        {
+            return await _context.Orders.Where(o => o.UserId == id)
+                                        .Include(o => o.OrderDetails)
+                                        .ToListAsync();
         }
     }
 }

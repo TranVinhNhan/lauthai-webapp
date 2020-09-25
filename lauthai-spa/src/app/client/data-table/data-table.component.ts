@@ -55,6 +55,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
       this.dataSource = new MatTableDataSource(this.profiles);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
+      console.log(this.profiles[0].images[0].url);
     }, error => console.log(error));
   }
 
@@ -63,8 +65,11 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     this.extension.openSnackBar('Thêm hàng vào giỏ thành công', 'Bỏ qua');
   }
 
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
+  }
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  isAllSelected(): boolean {
 
     const numSelected = this.selection.selected.length;
 
@@ -79,7 +84,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     const cart = {} as ICartItem;
     cart.id = profile.id;
     cart.name = profile.name;
-    cart.pfpUrl = profile.pfpUrl;
+    cart.pfpUrl = profile.images.find(img => img.isMainPfp).url;
     cart.phone = profile.phone;
     cart.price = profile.price;
     cart.quantity = 1;
@@ -88,12 +93,10 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     return cart;
   }
 
-  getAllCheck() {
-    if (localStorage.getItem(Const.CART)) 
-    {
+  getAllCheck(): void {
+    if (localStorage.getItem(Const.CART)) {
       const cart: ICartItem[] = JSON.parse(localStorage.getItem(Const.CART));
-      if (cart.length > 0) 
-      {
+      if (cart.length > 0) {
         this.selection.selected.forEach(selectedProfile => {
           const profileIndexOfCart = cart.indexOf(cart.find(p => p.id === selectedProfile.id));
           if (profileIndexOfCart > -1) {
@@ -104,10 +107,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
         });
       }
       localStorage.setItem(Const.CART, JSON.stringify(cart));
-    } 
-    else 
-
-    {
+    }
+    else {
       const cart: ICartItem[] = [];
       this.selection.selected.forEach(selectedProfile => {
         cart.push(this.ProfileToCart(selectedProfile));
@@ -116,9 +117,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     }
   }
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    console.log("masterToggle");
-
+  masterToggle(): void {
+    console.log('masterToggle');
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
@@ -134,6 +134,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+<<<<<<< HEAD
 
   CartItemToProfile(cartItem: ICartItem): IProfile {
     const pf = {} as IProfile;
@@ -148,4 +149,6 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     return pf;
   }
 
+=======
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
 }

@@ -4,6 +4,13 @@ using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using System.IO;
+using lauthai_api.Models;
+using System.Linq;
+using System;
 
 namespace lauthai_api.Controllers
 {
@@ -14,11 +21,17 @@ namespace lauthai_api.Controllers
     {
         private readonly ILauThaiRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IHostEnvironment _hostingEnv;
 
-        public ProfileController(ILauThaiRepository repo, IMapper mapper)
+        public ProfileController(
+            ILauThaiRepository repo,
+            IMapper mapper,
+            IHostEnvironment hostingEnv
+            )
         {
             _repo = repo;
             _mapper = mapper;
+            _hostingEnv = hostingEnv;
         }
 
         [AllowAnonymous]
@@ -46,8 +59,11 @@ namespace lauthai_api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProfile(ProfileToCreateDto profileToCreateDto)
         {
-            if (profileToCreateDto.UniversityId.HasValue)
+            var profile = _mapper.Map<Models.Profile>(profileToCreateDto);
+            var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId);
+            if (uni == null)
             {
+<<<<<<< HEAD
                 var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId.Value);
                 var cat = await _repo.GetCategoryById(profileToCreateDto.CategoryId.Value);
                 if (uni == null||cat==null)
@@ -65,11 +81,11 @@ namespace lauthai_api.Controllers
                 {
                     return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
                 }
+=======
+                return NotFound();
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
             }
-
-            var profile = _mapper.Map<Models.Profile>(profileToCreateDto);
-            _repo.Add(profile);
-
+            uni.Profiles.Add(profile);
             if (await _repo.SaveAll())
             {
                 return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
@@ -107,6 +123,69 @@ namespace lauthai_api.Controllers
             }
 
             throw new System.Exception("Cannot delete profile");
+        }
+
+        [HttpPost("{id}/images")]
+        public async Task<IActionResult> UploadImages(int id, [FromForm] List<IFormFile> uploadFiles)
+        {
+            var profile = await _repo.GetProfileById(id);
+            if (profile == null)
+                return NotFound();
+
+            foreach (var formFile in uploadFiles)
+            {
+                if (formFile.Length > 0 || formFile != null)
+                {
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", formFile.FileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(fileStream);
+                        if (!profile.Images.Any())
+                        {
+                            var img = new Image
+                            {
+                                Url = ImageServer.ServerUrl + "/" + formFile.FileName,
+                                IsMainPfp = true
+                            };
+
+                            profile.Images.Add(img);
+                        }
+                        else
+                        {
+                            var img = new Image
+                            {
+                                Url = ImageServer.ServerUrl + "/" + formFile.FileName,
+                                IsMainPfp = false
+                            };
+
+                            profile.Images.Add(img);
+                        }
+                    }
+                }
+            }
+            if (await _repo.SaveAll())
+                return StatusCode(201);
+
+            throw new Exception("Cannot upload image");
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("{profileId}/images/{imgId}")]
+        public async Task<IActionResult> DeleteImage(int profileId, int imgId)
+        {
+            var profile = await _repo.GetProfileById(profileId);
+            if (profile == null)
+                return NotFound();
+
+            profile.Images.Remove(profile.Images.FirstOrDefault(img => img.Id == imgId));
+            if (profile.Images.Any() && !profile.Images.Any(img => img.IsMainPfp))
+            {
+                profile.Images.First().IsMainPfp = true;
+            }
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception("Cannot delete image");
         }
     }
 }

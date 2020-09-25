@@ -49,7 +49,6 @@ export class UpdateProfileDialogComponent implements OnInit {
   initUpdateForm(): void {
     this.updateForm = new FormGroup({
       id: new FormControl(this.data.id),
-      pfpUrl: new FormControl(this.data.pfpUrl),
       name: new FormControl(this.data.name, Validators.required),
       age: new FormControl(this.data.age, Validators.required),
       universityId: new FormControl(this.data.university.id, Validators.required),

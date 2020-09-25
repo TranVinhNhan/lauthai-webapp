@@ -1,4 +1,4 @@
-<div class="container" >
+<div class="container">
   <h1 style="padding: 20px 0">Quản lý trại gà</h1>
   <section>
     <div class="example-label">Hành động</div>
@@ -14,7 +14,7 @@
         <button mat-icon-button color="accent" aria-label="Update">
           <mat-icon>update</mat-icon>
         </button>
-        <button mat-icon-button color="warn" aria-label="Delete"  data-toggle="modal" data-target="#exampleModal">
+        <button mat-icon-button color="warn" aria-label="Delete" data-toggle="modal" data-target="#exampleModal">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
@@ -27,10 +27,10 @@
   </mat-form-field>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort >
+    <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- ID Column -->
-      <ng-container matColumnDef="id" >
+      <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let row"> {{row.id}}</td>
       </ng-container>
@@ -45,8 +45,12 @@
       <ng-container matColumnDef="pfpUrl">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile Pic </th>
         <td mat-cell *matCellDef="let row">
-          <span *ngIf="row.pfpUrl"><img src="{{row.pfpUrl}}" width="100" height="100"></span>
-          <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
+          <span *ngIf="row.images.length === 1"><img *ngFor="let img of row.images" [src]="img.url" (click)="openDeleteProfileImageDialog(row.id, img.id)" width="100"
+              height="100"></span>
+          <span *ngIf="row.images.length > 1">
+            <div class="row"><img *ngFor="let img of row.images" [src]="img.url" (click)="openDeleteProfileImageDialog(row.id, img.id)" width="40"></div>
+          </span>
+          <span *ngIf="!(row.images.length > 0)">Chưa có hình ảnh</span>
         </td>
       </ng-container>
 
@@ -102,17 +106,15 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Quản lý </th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button color="primary" aria-label="Read">
-            <mat-icon>info</mat-icon>
+          <button (click)="openUploadProfileImageDialog(row.id)" mat-icon-button color="primary" aria-label="Update">
+            <mat-icon>add_a_photo</mat-icon>
           </button>
           <button (click)="openUpdateDialog(row)" mat-icon-button color="accent" aria-label="Update">
             <mat-icon>update</mat-icon>
           </button>
-
           <button (click)="openDeleteDialog(row.id)" mat-icon-button color="warn" aria-label="Delete">
             <mat-icon>delete</mat-icon>
           </button>
-
         </td>
       </ng-container>
 

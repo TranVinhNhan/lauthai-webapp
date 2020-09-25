@@ -10,7 +10,6 @@ namespace lauthai_api.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public string PfpUrl { get; set; }
         public string Job { get; set; }
         public string MarriedStatus { get; set; }
         public string District { get; set; }
@@ -26,9 +25,11 @@ namespace lauthai_api.Models
         public Category Category { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
+        public ICollection<Image> Images { get; set; }
         public Profile()
         {
             OrderDetails = new Collection<OrderDetail>();
+            Images = new Collection<Image>();
         }
     }
 }
