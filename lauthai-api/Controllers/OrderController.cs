@@ -5,10 +5,12 @@ using AutoMapper;
 using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
 using lauthai_api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lauthai_api.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
@@ -21,6 +23,7 @@ namespace lauthai_api.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(OrderToCreateDto orderToCreateDto)
         {
@@ -60,12 +63,13 @@ namespace lauthai_api.Controllers
             return Ok(order);
         }
 
+        [AllowAnonymous]
         [HttpGet("user")]
         public async Task<IActionResult> GetOrderOfUser()
         {
             if (User.FindFirst(ClaimTypes.NameIdentifier) == null)
                 return Unauthorized();
-            
+
             var orders = await _repo.GetAllOrdersOfUser(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
             if (orders != null)
                 return Ok(orders);

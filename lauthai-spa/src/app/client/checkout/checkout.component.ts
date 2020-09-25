@@ -7,6 +7,7 @@ import { Const } from 'src/app/_models/consts/const';
 import { ICartItem } from 'src/app/_models/interfaces/cartItem.interface';
 import { IOrderDetail } from 'src/app/_models/interfaces/order-detail.interface';
 import { IOrder } from 'src/app/_models/interfaces/order.inteface';
+import { AuthService } from 'src/app/_services/auth.service';
 import { CartService } from 'src/app/_services/cart.service';
 
 @Component({
@@ -27,7 +28,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   constructor(
     private datePipe: DatePipe,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.timerHost.unsubscribe();
   }
 
   loadCart(): void {
@@ -45,7 +46,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   initCheckoutForm(): void {
     this.checkoutForm = new FormGroup({
-      customerFullname: new FormControl('', Validators.required),
+      customerFullname: new FormControl(this.authService.decodedToken.unique_name, Validators.required),
       customerPhone: new FormControl('', Validators.required),
       meetingPlace: new FormControl('', Validators.required),
       meetingDate: new FormControl('', Validators.required),
@@ -60,7 +61,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       const cart = JSON.parse(localStorage.getItem(Const.CART));
       const orderDetails: IOrderDetail[] = [];
       cart.forEach((item: ICartItem) => {
-        orderDetails.push({ quantity: item.quantity, profileId: item.id });
+        orderDetails.push(
+          {
+            quantity: item.quantity,
+            profileId: item.id,
+            priceAtBuyTime: item.price,
+            nameAtBuyTime: item.name,
+            phoneAtBuyTime: item.phone
+          });
       });
 
       order.orderDetails = orderDetails;
@@ -79,6 +87,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.subscribeTimer = this.timeleft - value;
       if (this.subscribeTimer === 0) {
         this.router.navigate(['/']);
+        this.timerHost.unsubscribe();
       }
     });
   }

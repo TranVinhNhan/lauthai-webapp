@@ -149,7 +149,6 @@ namespace lauthai_api.Controllers
             throw new Exception("Cannot upload image");
         }
 
-        [AllowAnonymous]
         [HttpDelete("{profileId}/images/{imgId}")]
         public async Task<IActionResult> DeleteImage(int profileId, int imgId)
         {

@@ -15,5 +15,9 @@ export class Const {
     'id', 'pfpUrl', 'name', 'phone', 'universityName', 'price', 'quantity', 'action'
   ];
 
+  public static readonly TABLE_HISTORY = [
+    'dateCreated', 'customerFullname', 'meetingPlace', 'meetingDate', 'option', 'orderDetails'
+  ];
+
   public static readonly CART = 'cart';
 }

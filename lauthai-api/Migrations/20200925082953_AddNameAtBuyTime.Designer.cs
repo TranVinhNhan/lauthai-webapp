@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lauthai_api.DataAccessLayer.Data;
 
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    partial class LauThaiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200925082953_AddNameAtBuyTime")]
+    partial class AddNameAtBuyTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,9 +120,6 @@ namespace lauthai_api.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
-
-                    b.Property<string>("PhoneAtBuyTime")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PriceAtBuyTime")
                         .HasColumnType("decimal(18,4)");

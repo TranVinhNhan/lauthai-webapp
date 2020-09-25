@@ -26,6 +26,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { AccountComponent } from './account/account.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AccountComponent } from './account/account.component';
     FeedbackComponent,
     CheckoutComponent,
     UserInfoComponent,
-    AccountComponent
+    AccountComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,
