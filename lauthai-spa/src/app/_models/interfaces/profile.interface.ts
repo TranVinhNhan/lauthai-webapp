@@ -1,10 +1,10 @@
+import { IImage } from './image.inteface';
 import { IUniversity } from './university.interface';
 
 export interface IProfile {
   id: number;
   name: string;
   age: number;
-  pfpUrl: string;
   job: string;
   marriedStatus: string;
   district: string;
@@ -12,4 +12,5 @@ export interface IProfile {
   price: number;
   universityId?: number;
   university: IUniversity;
+  images: IImage[];
 }

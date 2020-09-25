@@ -24,7 +24,7 @@ export class CartService {
       } else {
         const cartItem: ICartItem = {
           id: selectedItem.id,
-          pfpUrl: selectedItem.pfpUrl,
+          pfpUrl: selectedItem.images.find(img => img.isMainPfp === true).url,
           name: selectedItem.name,
           phone: selectedItem.phone,
           universityName: selectedItem.university.name,
@@ -38,7 +38,7 @@ export class CartService {
       const cart = [];
       const cartItem: ICartItem = {
         id: selectedItem.id,
-        pfpUrl: selectedItem.pfpUrl,
+        pfpUrl: selectedItem.images.find(img => img.isMainPfp === true).url,
         name: selectedItem.name,
         phone: selectedItem.phone,
         universityName: selectedItem.university.name,

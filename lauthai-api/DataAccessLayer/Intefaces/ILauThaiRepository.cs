@@ -25,5 +25,6 @@ namespace lauthai_api.DataAccessLayer
         Task<OrderDetail> GetOrderDetailById(int id);
         // Order
         Task<Order> GetOrderById(int id);
+        Task<IEnumerable<Order>> GetAllOrdersOfUser(int id);
     }
 }

@@ -6,7 +6,7 @@
         <div class="preview col-md-6">
           <div class="preview-pic tab-content">
             <div class="tab-pane active" id="pic-1">
-              <img src="{{profileDetail.pfpUrl}}" style="height: 500px ;width: 490px" /></div>
+              <img src="{{getMainPfpUrl(profileDetail)}}" style="height: 500px ;width: 490px" /></div>
           </div>
         </div>
         <div class="details col-md-6">
@@ -37,17 +37,17 @@
             </ul>
           </div>
             <button class="add-to-cart btn btn-default" type="button"   (click)="addToCart(profileDetail)" >
-            <a >        
+            <a >
                     Thêm vào WishList
             </a>
             </button>
-        
+
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- 
+<!--
 				<td>{{Profiledetail.name}}</td>
 					<td>{{Profiledetail.university.name}}</td>
 					<td>{{Profiledetail.job}}</td>

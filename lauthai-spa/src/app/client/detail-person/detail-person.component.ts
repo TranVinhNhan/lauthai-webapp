@@ -54,4 +54,8 @@ export class DetailPersonComponent implements OnInit {
     this.extension.openSnackBar('Đã thêm vào giỏ hàng', 'Bỏ qua');
     this.router.navigate(['/cart']);
   }
+
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
+  }
 }

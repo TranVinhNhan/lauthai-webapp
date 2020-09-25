@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Upload ảnh profile</h2>
+<mat-dialog-content class="mat-typography">
+  <input style="display: none;" #fileInput type="file" multiple (change)="onFileInput($event)"
+    accept="image/png, image/jpeg, image/jpg" placeholder="">
+  <div *ngIf="this.previewImageUrls.length > 0">
+    <p>Đã tải lên {{this.previewImageUrls.length}} hình:</p>
+    <img style="width: 50px; height: 50px;" *ngFor="let url of previewImageUrls" [src]='url'>
+  </div>
+
+  <button type="button" (click)="fileInput.click()" mat-icon-button matTooltip="Upload ảnh đại diện (ảnh nhỏ hơn 5MB)"
+    color="primary">
+    <mat-icon>add_a_photo</mat-icon>
+  </button>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="onNoClick()" mat-button mat-dialog-close>Cancel</button>
+  <button (click)="onOkClick()" mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

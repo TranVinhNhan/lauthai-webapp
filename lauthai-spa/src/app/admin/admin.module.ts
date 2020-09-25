@@ -11,6 +11,8 @@ import { UpdateProfileDialogComponent } from './management/update-profile-dialog
 import { DeleteProfileDialogComponent } from './management/delete-profile-dialog/delete-profile-dialog.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { DeleteProfileImageDialogComponent } from './management/delete-profile-image-dialog/delete-profile-image-dialog.component';
+import { UploadProfileImageDialogComponent } from './management/upload-profile-image-dialog/upload-profile-image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FeedbackComponent } from './feedback/feedback.component';
     UpdateProfileDialogComponent,
     DeleteProfileDialogComponent,
     NavbarComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    DeleteProfileImageDialogComponent,
+    UploadProfileImageDialogComponent
   ],
   imports: [
     CommonModule,

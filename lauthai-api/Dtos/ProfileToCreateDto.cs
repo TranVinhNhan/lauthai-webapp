@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+
 namespace lauthai_api.Dtos
 {
     public class ProfileToCreateDto
@@ -10,6 +13,6 @@ namespace lauthai_api.Dtos
         public string District { get; set; }
         public string Phone { get; set; }
         public string Price { get; set; }
-        public int? UniversityId { get; set; }
+        public int UniversityId { get; set; }
     }
 }

@@ -19,16 +19,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ExtensionService } from '../_services/extension.service';
 import { PricePipe } from '../_pipes/price.pipe';
 import { AmountCharPipe } from './../_pipes/amount-char.pipe';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SafeUrlPipe } from '../_pipes/safe-url.pipe';
 
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [PricePipe, AmountCharPipe],
+  declarations: [PricePipe, AmountCharPipe, SafeUrlPipe],
   exports: [
     CommonModule,
     FormsModule,
@@ -50,9 +52,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatTooltipModule,
 
     PricePipe,
-    AmountCharPipe
+    AmountCharPipe,
+    SafeUrlPipe
   ],
   providers: [
     DatePipe,

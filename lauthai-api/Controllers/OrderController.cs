@@ -59,5 +59,18 @@ namespace lauthai_api.Controllers
 
             return Ok(order);
         }
+
+        [HttpGet("user")]
+        public async Task<IActionResult> GetOrderOfUser()
+        {
+            if (User.FindFirst(ClaimTypes.NameIdentifier) == null)
+                return Unauthorized();
+            
+            var orders = await _repo.GetAllOrdersOfUser(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            if (orders != null)
+                return Ok(orders);
+
+            return NotFound();
+        }
     }
 }

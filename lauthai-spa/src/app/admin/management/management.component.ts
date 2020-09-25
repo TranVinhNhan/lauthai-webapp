@@ -10,8 +10,9 @@ import { ProfileService } from '../../_services/profile.service';
 import { CreateProfileDialogComponent } from './create-profile-dialog/create-profile-dialog.component';
 import { UpdateProfileDialogComponent } from './update-profile-dialog/update-profile-dialog.component';
 import { DeleteProfileDialogComponent } from './delete-profile-dialog/delete-profile-dialog.component';
-import { AuthService } from 'src/app/_services/auth.service';
 import { ExtensionService } from 'src/app/_services/extension.service';
+import { DeleteProfileImageDialogComponent } from './delete-profile-image-dialog/delete-profile-image-dialog.component';
+import { UploadProfileImageDialogComponent } from './upload-profile-image-dialog/upload-profile-image-dialog.component';
 
 @Component({
 
@@ -25,6 +26,9 @@ export class ManagementComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = Const.TABLE_ADMIN_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
   profiles: IProfile[];
+  formData: FormData = new FormData();
+  overSizeFileName: string[] = [];
+  previewImageUrls: string[] = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -97,10 +101,41 @@ export class ManagementComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this.profileService.updateProfile(pf.id, result).subscribe(() => {
           this.loadProfiles();
-        }, error => { });
+          this.loadPaginator();
+        });
+      }
+    });
+  }
+
+  openUploadProfileImageDialog(profileId: number): void{
+    const dialogRef = this.dialog.open(UploadProfileImageDialogComponent, {
+      width: 'fit-content',
+      data: new FormData()
+    });
+
+    dialogRef.afterClosed().subscribe((result: FormData) => {
+      if (result.getAll('uploadFiles').length > 0) {
+        this.uploadToServer(profileId, result);
+      }
+    });
+  }
+
+  openDeleteProfileImageDialog(profileId: number, imgId: number): void {
+    const dialogRef = this.dialog.open(DeleteProfileImageDialogComponent, {
+      width: 'fit-content',
+      data: imgId
+    });
+
+    dialogRef.afterClosed().subscribe((result: number) => {
+      if (result) {
+        this.profileService.deleteProfilePic(profileId, imgId)
+        .subscribe(() => {
+          this.extension.openSnackBar('Đã xóa', 'Bỏ qua');
+          this.loadProfiles();
+          this.loadPaginator();
+        });
       }
     });
   }
@@ -112,5 +147,19 @@ export class ManagementComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
+  }
+
+  uploadToServer(profileId: number, formData: FormData): void {
+    this.profileService.uploadProfilePics(profileId, formData)
+      .subscribe(() => {
+        this.loadProfiles();
+        this.loadPaginator();
+        this.formData.delete('uploadFiles');
+        this.previewImageUrls = [];
+      }, error => console.log(error));
   }
 }

@@ -30,7 +30,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     private profileService: ProfileService,
     private cartService: CartService,
     private extension: ExtensionService
-    ) { }
+  ) { }
 
   ngOnInit(): void { }
 
@@ -44,11 +44,17 @@ export class DataTableComponent implements AfterViewInit, OnInit {
       this.dataSource = new MatTableDataSource(this.profiles);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
+      console.log(this.profiles[0].images[0].url);
     }, error => console.log(error));
   }
 
   addItemToCart(selectedItem: IProfile): void {
     this.cartService.addItemToCart(selectedItem);
     this.extension.openSnackBar('Thêm hàng vào giỏ thành công', 'Bỏ qua');
+  }
+
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
   }
 }
