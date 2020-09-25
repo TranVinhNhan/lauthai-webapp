@@ -24,6 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ExtensionService } from '../_services/extension.service';
 import { PricePipe } from '../_pipes/price.pipe';
 import { AmountCharPipe } from './../_pipes/amount-char.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SafeUrlPipe } from '../_pipes/safe-url.pipe';
 
@@ -50,6 +51,7 @@ import { SafeUrlPipe } from '../_pipes/safe-url.pipe';
     MatMenuModule,
     MatTabsModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatTooltipModule,
