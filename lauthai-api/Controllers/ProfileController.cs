@@ -49,13 +49,15 @@ namespace lauthai_api.Controllers
             if (profileToCreateDto.UniversityId.HasValue)
             {
                 var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId.Value);
-                if (uni == null)
+                var cat = await _repo.GetCategoryById(profileToCreateDto.CategoryId.Value);
+                if (uni == null||cat==null)
                 {
                     return NotFound();
                 }
 
                 var newProfile = _mapper.Map<Models.Profile>(profileToCreateDto);
                 uni.Profiles.Add(newProfile);
+                cat.Profiles.Add(newProfile);
 
                 var profileToReturn = new Models.Profile();
 

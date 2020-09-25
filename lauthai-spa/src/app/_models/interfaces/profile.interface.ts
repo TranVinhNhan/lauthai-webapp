@@ -1,3 +1,4 @@
+import { ICategory } from './category.interface';
 import { IUniversity } from './university.interface';
 
 export interface IProfile {
@@ -12,4 +13,6 @@ export interface IProfile {
   price: number;
   universityId?: number;
   university: IUniversity;
+  categoryId?: number;
+  category: ICategory;
 }

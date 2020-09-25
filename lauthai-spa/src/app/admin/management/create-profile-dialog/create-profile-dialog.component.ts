@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { IProfile } from './../../../_models/interfaces/profile.interface';
+import{CategoryService} from 'src/app/_services/category.service';
+import{ICategory} from 'src/app/_models/interfaces/category.interface'
 import { UniversitySerivce } from 'src/app/_services/university.service';
 import { IUniversity } from 'src/app/_models/interfaces/university.interface';
 
@@ -15,10 +17,12 @@ export class CreateProfileDialogComponent implements OnInit {
 
   createForm: FormGroup;
   universities: IUniversity[];
+  categorities: ICategory[];
   isFetching = false;
 
   constructor(
     private univesityService: UniversitySerivce,
+    private categoryService:CategoryService,
     public dialogRef: MatDialogRef<CreateProfileDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IProfile
   ) { }
@@ -26,6 +30,7 @@ export class CreateProfileDialogComponent implements OnInit {
   ngOnInit(): void {
     this.initCreateForm();
     this.loadUniversities();
+    this.loadCategory();
   }
 
   loadUniversities(): void {
@@ -35,7 +40,13 @@ export class CreateProfileDialogComponent implements OnInit {
       this.isFetching = false;
     }, error => { });
   }
-
+loadCategory():void{
+   this.isFetching=true;
+   this.categoryService.getCategoryAll().subscribe((Response:ICategory[])=>{
+     this.categorities=Response;
+     this.isFetching=false ;
+   },error =>{});
+}
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -54,6 +65,7 @@ export class CreateProfileDialogComponent implements OnInit {
       name: new FormControl('', Validators.required),
       age: new FormControl('', Validators.required),
       universityId: new FormControl('', Validators.required),
+      categoryId: new FormControl('', Validators.required),
       job: new FormControl('', Validators.required),
       marriedStatus: new FormControl('', Validators.required),
       district: new FormControl('', Validators.required),

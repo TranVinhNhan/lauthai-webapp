@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lauthai_api.DataAccessLayer.Data;
 
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    partial class LauThaiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200925042524_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,15 +23,15 @@ namespace lauthai_api.Migrations
 
             modelBuilder.Entity("lauthai_api.Models.Category", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("name")
+                    b.Property<string>("NameCategory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
                 });

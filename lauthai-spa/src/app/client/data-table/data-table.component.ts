@@ -84,6 +84,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     cart.price = profile.price;
     cart.quantity = 1;
     cart.universityName = profile.university.name;
+    cart.categoryName = profile.category.nameCategory;
     return cart;
   }
 
@@ -142,6 +143,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     pf.phone = cartItem.phone;
     pf.price = cartItem.price;
     pf.university.name = cartItem.universityName;
+    pf.category.nameCategory = cartItem.categoryName;
 
     return pf;
   }
