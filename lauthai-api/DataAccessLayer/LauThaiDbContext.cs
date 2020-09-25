@@ -24,6 +24,10 @@ namespace lauthai_api.DataAccessLayer.Data
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
+<<<<<<< HEAD
+        public DbSet<Category> Categories { get; set; }
+=======
         public DbSet<Image> Images { get; set; }
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
     }
 }

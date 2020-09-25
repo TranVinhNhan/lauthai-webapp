@@ -13,6 +13,11 @@ namespace lauthai_api.DataAccessLayer
         // University
         Task<IEnumerable<University>> GetAllUni();
         Task<University> GetUniversityById(int id);
+
+        //Category
+        Task<IEnumerable<Category>> GettAllCategory();
+
+        Task<Category> GetCategoryById(int id);
         // User
         Task<IEnumerable<User>> GetAllUsers();
         Task<User> GetUserById(int id);

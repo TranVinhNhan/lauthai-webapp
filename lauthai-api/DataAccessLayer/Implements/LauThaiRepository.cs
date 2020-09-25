@@ -18,10 +18,14 @@ namespace lauthai_api.DataAccessLayer
         // Profile
         public async Task<IEnumerable<Profile>> GetAllProfiles()
         {
+<<<<<<< HEAD
+            return await _context.Profiles.Include(p => p.University).Include(p=>p.Category).AsNoTracking().ToListAsync();
+=======
             return await _context.Profiles.Include(p => p.University)
                                           .Include(p => p.Images)
                                           .AsNoTracking()
                                           .ToListAsync();
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
         }
         public async Task<Profile> GetProfileById(int id)
         {
@@ -37,6 +41,16 @@ namespace lauthai_api.DataAccessLayer
         public async Task<University> GetUniversityById(int id)
         {
             return await _context.Universities.Include(u => u.Profiles).FirstOrDefaultAsync(u => u.Id == id);
+        }
+        // category
+        public async Task<IEnumerable<Category>> GettAllCategory()
+        {
+            return await _context.Categories.Include(u=>u.Profiles).ToListAsync();
+        }
+
+        public async Task<Category> GetCategoryById(int id)
+        {
+            return await _context.Categories.Include(u=>u.Profiles).FirstOrDefaultAsync(u=>u.CategoryId==id);
         }
         // Feedback
         public async Task<IEnumerable<Feedback>> GetAllFeedbacks()

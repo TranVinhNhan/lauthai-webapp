@@ -63,7 +63,27 @@ namespace lauthai_api.Controllers
             var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId);
             if (uni == null)
             {
+<<<<<<< HEAD
+                var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId.Value);
+                var cat = await _repo.GetCategoryById(profileToCreateDto.CategoryId.Value);
+                if (uni == null||cat==null)
+                {
+                    return NotFound();
+                }
+
+                var newProfile = _mapper.Map<Models.Profile>(profileToCreateDto);
+                uni.Profiles.Add(newProfile);
+                cat.Profiles.Add(newProfile);
+
+                var profileToReturn = new Models.Profile();
+
+                if (await _repo.SaveAll())
+                {
+                    return CreatedAtRoute("GetProfileById", new { newProfile.Id }, newProfile);
+                }
+=======
                 return NotFound();
+>>>>>>> f9bc99b2711fa11666b3fa52a71346b0cc538d19
             }
             uni.Profiles.Add(profile);
             if (await _repo.SaveAll())

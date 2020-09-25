@@ -60,6 +60,12 @@
         <td mat-cell *matCellDef="let row"> {{row.university.name}} </td>
       </ng-container>
 
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phân loại </th>
+        <td mat-cell *matCellDef="let row"> {{row.category.nameCategory}} </td>
+      </ng-container>
+
       <!-- Age Column -->
       <ng-container matColumnDef="age">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tuổi </th>
