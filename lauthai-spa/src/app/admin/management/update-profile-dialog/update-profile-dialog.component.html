@@ -29,6 +29,15 @@
           <p *ngIf="isFetching">Loading...</p>
         </td>
         <td>
+          <mat-form-field *ngIf="!isFetching" class="full-width">
+            <mat-label>Phân loại</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p *ngIf="isFetching">Loading...</p>
+        </td>
+        <td>
           <mat-form-field class="full-width">
             <mat-label>Telephone</mat-label>
             <span matPrefix>+84 &nbsp;</span>

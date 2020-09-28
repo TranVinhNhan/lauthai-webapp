@@ -14,5 +14,6 @@ namespace lauthai_api.Dtos
         public string Phone { get; set; }
         public string Price { get; set; }
         public int UniversityId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

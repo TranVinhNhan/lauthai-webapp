@@ -8,12 +8,17 @@
             <mat-label>Họ tên</mat-label>
             <input formControlName="name" matInput>
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('name').hasError('required') && createForm.get('name').touched">Cần nhập họ và tên </p>
+          <mat-error class="input-alert" *ngIf="this.createForm.get('name').hasError('minlength')||this.createForm.get('name').hasError('maxlength')">Họ tên từ 4 tới 15 </mat-error>
         </td>
         <td>
           <mat-form-field class="full-width">
             <mat-label>Tuổi</mat-label>
             <input type="number" formControlName="age" matInput placeholder="">
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('age').hasError('required') && createForm.get('age').touched">Cần nhập số  tuổi   </p>
+          <p class="input-alert" *ngIf="this.createForm.get('age').hasError('min')" >Không được dưới 18     </p>
+          <p class="input-alert" *ngIf="this.createForm.get('age').hasError('max')" >Không ai sống được tới tuổi này     </p>
         </td>
       </tr>
     </table>
@@ -26,6 +31,18 @@
               <mat-option *ngFor="let uni of universities" [value]="uni.id">{{ uni.name }}</mat-option>
             </mat-select>
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('universityId').hasError('required') && createForm.get('universityId').touched">Cần nhập Trường   </p>
+          <p *ngIf="isFetching">Loading...</p>
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFetching" class="full-width">
+            <mat-label>Phân loại</mat-label>
+            <mat-select formControlName="categoriesId">
+              <mat-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('categoriesId').hasError('required') && createForm.get('categoriesId').touched">Cần nhập phân loại </p>
+
           <p *ngIf="isFetching">Loading...</p>
         </td>
         <td>
@@ -35,6 +52,10 @@
             <input formControlName="phone" type="tel" matInput placeholder="771234567">
             <mat-icon matSuffix>mode_edit</mat-icon>
           </mat-form-field>
+          <p class="input-alert" *ngIf="this.createForm.get('phone').hasError('maxlength')" >không được quá 10 số     </p>
+          <p class="input-alert" *ngIf="this.createForm.get('phone').hasError('minlength')" >không được dưới  10 số     </p>
+          <p class="input-alert" *ngIf="createForm.get('phone').hasError('required') && createForm.get('phone').touched">Cần nhập số điện thoại  </p>
+
         </td>
       </tr>
     </table>
@@ -45,12 +66,15 @@
             <mat-label>Công việc hiện tại</mat-label>
             <input formControlName="job" matInput>
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('job').hasError('required') && createForm.get('job').touched">Cần nhập job </p>
         </td>
         <td>
           <mat-form-field class="full-width">
             <mat-label>Tình trạng hôn nhân</mat-label>
             <input formControlName="marriedStatus" matInput placeholder="">
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('marriedStatus').hasError('required') && createForm.get('marriedStatus').touched">Cần nhập tình trạng  hôn nhân </p>
+
         </td>
       </tr>
     </table>
@@ -61,6 +85,8 @@
             <mat-label>Địa chỉ</mat-label>
             <input formControlName="district" matInput placeholder="Ex. Quận 10">
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('district').hasError('required') && createForm.get('district').touched">Cần nhập địa chỉ  </p>
+
         </td>
         <td>
           <mat-form-field class="full-width">
@@ -68,6 +94,10 @@
             <input type="number" formControlName="price" matInput>
             <span matSuffix>VND</span>
           </mat-form-field>
+          <p class="input-alert" *ngIf="createForm.get('price').hasError('required') && createForm.get('price').touched">Cần nhập giá tiền  </p>
+          <p class="input-alert" *ngIf="this.createForm.get('price').hasError('min')" >không được dưới  300 nghìn     </p>
+
+
         </td>
       </tr>
     </table>
@@ -76,5 +106,5 @@
 </div>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button (click)="onOkClick()" [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onOkClick()" [mat-dialog-close]="data" [disabled]="createForm.invalid" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

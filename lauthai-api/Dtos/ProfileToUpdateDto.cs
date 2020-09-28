@@ -9,5 +9,6 @@ namespace lauthai_api.Dtos
         public string District { get; set; }
         public string Phone { get; set; }
         public int? UniversityId { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

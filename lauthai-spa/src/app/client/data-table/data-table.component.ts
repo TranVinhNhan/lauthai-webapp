@@ -89,6 +89,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     cart.price = profile.price;
     cart.quantity = 1;
     cart.universityName = profile.university.name;
+    cart.categoryName = profile.category.name;
     return cart;
   }
 
