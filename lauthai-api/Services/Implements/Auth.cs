@@ -27,7 +27,7 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Name, user.FullName != null ? user.FullName : user.Username),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 

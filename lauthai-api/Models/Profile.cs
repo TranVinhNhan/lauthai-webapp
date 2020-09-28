@@ -17,6 +17,7 @@ namespace lauthai_api.Models
 
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
+        
 
         public int? UniversityId { get; set; }
         public University University { get; set; }

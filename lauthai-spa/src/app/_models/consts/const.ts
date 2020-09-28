@@ -12,7 +12,11 @@ export class Const {
   ];
 
   public static readonly TABLE_CART = [
-    'id', 'pfpUrl', 'name', 'phone', 'universityName','category', 'price', 'quantity', 'action'
+    'id', 'pfpUrl', 'name', 'phone', 'universityName', 'category','price', 'quantity', 'action'
+  ];
+
+  public static readonly TABLE_HISTORY = [
+    'dateCreated', 'customerFullname', 'meetingPlace', 'meetingDate', 'option', 'orderDetails'
   ];
 
   public static readonly CART = 'cart';

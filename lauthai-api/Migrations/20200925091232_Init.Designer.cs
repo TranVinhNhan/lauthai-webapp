@@ -10,8 +10,8 @@ using lauthai_api.DataAccessLayer.Data;
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    [Migration("20200922103109_AddOrder@User")]
-    partial class AddOrderUser
+    [Migration("20200925091232_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace lauthai_api.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("lauthai_api.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("lauthai_api.Models.Feedback", b =>
                 {
@@ -50,6 +65,29 @@ namespace lauthai_api.Migrations
                     b.ToTable("Feedbacks");
                 });
 
+            modelBuilder.Entity("lauthai_api.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsMainPfp")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("lauthai_api.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -63,6 +101,9 @@ namespace lauthai_api.Migrations
                     b.Property<string>("CustomerPhone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("MeetingDate")
                         .HasColumnType("datetime2");
 
@@ -72,7 +113,7 @@ namespace lauthai_api.Migrations
                     b.Property<string>("Option")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -89,8 +130,17 @@ namespace lauthai_api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("NameAtBuyTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PhoneAtBuyTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PriceAtBuyTime")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
@@ -117,6 +167,9 @@ namespace lauthai_api.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("District")
                         .HasColumnType("nvarchar(max)");
 
@@ -129,9 +182,6 @@ namespace lauthai_api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PfpUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
@@ -142,6 +192,8 @@ namespace lauthai_api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UniversityId");
 
@@ -207,11 +259,22 @@ namespace lauthai_api.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("lauthai_api.Models.Image", b =>
+                {
+                    b.HasOne("lauthai_api.Models.Profile", "Profile")
+                        .WithMany("Images")
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("lauthai_api.Models.Order", b =>
                 {
-                    b.HasOne("lauthai_api.Models.User", null)
+                    b.HasOne("lauthai_api.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("lauthai_api.Models.OrderDetail", b =>
@@ -231,6 +294,10 @@ namespace lauthai_api.Migrations
 
             modelBuilder.Entity("lauthai_api.Models.Profile", b =>
                 {
+                    b.HasOne("lauthai_api.Models.Category", "Category")
+                        .WithMany("Profiles")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("lauthai_api.Models.University", "University")
                         .WithMany("Profiles")
                         .HasForeignKey("UniversityId");

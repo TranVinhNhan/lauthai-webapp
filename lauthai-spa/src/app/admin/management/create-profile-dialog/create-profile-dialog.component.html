@@ -18,7 +18,11 @@
           </mat-form-field>
           <p class="input-alert" *ngIf="createForm.get('age').hasError('required') && createForm.get('age').touched">Cần nhập số  tuổi   </p>
           <p class="input-alert" *ngIf="this.createForm.get('age').hasError('min')" >Không được dưới 18     </p>
-          <p class="input-alert" *ngIf="this.createForm.get('age').hasError('max')" >Không ai sống được tới tuổi này     </p>
+          <p class="input-alert" *ngIf="this.createForm.get('age').hasError('max')" >Không ai sống dươc tới tuổi này     </p>
+          <!-- <p class="input-alert" *ngIf="this.createForm.get('age').hasError('agesTRING')" >Không được là chữ      </p> -->
+          <code>
+            {{createForm.get('age').errors|json}}
+          </code>
         </td>
       </tr>
     </table>
@@ -55,6 +59,7 @@
           <p class="input-alert" *ngIf="this.createForm.get('phone').hasError('maxlength')" >không được quá 10 số     </p>
           <p class="input-alert" *ngIf="this.createForm.get('phone').hasError('minlength')" >không được dưới  10 số     </p>
           <p class="input-alert" *ngIf="createForm.get('phone').hasError('required') && createForm.get('phone').touched">Cần nhập số điện thoại  </p>
+          <!-- <p class="input-alert" *ngIf="createForm.controls.errors.get('phone')">Chỉ được nhập số   </p> -->
 
         </td>
       </tr>

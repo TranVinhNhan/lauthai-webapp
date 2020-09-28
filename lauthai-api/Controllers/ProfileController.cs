@@ -67,6 +67,7 @@ namespace lauthai_api.Controllers
                 return NotFound();
             }
             uni.Profiles.Add(profile);
+            cat.Profiles.Add(profile);
             if (await _repo.SaveAll())
             {
                 return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
@@ -150,7 +151,6 @@ namespace lauthai_api.Controllers
             throw new Exception("Cannot upload image");
         }
 
-        [AllowAnonymous]
         [HttpDelete("{profileId}/images/{imgId}")]
         public async Task<IActionResult> DeleteImage(int profileId, int imgId)
         {

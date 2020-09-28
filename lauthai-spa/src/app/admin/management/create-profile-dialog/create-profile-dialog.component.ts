@@ -3,12 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 
 import { IProfile } from './../../../_models/interfaces/profile.interface';
+import{CategoryService} from 'src/app/_services/category.service';
+import{ICategory} from 'src/app/_models/interfaces/category.interface'
 import { UniversitySerivce } from 'src/app/_services/university.service';
 import { IUniversity } from 'src/app/_models/interfaces/university.interface';
 import { ProfileService } from 'src/app/_services/profile.service';
 import { ExtensionService } from 'src/app/_services/extension.service';
-import { ICategory } from 'src/app/_models/interfaces/category.interface';
-import { CategoryService } from 'src/app/_services/category.service';
 import { elementAt } from 'rxjs/operators';
 import { stringify } from '@angular/compiler/src/util';
 

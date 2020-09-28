@@ -128,8 +128,17 @@ namespace lauthai_api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("NameAtBuyTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PhoneAtBuyTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PriceAtBuyTime")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
