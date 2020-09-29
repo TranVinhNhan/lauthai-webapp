@@ -55,8 +55,6 @@ export class DataTableComponent implements AfterViewInit, OnInit {
       this.dataSource = new MatTableDataSource(this.profiles);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-
-      console.log(this.profiles[0].images[0].url);
     }, error => console.log(error));
   }
 
@@ -118,7 +116,6 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle(): void {
-    console.log('masterToggle');
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));

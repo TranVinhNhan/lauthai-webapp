@@ -147,8 +147,16 @@ namespace lauthai_api.Controllers
             }
             if (await _repo.SaveAll())
                 return StatusCode(201);
+            try
+            {
+                // some code
+            }
+            catch (TimeoutException e) // catch the specific error
+            {
 
-            throw new Exception("Cannot upload image");
+            }
+
+            throw new Exception("Cannot upload image"); // throw new exception will hide all the stacktraces and messages
         }
 
         [HttpDelete("{profileId}/images/{imgId}")]
