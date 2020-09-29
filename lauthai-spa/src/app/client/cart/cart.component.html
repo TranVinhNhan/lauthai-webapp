@@ -1,37 +1,105 @@
-<div class="container-fluid full-size max">
-  <div class="row" *ngIf="this.cartList?.length != 0">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Tên</th>
-            <th>Profile</th>
-            <th>Trường</th>
-            <th>shot</th>
-            <th>Tác vụ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of cartList">
-            <td [routerLink]="['/detail-person',item.id]">{{item.id}}</td>
-            <td [routerLink]="['/detail-person',item.id]">{{item.name}}</td>
-            <td [routerLink]="['/detail-person',item.id]"><img src="{{item.pfpUrl}}" class="imag-avatar"></td>
-            <td [routerLink]="['/detail-person',item.id]">{{item.university.name}}</td>
-            <td>
-              <button type="button" class="btn btn-danger bt-UpDown" (click)="Reduced(item.id,item)">-</button>
-              <input type="number" style="display: inline-block;" oninput="validity.valid||(value='');"
-                (keypress)="CheckCount($event,item)" min="0" [style.width.px]="50" class="form-control"
-                value="{{item.quantity}}">
-              <button type="button" class="btn btn-success bt-UpDown" (click)="Increase(item.id,item)">+</button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger" (click)="CheckCount(0,item)">Xóa</button>
-            </td>
-          </tr>
-        </tbody>
+<div class="container" >
+  <h1 class="text-center py-5 font-weight-bold">Thông tin giỏ hàng</h1>
+  <div *ngIf="this.cart">
+    <mat-form-field>
+      <mat-label>Tìm kiếm</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Em nào đó, giá tiền, số điện thoại, địa chỉ,..."
+        #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- PfpUrl Column -->
+        <ng-container matColumnDef="pfpUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Ảnh đại diện </th>
+          <td mat-cell *matCellDef="let row">
+            <img class="img img-thumbnail" *ngIf="row.pfpUrl" [src]="row.pfpUrl" alt="profilepic">
+            <span *ngIf="!row.pfpUrl">Chưa có hình ảnh</span>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên </th>
+          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Số điện thoại </th>
+          <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- University name Column -->
+        <ng-container matColumnDef="universityName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Trường </th>
+          <td mat-cell *matCellDef="let row"> {{row.universityName}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+        <!-- Category name Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Phân loại </th>
+          <td mat-cell *matCellDef="let row"> {{row.CategoryName}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá 1 shot </th>
+          <td mat-cell *matCellDef="let row"> {{row.price | K}} </td>
+          <td mat-footer-cell *matFooterCellDef> <span class="font-weight-bold">Tổng tiền:</span> </td>
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Số shot </th>
+          <td mat-cell *matCellDef="let row">
+            <button (click)="onChangeQuantity(row, -1)" mat-icon-button color="primary">
+              <mat-icon>remove</mat-icon>
+            </button>
+            {{row.quantity}}
+            <button (click)="onChangeQuantity(row, 1)" mat-icon-button color="primary">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> {{onGetTotal() | K}} </td>
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
+          <td mat-cell *matCellDef="let row">
+            <button (click)="onDeleteItem(row)" mat-raised-button color="primary">
+              <mat-icon>delete</mat-icon>Xóa
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">Không có dữ liệu trùng khớp với "{{input.value}}"</td>
+        </tr>
       </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
+    <button (click)="onProceedToCheckout()" class="my-5" style="width: 100%;" mat-raised-button color="primary">TIẾN HÀNH THANH TOÁN</button>
   </div>
-  <h1 *ngIf="this.cartList?.length == 0 || !this.cartList">Chưa có sản phẩm nào trong giỏ hàng</h1>
+  <h2 *ngIf="!this.cart" class="text-center">Giỏ hàng trống</h2>
 </div>

@@ -1,14 +1,18 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatButtonModule } from '@angular/material/button';
 
 
 import { ProfileService } from '../../_services/profile.service';
 import { IProfile } from './../../_models/interfaces/profile.interface';
 import { Const } from './../../_models/consts/const';
 import { ICartItem } from './../../_models/interfaces/cartItem.interface';
+import { CartService } from 'src/app/_services/cart.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
+import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-client-data-table',
@@ -20,19 +24,29 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() product: any;
-  @Output() productAdd = new EventEmitter();
-
 
   displayedColumns: string[] = Const.TABLE_USER_COLUMN;
   dataSource: MatTableDataSource<IProfile>;
+  selection = new SelectionModel<IProfile>(true, []);
+
   profiles: IProfile[];
+  AllList: IProfile[] = [];
+  AllListCart: IProfile[] = [];
   cart: ICartItem[] = [];
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog) { }
+  constructor(
+    private profileService: ProfileService,
+    private cartService: CartService,
+    private extension: ExtensionService
+  ) { }
 
   ngOnInit(): void {
-    // this.loadProfiles();
+    // this.isAllSelected();
+    this.loadProfiles();
+
+  }
+
+  ngAfterViewInit(): void {
   }
 
   loadProfiles(): void {
@@ -44,36 +58,77 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     }, error => console.log(error));
   }
 
-  ngAfterViewInit(): void {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    this.loadProfiles();
+  addItemToCart(selectedItem: IProfile): void {
+    this.cartService.addItemToCart(selectedItem);
+    this.extension.openSnackBar('Thêm hàng vào giỏ thành công', 'Bỏ qua');
   }
 
-  addProductToCart(cartItem: IProfile): void {
-    let item = {} as ICartItem;
-    item = Object.assign({}, cartItem);
-    this.cart = JSON.parse(localStorage.getItem('ListCart'));
-    if (this.cart === undefined) // gio hang rong
-    {
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected(): boolean {
 
-      item.universityName = cartItem.university.name;
-      item.quantity = 1;
-      this.cart = [];
-      this.cart.push(item);
-      localStorage.setItem('ListCart', JSON.stringify(this.cart));
-    } else { // gio hang cp cart item
-      const result = this.cart.find(el => el.id === cartItem.id);
-      item.quantity = 1;
-      // check da co item cung loai chua? ++quantity : them sp moi
-      if (result != null) {
-        result.quantity++;
-        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+    const numSelected = this.selection.selected.length;
 
-      } else {
-        this.cart.push(item);
-        localStorage.setItem('ListCart', JSON.stringify(this.cart));
+    //  console.log(this.selection.selected);
+
+    const numRows = this.dataSource?.data.length;
+
+    return numSelected === numRows;
+  }
+
+  ProfileToCart(profile: IProfile): ICartItem {
+    const cart = {} as ICartItem;
+    cart.id = profile.id;
+    cart.name = profile.name;
+    cart.pfpUrl = profile.images.find(img => img.isMainPfp).url;
+    cart.phone = profile.phone;
+    cart.price = profile.price;
+    cart.quantity = 1;
+    cart.universityName = profile.university.name;
+    cart.categoryName = profile.category.name;
+    return cart;
+  }
+
+  getAllCheck(): void {
+    if (localStorage.getItem(Const.CART)) {
+      const cart: ICartItem[] = JSON.parse(localStorage.getItem(Const.CART));
+      if (cart.length > 0) {
+        this.selection.selected.forEach(selectedProfile => {
+          const profileIndexOfCart = cart.indexOf(cart.find(p => p.id === selectedProfile.id));
+          if (profileIndexOfCart > -1) {
+            cart[profileIndexOfCart].quantity++;
+          } else {
+            cart.push(this.ProfileToCart(selectedProfile));
+          }
+        });
       }
+      localStorage.setItem(Const.CART, JSON.stringify(cart));
     }
+    else {
+      const cart: ICartItem[] = [];
+      this.selection.selected.forEach(selectedProfile => {
+        cart.push(this.ProfileToCart(selectedProfile));
+      });
+      localStorage.setItem(Const.CART, JSON.stringify(cart));
+    }
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle(): void {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  checkboxLabel(row?: IProfile): string {
+
+
+    if (!row) {
+      // console.log(`${this.isAllSelected() ? 'select' : 'deselect'} all`);
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    // console.log(`${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`);
+
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 }

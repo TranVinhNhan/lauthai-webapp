@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { IProfile } from './../_models/interfaces/profile.interface';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -32,5 +33,13 @@ export class ProfileService {
 
   deleteProfile(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + 'profile/' + id);
+  }
+
+  uploadProfilePics(profileId: number, formData: FormData): Observable<any> {
+    return this.http.post(this.baseUrl + `profile/${profileId}/images/`, formData);
+  }
+
+  deleteProfilePic(profileId: number, imgId: number): Observable<any> {
+    return this.http.delete(this.baseUrl + `profile/${profileId}/images/${imgId}`);
   }
 }

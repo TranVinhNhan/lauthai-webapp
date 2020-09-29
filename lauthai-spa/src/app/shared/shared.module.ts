@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // angular material
@@ -18,15 +18,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ExtensionService } from '../_services/extension.service';
 import { PricePipe } from '../_pipes/price.pipe';
 import { AmountCharPipe } from './../_pipes/amount-char.pipe';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SafeUrlPipe } from '../_pipes/safe-url.pipe';
 
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [PricePipe ,AmountCharPipe] ,
+  declarations: [PricePipe, AmountCharPipe, SafeUrlPipe],
   exports: [
     CommonModule,
     FormsModule,
@@ -46,11 +51,17 @@ import { AmountCharPipe } from './../_pipes/amount-char.pipe';
     MatMenuModule,
     MatTabsModule,
     MatSelectModule,
+    MatCheckboxModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatTooltipModule,
 
     PricePipe,
-    AmountCharPipe
+    AmountCharPipe,
+    SafeUrlPipe
   ],
   providers: [
+    DatePipe,
     ExtensionService
   ]
 })

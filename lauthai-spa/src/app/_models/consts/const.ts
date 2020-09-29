@@ -1,13 +1,23 @@
 export class Const {
   public static readonly TABLE_ADMIN_COLUMN = [
-    'id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'action'
+    'id', 'name', 'pfpUrl', 'university','category', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'action'
   ];
 
   public static readonly TABLE_USER_COLUMN = [
-    'id', 'name', 'pfpUrl', 'university', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'heart'
+    'select', 'id', 'name', 'pfpUrl', 'university','category', 'age', 'job', 'marriedStatus', 'district', 'phone', 'price', 'heart'
   ];
 
-   public static readonly TABLE_ADMIN_FEEDBACK = [
+  public static readonly TABLE_ADMIN_FEEDBACK = [
     'id', 'name', 'feedbackTxt', 'contactEmail', 'dayCreated'
   ];
+
+  public static readonly TABLE_CART = [
+    'id', 'pfpUrl', 'name', 'phone', 'universityName', 'category','price', 'quantity', 'action'
+  ];
+
+  public static readonly TABLE_HISTORY = [
+    'dateCreated', 'customerFullname', 'meetingPlace', 'meetingDate', 'option', 'orderDetails'
+  ];
+
+  public static readonly CART = 'cart';
 }

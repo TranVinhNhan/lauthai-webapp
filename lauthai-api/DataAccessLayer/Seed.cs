@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using lauthai_api.Models;
 using Newtonsoft.Json;
 
@@ -9,23 +8,79 @@ namespace lauthai_api.DataAccessLayer.Data
     public class Seed
     {
         private readonly LauThaiDbContext _context;
-        private readonly IAuthRepository _authRepository;
-        public Seed(LauThaiDbContext context, IAuthRepository authRepository)
+        public Seed(LauThaiDbContext context)
         {
             _context = context;
-            _authRepository = authRepository;
         }
 
         public void SeedProfiles()
         {
             if (!_context.Profiles.Any())
             {
-                var universityData = System.IO.File.ReadAllText("DataAccessLayer/Profiles.json");
-                var universities = JsonConvert.DeserializeObject<List<University>>(universityData);
+                var data = System.IO.File.ReadAllText("DataAccessLayer/Profiles.json");
+                var profiles = JsonConvert.DeserializeObject<List<Profile>>(data);
+                foreach (var pf in profiles)
+                {
+                    _context.Add(pf);
+                }
+                _context.SaveChanges();
+            }
 
-                foreach (var uni in universities)
-                    _context.Add(uni);
+            if (!_context.Universities.Any())
+            {
+                var profiles = _context.Profiles.ToList();
+                var Huflit = new University
+                {
+                    Name = "HUFLIT"
+                };
 
+                var Hutect = new University
+                {
+                    Name = "HUTECH"
+                };
+
+                foreach (var pf in profiles)
+                {
+                    if (pf.Id % 2 == 0)
+                    {
+                        Huflit.Profiles.Add(pf);
+                    }
+                    else
+                    {
+                        Hutect.Profiles.Add(pf);
+                    }
+                }
+                _context.Add(Huflit);
+                _context.Add(Hutect);
+                _context.SaveChanges();
+            }
+
+            if (!_context.Categories.Any())
+            {
+                var CaoCap = new Category
+                {
+                    Name = "Cao Cấp"
+                };
+
+                var Thuong = new Category
+                {
+                    Name = " Thường"
+                };
+
+                var profiles = _context.Profiles.ToList();
+                foreach (var pf in profiles)
+                {
+                    if (pf.Id % 2 == 0)
+                    {
+                        CaoCap.Profiles.Add(pf);
+                    }
+                    else
+                    {
+                        Thuong.Profiles.Add(pf);
+                    }
+                }
+                _context.Add(CaoCap);
+                _context.Add(Thuong);
                 _context.SaveChanges();
             }
         }

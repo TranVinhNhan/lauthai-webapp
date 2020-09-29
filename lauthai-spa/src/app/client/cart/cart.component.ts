@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { IProfile } from './../../_models/interfaces/profile.interface';
 import { ICartItem } from './../../_models/interfaces/cartItem.interface';
+import { MatTableDataSource } from '@angular/material/table';
+import { Const } from 'src/app/_models/consts/const';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { CartService } from 'src/app/_services/cart.service';
+import { ExtensionService } from 'src/app/_services/extension.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,53 +15,65 @@ import { ICartItem } from './../../_models/interfaces/cartItem.interface';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, AfterViewInit {
 
-  constructor() { }
-  public StorCart: CartStore;
-  public StorCartFirst: CartStore;
+  displayedColumns: string[] = Const.TABLE_CART;
+  dataSource: MatTableDataSource<ICartItem>;
+  cart: ICartItem[] = [];
 
-  cartList: IProfile[] = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(
+    private cartService: CartService,
+    private extension: ExtensionService,
+    private router: Router
+    ) {
+    this.loadCart();
+  }
 
   ngOnInit(): void {
-    this.cartList = JSON.parse(localStorage.getItem('ListCart'));
   }
 
-  CheckCount(event, item: IProfile): void {
-    const index = this.cartList.indexOf(item);
-    const Downquantity = this.cartList.find(x => x.id === item.id);
-    localStorage.setItem('ListCart', JSON.stringify(this.cartList));
-    if (event.key === '0' || event.keycode <= 0 || Downquantity.quantity < 0 && index > -1) {
-      this.cartList.splice(index, 1);
-      localStorage.setItem('ListCart', JSON.stringify(this.cartList));
-    }
-    if (event === 0 && index > -1) {
-      this.cartList.splice(index, 1);
-      localStorage.setItem('ListCart', JSON.stringify(this.cartList));
-    }
-
+  ngAfterViewInit(): void {
+    this.loadSortAndPaginator();
   }
 
-  Increase(id: number, item: IProfile): void {
-    const Upquantity = this.cartList.find(x => x.id === id);
-    Upquantity.quantity++;
-    localStorage.setItem('ListCart', JSON.stringify(this.cartList));
-    const index = this.cartList.indexOf(item); // vị trí của object trong mảng  và event lấy số lượng trong input
+  loadCart(): void {
+    this.cart = JSON.parse(localStorage.getItem(Const.CART));
+    this.dataSource = new MatTableDataSource(this.cart);
   }
 
-  Reduced(id: number, item: IProfile): void {
-    const Downquantity = this.cartList.find(x => x.id === id);
-    Downquantity.quantity--;
-    localStorage.setItem('ListCart', JSON.stringify(this.cartList));
-    const index = this.cartList.indexOf(item); // vị trí của object trong mảng  và event lấy số lượng trong input
-    if (Downquantity.quantity === 0 && index > -1) {
-      this.cartList.splice(index, 1);
-      localStorage.setItem('ListCart', JSON.stringify(this.cartList));
+  loadSortAndPaginator(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
-}
-export interface CartStore {
-  id: number;
-  name: string;
-  school: string;
+
+  onDeleteItem(selectedItem: ICartItem): void {
+    this.cartService.deleteItemFromCart(selectedItem);
+    this.loadCart();
+    this.extension.openSnackBar('Xóa hàng ra khỏi giỏ thành công', 'Bỏ qua');
+  }
+
+  onGetTotal(): number {
+    return this.cartService.getTotal();
+  }
+
+  onChangeQuantity(selectedItem: ICartItem, action: number): void {
+    this.cartService.changeQuantity(selectedItem, action);
+    this.loadCart();
+  }
+
+  onProceedToCheckout(): void {
+    this.router.navigate(['/checkout']);
+  }
 }

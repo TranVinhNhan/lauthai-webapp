@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer.Data;
 using lauthai_api.Helpers;
@@ -9,21 +5,18 @@ using lauthai_api.DataAccessLayer.Repository.Implements;
 using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using lauthai_api.DataAccessLayer.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using lauthai_api.DataAccessLayer;
+using System;
 
 namespace lauthai_api
 {
-      // Lần thứ 3
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -34,10 +27,10 @@ namespace lauthai_api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)//IServiceCollection là 1 bộ service microsoft
+        public void ConfigureServices(IServiceCollection services)
         {
             // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
-            services.AddCors(options =>// đây là nơi mở cổng cho Angular truy cập vào
+            services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
@@ -49,17 +42,11 @@ namespace lauthai_api
             });
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            // SqlServer
-            // Lần thứ 3 : add dbcontext vào starup
             services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(Mapping));
-            // Seed data service in ./data/Seed.cs
             services.AddTransient<Seed>();
-
-            // services.AddScoped<IProfileRepository, ProfileRepository>();
-            // services.AddScoped<IUniversityRepository, UniversityRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IAuth, Auth>();
+            services.AddScoped<ILauThaiRepository, LauThaiRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
@@ -70,13 +57,14 @@ namespace lauthai_api
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value))
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ClockSkew = TimeSpan.Zero // https://stackoverflow.com/a/46231102
                 };
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)// Đống dưới đây dùng để chạy 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -84,21 +72,17 @@ namespace lauthai_api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
-
-            // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
-            app.UseCors();// tự ghi
-
+            app.UseCors(); // Enable CORS https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.1
             app.UseAuthentication();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
-
             seeder.SeedProfiles();
         }
     }

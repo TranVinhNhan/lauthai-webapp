@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class PricePipe implements PipeTransform {
   transform(value: number): string {
-    if (value > 1000) {
+    if (value > 999 && value < 1000000) {
       return value / 1000 + 'K';
     }
-    if (value > 1000000) {
+    if (value > 999999) {
       return value / 1000000 + 'M';
     }
     return value.toString();

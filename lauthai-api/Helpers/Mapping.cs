@@ -5,15 +5,22 @@ namespace lauthai_api.Helpers
 {
     public class Mapping: Profile
     {
-        public Mapping()// thay vì gán giá trị từng dòng thì map giúp gán nhanh hơn khi nó lấy tất cả để gán 
+        public Mapping()
         {
             CreateMap<ProfileToCreateDto, Models.Profile>();
             CreateMap<ProfileToUpdateDto, Models.Profile>();
 
             CreateMap<UserToCreateDto, Models.User>();
             CreateMap<AdminToCreateDto, Models.User>();
+            CreateMap<UserToUpdateDto, Models.User>();
+            CreateMap<Models.User, UserToReturnDto>();
 
-            CreateMap<FeedbackCreateDto, Models.Feedback>();
+            CreateMap<FeedbackToCreateDto, Models.Feedback>();
+
+            CreateMap<OrderToCreateDto, Models.Order>();
+            CreateMap<Models.Order, OrderToReturnDto>();
+
+            CreateMap<OrderDetailToCreateDto, Models.OrderDetail>();
         }
     }
 }

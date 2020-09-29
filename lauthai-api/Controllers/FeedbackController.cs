@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using lauthai_api.DataAccessLayer.Repository;
+using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,18 +13,18 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class FeedbackController : ControllerBase
     {
-        private readonly IUnitOfWork _uow;
+        private readonly ILauThaiRepository _repo;
         private readonly IMapper _mapper;
-        public FeedbackController(IUnitOfWork uow, IMapper mapper)
+        public FeedbackController(ILauThaiRepository repo, IMapper mapper)
         {
-            _uow = uow;
+            _repo = repo;
             _mapper = mapper;
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllFeedback()
         {
-            var getAllFeedback = await _uow.FeedbackRepository.GetAllFeedbacks();
+            var getAllFeedback = await _repo.GetAllFeedbacks();
             if (getAllFeedback != null)
                 return Ok(getAllFeedback);
             return NotFound();
@@ -32,7 +32,7 @@ namespace lauthai_api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> CreateFeedback(FeedbackCreateDto feedbackCreateDto)
+        public async Task<IActionResult> CreateFeedback(FeedbackToCreateDto feedbackCreateDto)
         {
             if (feedbackCreateDto != null)
             {
@@ -40,14 +40,14 @@ namespace lauthai_api.Controllers
                 newFeedback.DayCreated = DateTime.Now;
                 if (feedbackCreateDto.UserId.HasValue)
                 {
-                    var requestedUser = await _uow.UserRepository.GetUserById(feedbackCreateDto.UserId.Value);
+                    var requestedUser = await _repo.GetUserById(feedbackCreateDto.UserId.Value);
                     requestedUser.Feedbacks.Add(newFeedback);
                 }
                 else
                 {
-                    _uow.FeedbackRepository.Add(newFeedback);
+                    _repo.Add(newFeedback);
                 }
-                if (await _uow.SaveAll())
+                if (await _repo.SaveAll())
                 {
                     return Ok();
                 }

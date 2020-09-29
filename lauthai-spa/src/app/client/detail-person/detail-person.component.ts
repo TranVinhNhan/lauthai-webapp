@@ -42,7 +42,7 @@ export class DetailPersonComponent implements OnInit {
         duplicateItem.quantity++;
         localStorage.setItem('ListCart', JSON.stringify(cart));
       } else {
-        pf.quantity = 1;
+        // pf.quantity = 1;
         cart.push(pf);
         localStorage.setItem('ListCart', JSON.stringify(cart));
       }
@@ -53,5 +53,9 @@ export class DetailPersonComponent implements OnInit {
     }
     this.extension.openSnackBar('Đã thêm vào giỏ hàng', 'Bỏ qua');
     this.router.navigate(['/cart']);
+  }
+
+  getMainPfpUrl(profile: IProfile): string {
+    return this.extension.getMainPfpUrl(profile);
   }
 }
