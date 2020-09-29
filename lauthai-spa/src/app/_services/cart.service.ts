@@ -28,7 +28,7 @@ export class CartService {
           name: selectedItem.name,
           phone: selectedItem.phone,
           universityName: selectedItem.university.name,
-          categoryName: selectedItem.category.nameCategory,
+          categoryName: selectedItem.category.name,
           price: selectedItem.price,
           quantity: 1
         };
@@ -43,7 +43,7 @@ export class CartService {
         name: selectedItem.name,
         phone: selectedItem.phone,
         universityName: selectedItem.university.name,
-        categoryName: selectedItem.category.nameCategory,
+        categoryName: selectedItem.category.name,
         price: selectedItem.price,
         quantity: 1
       };

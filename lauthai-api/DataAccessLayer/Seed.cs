@@ -54,30 +54,33 @@ namespace lauthai_api.DataAccessLayer.Data
                 _context.Add(Hutect);
                 _context.SaveChanges();
             }
+
             if (!_context.Categories.Any())
             {
+                var CaoCap = new Category
+                {
+                    Name = "Cao Cấp"
+                };
+
+                var Thuong = new Category
+                {
+                    Name = " Thường"
+                };
+
                 var profiles = _context.Profiles.ToList();
-
-                var CaoCapCategory = new Category
-                {
-                    NameCategory = "Cao cấp"
-                };
-
-                var ThuongCategory = new Category
-                {
-                    NameCategory = "Thường"
-                };
                 foreach (var pf in profiles)
                 {
                     if (pf.Id % 2 == 0)
                     {
-                        CaoCapCategory.Profiles.Add(pf);
+                        CaoCap.Profiles.Add(pf);
                     }
                     else
-                        ThuongCategory.Profiles.Add(pf);
+                    {
+                        Thuong.Profiles.Add(pf);
+                    }
                 }
-                _context.Add(CaoCapCategory);
-                _context.Add(ThuongCategory);
+                _context.Add(CaoCap);
+                _context.Add(Thuong);
                 _context.SaveChanges();
             }
         }

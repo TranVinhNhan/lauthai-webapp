@@ -60,9 +60,9 @@ namespace lauthai_api.Controllers
         public async Task<IActionResult> AddProfile(ProfileToCreateDto profileToCreateDto)
         {
             var profile = _mapper.Map<Models.Profile>(profileToCreateDto);
-            var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId.Value);
-            var cat = await _repo.GetCategoryById(profileToCreateDto.CategoryId.Value);
-            if (uni == null || cat == null)
+            var uni = await _repo.GetUniversityById(profileToCreateDto.UniversityId);
+            var cat = await _repo.GetCategoryById(profileToCreateDto.CategoryId);
+            if (uni == null||cat==null)
             {
                 return NotFound();
             }

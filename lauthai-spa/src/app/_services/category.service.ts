@@ -8,13 +8,12 @@ import { ICategory } from '../_models/interfaces/category.interface';
   providedIn: 'root'
 })
 export class CategoryService {
-    baseUrl = environment.apiUrl;
-  constructor(
-    private http:HttpClient,
-  ) { }
 
-  getCategoryAll(): Observable<ICategory[]> {
+  baseUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) { }
+
+  getCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(this.baseUrl + 'category/all');
   }
-
 }

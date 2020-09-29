@@ -30,8 +30,8 @@
         </td>
         <td>
           <mat-form-field *ngIf="!isFetching" class="full-width">
-            <mat-label>Phân loại </mat-label>
-            <mat-select formControlName="category">
+            <mat-label>Phân loại</mat-label>
+            <mat-select formControlName="categoryId">
               <mat-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</mat-option>
             </mat-select>
           </mat-form-field>

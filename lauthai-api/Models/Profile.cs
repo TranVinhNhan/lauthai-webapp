@@ -22,7 +22,7 @@ namespace lauthai_api.Models
         public int? UniversityId { get; set; }
         public University University { get; set; }
         public int? CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category category { get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<Image> Images { get; set; }
