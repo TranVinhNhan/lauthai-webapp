@@ -4,9 +4,8 @@ using System.Collections.ObjectModel;
 
 namespace lauthai_api.Models
 {
-    public class Order
+    public class Order: BaseEntity
     {
-        public int Id { get; set; }
         public DateTime DateCreated { get; set; }
         public string CustomerFullname { get; set; }
         public string CustomerPhone { get; set; }

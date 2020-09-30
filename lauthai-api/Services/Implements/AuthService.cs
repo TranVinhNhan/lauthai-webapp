@@ -6,20 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using lauthai_api.Models;
+using lauthai_api.Services.Interfaces;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
-    public class Auth : IAuth
+    public class AuthService : IAuthService
     {
-        private readonly ILauThaiRepository _repo;
+        private readonly ILauThaiRepository<User> _repoUser;
+        private readonly IUserService _userService;
         private readonly IConfiguration _config;
-        public Auth(ILauThaiRepository repo, IConfiguration config)
+        public AuthService(ILauThaiRepository<User> repoUser, IUserService userService, IConfiguration config)
         {
+            _repoUser = repoUser;
+            _userService = userService;
             _config = config;
-            _repo = repo;
         }
 
         public string GetTokenString(User user)
@@ -27,7 +30,7 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.FullName != null ? user.FullName : user.Username),
+                new Claim(ClaimTypes.Name, user.FullName ?? user.Username),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
@@ -50,7 +53,7 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
 
         public async Task<User> Login(string username, string password)
         {
-            var user = await _repo.GetUserByUsername(username);
+            var user = await _userService.GetUserByUsername(username);
             if (user == null || !VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
                 return null;
 
@@ -58,14 +61,13 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
         }
         public async Task<User> Register(User user, string password)
         {
-            byte[] passwordSalt, passwordHash;
-            CreatePasswordSaltAndHash(password, out passwordSalt, out passwordHash);
+            CreatePasswordSaltAndHash(password, out byte[] passwordSalt, out byte[] passwordHash);
 
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
-            _repo.Add(user);
+            _repoUser.Add(user);
 
-            if (await _repo.SaveAll())
+            if (await _repoUser.SaveAll())
             {
                 return user;
             }

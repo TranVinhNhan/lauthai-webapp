@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace lauthai_api.Models
 {
-    public class OrderDetail
+    public class OrderDetail : BaseEntity
     {
-        public int Id { get; set; }
         public int Quantity { get; set; }
         [Column(TypeName = "decimal(18,4)")]
         public decimal PriceAtBuyTime { get; set; }

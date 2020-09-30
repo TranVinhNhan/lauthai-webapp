@@ -4,6 +4,7 @@ using lauthai_api.DataAccessLayer;
 using lauthai_api.DataAccessLayer.Repository.Interfaces;
 using lauthai_api.Dtos;
 using lauthai_api.Models;
+using lauthai_api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -13,18 +14,18 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuth _auth;
+        private readonly IAuthService _auth;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        private readonly ILauThaiRepository _repo;
         public AuthController(
-            ILauThaiRepository repo,
-            IAuth auth,
+            IAuthService auth,
+            IUserService userService,
             IMapper mapper,
             IConfiguration config)
         {
-            _repo = repo;
             _auth = auth;
+            _userService = userService;
             _mapper = mapper;
             _config = config;
         }
@@ -32,7 +33,7 @@ namespace lauthai_api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserToCreateDto userToCreateDto)
         {
-            if (await _repo.IsUserExist(userToCreateDto.Username))
+            if (await _userService.IsUsernameAlreadyExist(userToCreateDto.Username))
                 return BadRequest("Tên đăng nhập đã tồn tại, vui lòng thử lại");
 
             var user = _mapper.Map<User>(userToCreateDto);
@@ -45,7 +46,7 @@ namespace lauthai_api.Controllers
         {
             if (adminToCreateDto.AuthPassword == "createAdmin")
             {
-                if (await _repo.IsUserExist(adminToCreateDto.Username))
+                if (await _userService.IsUsernameAlreadyExist(adminToCreateDto.Username))
                     return BadRequest("Tên đăng nhập đã tồn tại, vui lòng thử lại");
 
                 var admin = _mapper.Map<User>(adminToCreateDto);

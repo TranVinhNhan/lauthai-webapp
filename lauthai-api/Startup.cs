@@ -14,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using lauthai_api.DataAccessLayer;
 using System;
+using lauthai_api.Services.Interfaces;
+using lauthai_api.Services.Implements;
 
 namespace lauthai_api
 {
@@ -45,8 +47,14 @@ namespace lauthai_api
             services.AddDbContext<LauThaiDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(Mapping));
             services.AddTransient<Seed>();
-            services.AddScoped<IAuth, Auth>();
-            services.AddScoped<ILauThaiRepository, LauThaiRepository>();
+            services.AddScoped(typeof(ILauThaiRepository<>), typeof(LauThaiRepository<>));
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IUniversityService, UniversityService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {

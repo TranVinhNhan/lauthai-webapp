@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace lauthai_api.Models
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
         [StringLength(16, MinimumLength = 4, ErrorMessage = "Username has to be 4 or 16 characters")]

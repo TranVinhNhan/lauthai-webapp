@@ -292,7 +292,7 @@ namespace lauthai_api.Migrations
 
             modelBuilder.Entity("lauthai_api.Models.Profile", b =>
                 {
-                    b.HasOne("lauthai_api.Models.Category", "category")
+                    b.HasOne("lauthai_api.Models.Category", "Category")
                         .WithMany("Profiles")
                         .HasForeignKey("CategoryId");
 

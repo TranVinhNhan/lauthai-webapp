@@ -1,12 +1,14 @@
+using lauthai_api.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace lauthai_api.DataAccessLayer.Repository.Interfaces
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T> where T : BaseEntity
     {
-        void Add<T>(T obj) where T : class;
-        void Update<T>(T obj) where T : class;
-        void Delete<T>(T obj) where T : class;
+        void Add(T obj);
+        void Update(T obj);
+        void Delete(T obj);
         Task<bool> SaveAll();
     }
 }

@@ -2139,7 +2139,7 @@ class CartService {
                     name: selectedItem.name,
                     phone: selectedItem.phone,
                     universityName: selectedItem.university.name,
-                    categoryName: selectedItem.category.nameCategory,
+                    categoryName: selectedItem.category.name,
                     price: selectedItem.price,
                     quantity: 1
                 };
@@ -2155,7 +2155,7 @@ class CartService {
                 name: selectedItem.name,
                 phone: selectedItem.phone,
                 universityName: selectedItem.university.name,
-                categoryName: selectedItem.category.nameCategory,
+                categoryName: selectedItem.category.name,
                 price: selectedItem.price,
                 quantity: 1
             };
@@ -2765,7 +2765,7 @@ function CartComponent_div_3_td_27_Template(rf, ctx) { if (rf & 1) {
 } }
 function CartComponent_div_3_th_29_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "th", 26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " ph\u00E2n lo\u1EA1i ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " Ph\u00E2n lo\u1EA1i ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function CartComponent_div_3_td_30_Template(rf, ctx) { if (rf & 1) {
@@ -2775,7 +2775,7 @@ function CartComponent_div_3_td_30_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const row_r42 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", row_r42.categoryName, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", row_r42.CategoryName, " ");
 } }
 function CartComponent_div_3_td_31_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "td", 28);
@@ -3709,7 +3709,7 @@ function DataTableComponent_td_25_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const row_r55 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", row_r55.category.nameCategory, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", row_r55.category.name, " ");
 } }
 function DataTableComponent_td_26_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "td", 33);
@@ -3906,7 +3906,7 @@ class DataTableComponent {
         cart.price = profile.price;
         cart.quantity = 1;
         cart.universityName = profile.university.name;
-        cart.categoryName = profile.category.nameCategory;
+        cart.categoryName = profile.category.name;
         return cart;
     }
     getAllCheck() {
@@ -4131,7 +4131,7 @@ class DetailPersonComponent {
     }
 }
 DetailPersonComponent.ɵfac = function DetailPersonComponent_Factory(t) { return new (t || DetailPersonComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_profile_service__WEBPACK_IMPORTED_MODULE_2__["ProfileService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_extension_service__WEBPACK_IMPORTED_MODULE_3__["ExtensionService"])); };
-DetailPersonComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DetailPersonComponent, selectors: [["app-detail-person"]], decls: 28, vars: 6, consts: [[1, "container"], [1, "card"], [1, "container-fliud"], [1, "wrapper", "row"], [1, "preview", "col-md-6"], [1, "preview-pic", "tab-content"], ["id", "pic-1", 1, "tab-pane", "active"], [2, "height", "500px", "width", "490px", 3, "src"], [1, "details", "col-md-6"], [1, "product-title"], [1, "rating"], [2, "list-style", "none", "font-size", "35", "color", "#d66565", "margin", "10px"], [1, "fas", "fa-cloud", 2, "margin-left", "-40px"], [1, "fa", "fa-star", 2, "margin-left", "-40px"], [1, "fa", "fa-camera", 2, "margin-left", "-40px"], [1, "fa", "fa-user", 2, "margin-left", "-40px"], ["type", "button", 1, "add-to-cart", "btn", "btn-default", 3, "click"]], template: function DetailPersonComponent_Template(rf, ctx) { if (rf & 1) {
+DetailPersonComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DetailPersonComponent, selectors: [["app-detail-person"]], decls: 31, vars: 7, consts: [[1, "container"], [1, "card"], [1, "container-fliud"], [1, "wrapper", "row"], [1, "preview", "col-md-6"], [1, "preview-pic", "tab-content"], ["id", "pic-1", 1, "tab-pane", "active"], [2, "height", "500px", "width", "490px", 3, "src"], [1, "details", "col-md-6"], [1, "product-title"], [1, "rating"], [2, "list-style", "none", "font-size", "35", "color", "#d66565", "margin", "10px"], [1, "fas", "fa-cloud", 2, "margin-left", "-40px"], [1, "fa", "fa-star", 2, "margin-left", "-40px"], [1, "fa", "fa-camera", 2, "margin-left", "-40px"], [1, "fa", "fa-user", 2, "margin-left", "-40px"], ["type", "button", 1, "add-to-cart", "btn", "btn-default", 3, "click"]], template: function DetailPersonComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -4160,21 +4160,26 @@ DetailPersonComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "li");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "i", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "i", 13);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](21);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](22, "li");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "i", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "i", 14);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](24);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "li");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "i", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "button", 16);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function DetailPersonComponent_Template_button_click_25_listener() { return ctx.addToCart(ctx.profileDetail); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "a");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](27, " Th\u00EAm v\u00E0o WishList ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "button", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function DetailPersonComponent_Template_button_click_28_listener() { return ctx.addToCart(ctx.profileDetail); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "a");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, " Th\u00EAm v\u00E0o WishList ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -4191,6 +4196,8 @@ DetailPersonComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx.profileDetail.name, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" Tr\u01B0\u1EDDng h\u1ECDc :", ctx.profileDetail.university.name, " ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" Ph\u00E2n lo\u1EA1i :", ctx.profileDetail.category.name, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" C\u00F4ng vi\u1EC7c: ", ctx.profileDetail.job, " ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);

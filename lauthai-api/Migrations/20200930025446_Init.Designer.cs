@@ -10,7 +10,7 @@ using lauthai_api.DataAccessLayer.Data;
 namespace lauthai_api.Migrations
 {
     [DbContext(typeof(LauThaiDbContext))]
-    [Migration("20200925091232_Init")]
+    [Migration("20200930025446_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,15 +23,15 @@ namespace lauthai_api.Migrations
 
             modelBuilder.Entity("lauthai_api.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NameCategory")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using lauthai_api.DataAccessLayer;
 using lauthai_api.Dtos;
+using lauthai_api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lauthai_api.Controllers
@@ -12,18 +13,18 @@ namespace lauthai_api.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILauThaiRepository _repo;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UserController(ILauThaiRepository repo, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper)
         {
-            _repo = repo;
+            _userService = userService;
             _mapper = mapper;
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _repo.GetAllUsers();
+            var users = await _userService.GetAllUsers();
             if (users != null)
             {
                 var listUsers = _mapper.Map<IEnumerable<UserToReturnDto>>(users);
@@ -35,7 +36,7 @@ namespace lauthai_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var user = await _repo.GetUserById(id);
+            var user = await _userService.GetUserById(id);
             if (user != null)
             {
                 var returnUser = _mapper.Map<UserToReturnDto>(user);
@@ -51,12 +52,12 @@ namespace lauthai_api.Controllers
             {
                 int id = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var user = await _repo.GetUserById(id);
+                var user = await _userService.GetUserById(id);
                 if (user == null)
                     return NotFound();
 
                 _mapper.Map(userToUpdateDto, user);
-                await _repo.SaveAll();
+                await _userService.SaveAll();
 
                 return NoContent();
             }
