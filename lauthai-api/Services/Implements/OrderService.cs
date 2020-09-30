@@ -29,6 +29,11 @@ namespace lauthai_api.Services.Implements
             _orderRepository.Delete(obj);
         }
 
+        public Task<Order> GetOrderById(int id)
+        {
+            return _orderRepository.GetByIdAsync(id);
+        }
+
         public async Task<IEnumerable<Order>> GetOrdersOfUser(int userId)
         {
             var orders = await _orderRepository.GetAllAsync();

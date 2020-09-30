@@ -14,5 +14,6 @@ namespace lauthai_api.Services.Interfaces
         void Update(Order obj);
         void Delete(Order obj);
         Task<bool> SaveAll();
+        Task<Order> GetOrderById(int id);
     }
 }

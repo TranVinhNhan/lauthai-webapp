@@ -82,7 +82,7 @@ namespace lauthai_api.Controllers
                 return CreatedAtRoute("GetProfileById", new { profile.Id }, profile);
             }
 
-            throw new System.Exception("Cannot create profile");
+            throw new Exception("Cannot create profile");
         }
 
         [HttpPut("{id}")]
@@ -98,7 +98,7 @@ namespace lauthai_api.Controllers
             if (await _profileService.SaveAll())
                 return NoContent();
 
-            throw new System.Exception("Cannot update profile");
+            throw new Exception("Cannot update profile");
         }
 
         [HttpDelete("{id}")]
@@ -113,7 +113,7 @@ namespace lauthai_api.Controllers
                     return NoContent();
             }
 
-            throw new System.Exception("Cannot delete profile");
+            throw new Exception("Cannot delete profile");
         }
 
         [HttpPost("{id}/images")]

@@ -65,7 +65,7 @@ namespace lauthai_api.Controllers
         [HttpGet("{id}", Name = "GetOrderById")]
         public async Task<IActionResult> GetOrderById(int id)
         {
-            var order = await _orderService.GetByIdAsync(id);
+            var order = await _orderService.GetOrderById(id);
             if (order == null)
                 return NotFound();
 
