@@ -28,6 +28,11 @@ namespace lauthai_api.Services.Implements
             _feedbackRepository.Delete(obj);
         }
 
+        public Task<IQueryable<Feedback>> GetAllFeedbacks()
+        {
+            return _feedbackRepository.GetAllAsync();
+        }
+
         public Task<bool> SaveAll()
         {
             return _feedbackRepository.SaveAll();

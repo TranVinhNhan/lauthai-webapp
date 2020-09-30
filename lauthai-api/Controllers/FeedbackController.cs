@@ -31,7 +31,7 @@ namespace lauthai_api.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllFeedback()
         {
-            var feedbacks = await _feedbackService.GetAllAsync();
+            var feedbacks = await _feedbackService.GetAllFeedbacks();
             if (feedbacks != null)
                 return Ok(feedbacks);
             return NotFound();

@@ -13,5 +13,6 @@ namespace lauthai_api.Services.Interfaces
         void Update(Feedback obj);
         void Delete(Feedback obj);
         Task<bool> SaveAll();
+        Task<IQueryable<Feedback>> GetAllFeedbacks();
     }
 }
