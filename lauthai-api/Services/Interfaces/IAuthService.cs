@@ -5,8 +5,8 @@ namespace lauthai_api.DataAccessLayer.Repository.Interfaces
 {
     public interface IAuthService
     {
-         Task<User> Register(User user, string password);
-         Task<User> Login(string username, string password);
-         string GetTokenString(User user);
+        Task<User> Register(User user, string password);
+        Task<User> Login(string username, string password);
+        string GetTokenString(User user);
     }
 }

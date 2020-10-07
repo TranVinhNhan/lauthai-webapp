@@ -12,16 +12,14 @@ export class FeedbackService {
 
 
   constructor(
-   public http: HttpClient
+    public http: HttpClient
   ) { }
 
   feedback(feedback: any): Observable<any> {
-    console.log(feedback)
     return this.http.post(this.baseUrl + 'feedback', feedback);
   }
 
-     getFeedback(): Observable<any[]> {
+  getFeedback(): Observable<any[]> {
     return this.http.get<any>(this.baseUrl + 'feedback/all');
   }
-
 }

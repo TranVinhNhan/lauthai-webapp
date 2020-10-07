@@ -15,12 +15,10 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
 {
     public class AuthService : IAuthService
     {
-        private readonly ILauThaiRepository<User> _repoUser;
         private readonly IUserService _userService;
         private readonly IConfiguration _config;
-        public AuthService(ILauThaiRepository<User> repoUser, IUserService userService, IConfiguration config)
+        public AuthService(IUserService userService, IConfiguration config)
         {
-            _repoUser = repoUser;
             _userService = userService;
             _config = config;
         }
@@ -65,9 +63,9 @@ namespace lauthai_api.DataAccessLayer.Repository.Implements
 
             user.PasswordSalt = passwordSalt;
             user.PasswordHash = passwordHash;
-            _repoUser.Add(user);
+            _userService.Add(user);
 
-            if (await _repoUser.SaveAll())
+            if (await _userService.SaveAll())
             {
                 return user;
             }

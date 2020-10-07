@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 export class ProfileService {
 
   baseUrl = environment.apiUrl;
-  public List: IProfile[];
   constructor(private http: HttpClient) { }
 
   getProfiles(): Observable<IProfile[]> {

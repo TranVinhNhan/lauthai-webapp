@@ -17,17 +17,14 @@ namespace lauthai_api.Controllers
         private readonly IAuthService _auth;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
         public AuthController(
             IAuthService auth,
             IUserService userService,
-            IMapper mapper,
-            IConfiguration config)
+            IMapper mapper)
         {
             _auth = auth;
             _userService = userService;
             _mapper = mapper;
-            _config = config;
         }
 
         [HttpPost("register")]
